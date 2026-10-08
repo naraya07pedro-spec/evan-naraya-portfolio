@@ -9,9 +9,10 @@ const resumes=JSON.parse(await readFile('docs/published-resumes.json','utf8'));
 
 for(const engine of ['chromium','firefox']){
  test(engine+' interactions, downloads, motion and accessibility',{timeout:120000},async t=>{
-  const server=await serve('.'),before=await serve(await baselineRoot()),browser=await launch(engine);
+  const server=await serve('.');let before,browser;
   const url=process.env.PREVIEW_URL||server.url;
   try{
+   before=await serve(await baselineRoot());browser=await launch(engine);
    const page=await browser.newPage({viewport:{width:1440,height:900}});
    const errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>requests.push(r.url()));
    await page.goto(url);await settle(page);
@@ -86,12 +87,13 @@ for(const engine of ['chromium','firefox']){
    });
    assert.deepEqual(errors,[]);assert.deepEqual(requests,[]);
    await page.close();
-  }finally{await browser.close();await server.close();await before.close();}
+  }finally{await browser?.close();await server.close();await before?.close();}
  });
 }
 test('idle pointer follower stops frame scheduling',{timeout:20000},async()=>{
- const server=await serve('.'),browser=await launch();
+ const server=await serve('.');let browser;
  try{
+  browser=await launch();
   const page=await browser.newPage({viewport:{width:1440,height:900}});
   await page.addInitScript(()=>{window.qaFrames=0;const raf=window.requestAnimationFrame;window.requestAnimationFrame=f=>raf.call(window,t=>{window.qaFrames++;f(t);});});
   await page.goto(server.url);await settle(page);
@@ -100,12 +102,12 @@ test('idle pointer follower stops frame scheduling',{timeout:20000},async()=>{
   await page.mouse.move(300,300);await page.waitForTimeout(1500);
   const after=await page.evaluate(()=>window.qaFrames);await page.waitForTimeout(250);
   assert.equal(await page.evaluate(()=>window.qaFrames),after);
- }finally{await browser.close();await server.close();}
+ }finally{await browser?.close();await server.close();}
 });
 test('no JavaScript fallback leaves supporting content readable',{timeout:20000},async()=>{
- const server=await serve('.'),browser=await launch();
- try{const page=await browser.newPage({javaScriptEnabled:false});await page.goto(server.url);
+ const server=await serve('.');let browser;
+ try{browser=await launch();const page=await browser.newPage({javaScriptEnabled:false});await page.goto(server.url);
  assert.equal(await page.locator('.contact .reveal').evaluate(e=>getComputedStyle(e).opacity),'1');
  assert.ok(await page.locator('.resume-links a').first().isVisible());
- }finally{await browser.close();await server.close();}
+ }finally{await browser?.close();await server.close();}
 });

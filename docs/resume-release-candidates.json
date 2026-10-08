@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "filename": "Evan_Naraya_CV_Automation_Integration_2026_v3_public_safe_candidate.pdf",
+      "sourceFilename": "Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+      "sourceSha256": "cf5be0f03273fd2edb5424103b3720c57bdc8a53061951ac732b8989a7d56ead",
+      "bytes": 182806,
+      "sha256": "05e3dd176f2d3285ff9072d90545ef5e06d4a5dad484bf509351e346f9c88187",
+      "pages": 1,
+      "careerTextSha256": "e6b16a3d3fd9d0d6d3c4c22ab81451078bd0813c07b0a1e1c4327d11f6b458c3",
+      "careerTextAndCoordinatesUnchanged": true,
+      "careerPixelsUnchangedAt144Dpi": true,
+      "allSixLinksPreserved": true,
+      "phoneAndEmailAbsentInDecodedObjects": true,
+      "embeddedFiles": 0,
+      "retainedFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ],
+      "removedFields": [
+        "personal_phone",
+        "personal_email"
+      ],
+      "status": "reviewed contact-only derivative; public publication consent pending",
+      "identityStackPixelsUnchanged": true,
+      "reviewedSourceIsReadOnly": true,
+      "sourceProvenanceAttachmentRemovedFromDerivative": true
+    },
+    {
+      "filename": "Evan_Naraya_CV_Backend_Integration_Python_2026_v3_public_safe_candidate.pdf",
+      "sourceFilename": "Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+      "sourceSha256": "78bf0dc5bf3baa80257f32639a2d6c3990fa6eb6e781ffddd1739afc0b53eef0",
+      "bytes": 182198,
+      "sha256": "9d520f4c8b79303305eb6bcbd85610968ba7215a37415ce3bb8ca1c760e60b48",
+      "pages": 1,
+      "careerTextSha256": "789292a27d39dc642fe1a1f5b561bd8a3e052c5cf57618a9242e9169d594da04",
+      "careerTextAndCoordinatesUnchanged": true,
+      "careerPixelsUnchangedAt144Dpi": true,
+      "allSixLinksPreserved": true,
+      "phoneAndEmailAbsentInDecodedObjects": true,
+      "embeddedFiles": 0,
+      "retainedFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ],
+      "removedFields": [
+        "personal_phone",
+        "personal_email"
+      ],
+      "status": "reviewed contact-only derivative; public publication consent pending",
+      "identityStackPixelsUnchanged": true,
+      "reviewedSourceIsReadOnly": true,
+      "sourceProvenanceAttachmentRemovedFromDerivative": true
+    }
+  ]
+}

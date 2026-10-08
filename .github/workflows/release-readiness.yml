@@ -1,0 +1,29 @@
+name: Release readiness
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  merge_group:
+  push:
+    branches: [main, "chore/portfolio-engineering-upgrade-*"]
+permissions:
+  contents: read
+concurrency:
+  group: portfolio-release-readiness-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  release-eligibility:
+    name: release-eligibility
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run verify:release
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: release-readiness-${{ github.sha }}
+          path: artifacts/release-readiness/result.json
+          retention-days: 14

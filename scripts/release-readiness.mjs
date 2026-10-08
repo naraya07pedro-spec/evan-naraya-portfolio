@@ -1,11 +1,10 @@
-import {readFile} from 'node:fs/promises';
-import {createHash} from 'node:crypto';
-const approved=JSON.parse(await readFile('docs/resumes.json','utf8'));
-let blocked=false;
-for(const r of approved){
- const bytes=await readFile(r.path);
- const same=createHash('sha256').update(bytes).digest('hex')===r.sha256;
- console.log(r.filename+': '+(same?'approved original matches':'BLOCKED — approved original public upload awaits explicit privacy approval'));
- if(!same)blocked=true;
-}
-if(blocked)process.exitCode=1;
+import {mkdir, writeFile} from 'node:fs/promises';
+import {checkRelease} from './release-eligibility.mjs';
+
+const result = await checkRelease();
+await mkdir('artifacts/release-readiness', {recursive:true});
+await writeFile('artifacts/release-readiness/result.json', JSON.stringify(result, null, 2) + '\n');
+for (const asset of result.assets) console.log(asset.path + ': ' + (asset.variant || 'unapproved bytes'));
+for (const error of result.errors) console.error('BLOCKED [' + error.code + '] ' + error.message);
+console.log(result.eligible ? 'Release eligibility passed; production merge still requires owner authorization.' : 'Production release is NOT eligible. Quality CI is a separate check.');
+if (!result.eligible) process.exitCode = 1;

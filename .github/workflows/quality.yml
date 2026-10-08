@@ -1,6 +1,7 @@
 name: Portfolio quality
 on:
   pull_request:
+  merge_group:
   push:
     branches: [main, "chore/portfolio-engineering-upgrade-*"]
 permissions:
@@ -29,5 +30,9 @@ jobs:
         if: always()
         with:
           name: portfolio-quality-${{ github.sha }}
-          path: artifacts/
+          # Explicit public QA evidence only; never upload PDF/download bytes.
+          path: |
+            artifacts/visual/*.png
+            artifacts/visual/results.json
+            artifacts/accessibility/*.json
           retention-days: 14
