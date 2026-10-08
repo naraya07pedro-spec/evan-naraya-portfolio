@@ -1,5 +1,6 @@
 import {readFile,writeFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
+import {classifyCapture} from './browser-findings.mjs';
 const out='artifacts/hosted-release-safety';
 const captures=JSON.parse(await readFile(out+'/capture.json','utf8'));
 const proposals=JSON.parse(await readFile('artifacts/visual-proposals/report.json','utf8'));
@@ -11,12 +12,13 @@ for(const engine of ['chromium','firefox']){
  assert.deepEqual(r.map(x=>x.viewport.width),[320,375,390,768,1024,1440,1920]);
 }
 assert.ok(captures.reports.every(r=>r.layout.documentWidth<=r.viewport.width),'Hosted document reflow regression');
-console.log('HOSTED_CAPTURE_FINDINGS '+JSON.stringify(captures.reports.filter(r=>r.errors.length||r.failures.length).map(r=>({engine:r.engine,viewport:r.viewport,errors:r.errors,failures:r.failures}))));
-assert.ok(captures.reports.every(r=>r.errors.length===0&&r.failures.length===0),'Hosted console/network findings: inspect capture.json');
+const findings=captures.reports.map(classifyCapture);
+console.log('HOSTED_CAPTURE_FINDINGS '+JSON.stringify(findings));
+assert.ok(findings.every(r=>r.unexpectedConsoleFindings.length===0&&r.networkFailures.length===0),'Unexpected hosted console/network findings: inspect capture.json');
 assert.equal(proposals.results.length,7);
 assert.ok(proposals.results.every(r=>r.projectResults.every(p=>p.contrastProposed.length===0)),'Proposal toolbar contrast still fails');
 assert.ok(proposals.results.filter(r=>r.viewport.width>=768).every(r=>JSON.stringify(r.before)===JSON.stringify(r.proposed)),'Desktop hero proposal unexpectedly changed');
 assert.equal(pdfs.length,4);
-const result={expectedHead:process.env.EXPECTED_HEAD,checkedAt:new Date().toISOString(),preview:captures.url,hostedBrowserViewportRuns:14,hostedViewportStates:98,hostedFullPageCaptures:14,consoleOrNetworkFindings:0,publicAssetsMatched:assets.publicAssets.length,downloadedPdfsParsedAndRendered:pdfs.length,proposalsCaptured:7,proposalsImplemented:false,toolbarContrastViolationsWithProposal:0,hostingNetworkIdleTimeouts:captures.reports.filter(r=>r.networkIdleTimedOut).length,limitations:['Hosted captures are not the immutable 98 source-regression comparisons','Raw hosted screenshots retain Netlify hosting controls','Proposals need owner visual approval','PDF rendering verification is Poppler, not a claim of native browser PDF-viewer inspection']};
+const result={expectedHead:process.env.EXPECTED_HEAD,checkedAt:new Date().toISOString(),preview:captures.url,hostedBrowserViewportRuns:14,hostedViewportStates:98,hostedFullPageCaptures:14,unexpectedConsoleOrNetworkFindings:0,knownBrowserHostingWarnings:findings.reduce((n,r)=>n+r.knownBrowserHostingWarnings.length,0),publicAssetsMatched:assets.publicAssets.length,downloadedPdfsParsedAndRendered:pdfs.length,proposalsCaptured:7,proposalsImplemented:false,toolbarContrastViolationsWithProposal:0,hostingNetworkIdleTimeouts:captures.reports.filter(r=>r.networkIdleTimedOut).length,limitations:['Hosted captures are not the immutable 98 source-regression comparisons','Raw hosted screenshots retain Netlify hosting controls','Proposals need owner visual approval','PDF rendering verification is Poppler, not a claim of native browser PDF-viewer inspection']};
 await writeFile(out+'/summary.json',JSON.stringify(result,null,2)+'\n');
 console.log('HOSTED_RELEASE_SAFETY_SUMMARY '+JSON.stringify(result));

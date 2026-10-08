@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "verify": "node --test tests/structure.test.mjs tests/release-readiness.test.mjs",
+    "verify": "node --test tests/structure.test.mjs tests/release-readiness.test.mjs tests/browser-findings.test.mjs",
     "test:e2e": "node --test tests/browser.test.mjs",
     "test:visual": "node scripts/visual-regression.mjs",
     "test": "npm run verify && npm run test:e2e && npm run test:visual",

@@ -27,7 +27,7 @@ for (const path of paths) {
 }
 const response=await fetch(base,{signal:AbortSignal.timeout(20000)});
 const hostedHtml=await response.text();
-const index={status:response.status,repositorySha256:hash(Buffer.from(html)),hostedSha256:hash(Buffer.from(hostedHtml)),xRobotsTag:response.headers.get('x-robots-tag')};
+const index={status:response.status,repositorySha256:hash(Buffer.from(html)),hostedSha256:hash(Buffer.from(hostedHtml)),xRobotsTag:response.headers.get('x-robots-tag'),xFrameOptions:response.headers.get('x-frame-options'),contentSecurityPolicy:response.headers.get('content-security-policy')};
 for (const path of paths) assert.ok(hostedHtml.includes('"/'+path.slice(1)+'"'),'Preview page missing asset reference '+path);
 for (const name of ['Evan_Naraya_CV_Automation_Integration_2026_v3','Evan_Naraya_CV_Backend_Integration_Python_2026_v3']) {
   const path='/assets/resumes/'+name+'_public_safe_candidate.pdf';
@@ -44,6 +44,8 @@ for (const url of urls) {
 const result={checkedAt:new Date().toISOString(),expectedHead:process.env.EXPECTED_HEAD,base,index,publicAssets,unavailablePrivateCandidates,links,limits:['HTML hash includes Netlify-injected hosting UI','HTTP 200 does not verify social identity or email deliverability','No email/message sent; private review PDF bytes are not CI inputs']};
 await writeFile(out+'/public-assets.json',JSON.stringify(result,null,2)+'\n');
 assert.equal(index.status,200);
+assert.equal(index.xFrameOptions?.toUpperCase(),'SAMEORIGIN');
+assert.match(index.contentSecurityPolicy||'',/frame-ancestors 'self'(?:;|$)/);
 assert.ok(/noindex/i.test(index.xRobotsTag||''),'Preview noindex header absent');
 assert.ok(publicAssets.every(a=>a.status===200&&a.sha256===a.expectedSha256),'Deployed public assets differ or are unavailable');
 assert.ok(unavailablePrivateCandidates.every(a=>a.status===404),'Private candidate filename unexpectedly public');

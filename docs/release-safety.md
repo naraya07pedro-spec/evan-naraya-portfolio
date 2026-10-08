@@ -150,3 +150,31 @@ A separate `Preview safety audit` workflow continues independent work on GitHub'
 Future per-run QA/proposal captures use 30-day CI artifacts rather than recurring Git commits. The existing 13-file / 556,489-byte historical archive stays in Git. There is no deletion or migration of that historical evidence. Proposed CSS is never imported by the application; the original 98-case source regression remains separate from hosted captures.
 
 The final head's CI, preview deploy ID and artifact links are recorded in [draft PR #1](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/1) after execution. A committed report cannot contain its own later CI result. Workspace reconnection is needed for any further local screenshot review; no successful final Cloud Browser session is claimed during the outage.
+
+## Verified Firefox warnings
+
+The first hosted audits failed the summary's original zero-console assumption.
+The captured data showed exactly four warnings per Firefox viewport: three
+unsupported `clipboard-write` Feature Policy messages from Netlify's injected
+`/.netlify/scripts/cdp`, and one CSP/X-Frame-Options precedence notice. No
+application page error or network failure was observed; hosted E2E and PDF
+download/render checks passed.
+
+Current and baseline X-Frame-Options are SAMEORIGIN; the upgrade's enforced
+`frame-ancestors 'self'` retains that restriction. [W3C CSP](https://www.w3.org/TR/CSP/#frame-ancestors-and-frame-options)
+specifies precedence over X-Frame-Options. Headers are preserved, not removed
+to suppress diagnostics. The audit verifies the actual deployed policies.
+
+The corrected summary classifies only these exact Firefox messages. Raw
+warnings remain in artifacts/logs and their count is reported. Any other
+console warning/error, application-source message, wrong-origin message or
+network failure remains a failing finding. Three regression tests cover these
+boundaries. This is documented browser/hosting behavior, not a hidden claim of
+zero console warnings. Instagram also returned 429 on one hosted link run;
+LinkedIn returned 999, so social availability remains unverified rather than
+being declared a broken project link.
+
+Original PDF metadata did not expose a creation timestamp in the inspected
+metadata fields. The provenance manifest now uses the v3 filename and exact
+source SHA as its authoritative revision, rather than asserting a creation
+date. This changes no CV bytes, career content or source hash.
