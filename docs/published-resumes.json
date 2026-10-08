@@ -1,0 +1,18 @@
+[
+  {
+    "path": "assets/resumes/Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+    "filename": "Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+    "bytes": 4073,
+    "sha256": "320dcaa11d82d27b94b8268e58673658b08cd55f0100ce154e872a9a27f421e6",
+    "status": "unchanged previously public reconstructed PDF; approved original publication blocked",
+    "sourceCommit": "a4634a0e4161ca8667c873cc4f26c5c65041dca0"
+  },
+  {
+    "path": "assets/resumes/Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+    "filename": "Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+    "bytes": 3953,
+    "sha256": "7291739ee3aa8c5dbf134052c4b2ebe40db28b3fd74e73cf4fecc77d9a22a3fa",
+    "status": "unchanged previously public reconstructed PDF; approved original publication blocked",
+    "sourceCommit": "a4634a0e4161ca8667c873cc4f26c5c65041dca0"
+  }
+]

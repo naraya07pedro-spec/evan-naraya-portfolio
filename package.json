@@ -1,0 +1,25 @@
+{
+  "name": "evan-naraya-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "verify": "node --test tests/structure.test.mjs",
+    "test:e2e": "node --test tests/browser.test.mjs",
+    "test:visual": "node scripts/visual-regression.mjs",
+    "test": "npm run verify && npm run test:e2e && npm run test:visual",
+    "audit:performance": "node scripts/performance.mjs",
+    "verify:release": "node scripts/release-readiness.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "axe-core": "4.13.0",
+    "pngjs": "7.0.0",
+    "pixelmatch": "7.1.0",
+    "lighthouse": "13.5.0"
+  }
+}

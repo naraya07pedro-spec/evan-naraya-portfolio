@@ -1,0 +1,33 @@
+name: Portfolio quality
+on:
+  pull_request:
+  push:
+    branches: [main, "chore/portfolio-engineering-upgrade-*"]
+permissions:
+  contents: read
+concurrency:
+  group: portfolio-quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium firefox
+      - run: npm run verify
+      - run: npm run test:e2e
+      - run: npm run test:visual
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-quality-${{ github.sha }}
+          path: artifacts/
+          retention-days: 14
