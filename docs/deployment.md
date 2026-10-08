@@ -7,7 +7,7 @@ Production baseline: commit `a4634a0e4161ca8667c873cc4f26c5c65041dca0`, publishe
 ## Required release sequence
 
 1. Keep changes on `chore/portfolio-engineering-upgrade-20261008`.
-2. Run `npm test`. Review visual and accessibility artifacts, including deferred baseline defects.
+2. Resolve the authentic-resume privacy-publication blocker with explicit owner authorization. Run `npm test` and `npm run verify:release`; both must pass for the final candidate. Review visual and accessibility artifacts, including deferred baseline defects.
 3. Open a PR to main and verify GitHub Actions against its exact head commit.
 4. Inspect the existing project's Netlify Deploy Preview, verify deployed source/asset hashes, test both PDF downloads and all important links.
 5. Obtain explicit owner approval for that exact PR/commit and any accepted deferred risks.

@@ -7,16 +7,24 @@ const url=server?.url||process.env.AUDIT_URL||'https://evannaraya.netlify.app/';
 const out=resolve(process.env.AUDIT_OUTPUT||'artifacts/production-baseline');
 await mkdir(out,{recursive:true});
 const reports=[];
+const requestedWidths=process.env.AUDIT_WIDTHS?.split(',').map(Number);
 for(const engine of (process.env.AUDIT_ENGINES||'chromium,firefox').split(',')){
  const browser=await launch(engine);
- for(const viewport of viewports){
+ for(const viewport of viewports.filter(v=>!requestedWidths||requestedWidths.includes(v.width))){
   const context=await browser.newContext({viewport,deviceScaleFactor:1});
   const page=await context.newPage(),errors=[],failures=[];
   page.on('pageerror',e=>errors.push(e.message));
   page.on('console',m=>{if(['error','warning'].includes(m.type()))errors.push(m.type()+': '+m.text());});
   page.on('requestfailed',r=>failures.push({url:r.url().split('?')[0],error:r.failure()?.errorText}));
   page.on('response',r=>{if(r.status()>=400)failures.push({url:r.url().split('?')[0],status:r.status()});});
-  await page.goto(url,{waitUntil:'networkidle'});await settle(page);
+  await page.goto(url,{waitUntil:'domcontentloaded'});
+  let networkIdleTimedOut=false;
+  // Hosting review widgets can keep a public preview's network active. Capture
+  // decoded application content, and report this condition instead of claiming
+  // network quiescence or losing already completed viewport evidence.
+  try{await page.waitForLoadState('networkidle',{timeout:15000});}
+  catch(e){if(e.name!=='TimeoutError')throw e;networkIdleTimedOut=true;}
+  await settle(page);
   for(const [name,selector,p] of states){
    if(selector)await scene(page,selector,p);
    await page.screenshot({path:out+'/'+engine+'-'+viewport.width+'-'+name+'.png',animations:'disabled'});
@@ -26,7 +34,7 @@ for(const engine of (process.env.AUDIT_ENGINES||'chromium,firefox').split(',')){
   await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await settle(page);
   await page.screenshot({path:out+'/'+engine+'-'+viewport.width+'-full.png',fullPage:true,animations:'disabled'});
   const layout=await page.evaluate(()=>({width:innerWidth,documentWidth:document.documentElement.scrollWidth,height:document.documentElement.scrollHeight,navDisplay:getComputedStyle(document.querySelector('nav')).display}));
-  reports.push({engine,browserVersion:browser.version(),viewport,errors,failures,layout});
+  reports.push({engine,browserVersion:browser.version(),viewport,networkIdleTimedOut,errors,failures,layout});
   await writeFile(out+'/capture.json',JSON.stringify({url,capturedAt:new Date().toISOString(),reports},null,2));
   console.log(engine+' '+viewport.width+' captured; errors '+errors.length);
   await context.close();

@@ -2,7 +2,7 @@
 
 Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/), Evan Naraya's existing cinematic portfolio for Automation, Integration, Python/FastAPI Backend and AI Implementation roles.
 
-The original portrait, near-black/violet palette, typography, sticky storytelling and violet circular transition remain intact. This upgrade separates static assets, prepares the exact approved resume PDFs locally; their public upload is awaiting explicit privacy approval, handles keyboard/reduced-motion edge cases, stops idle pointer animation work and adds reproducible quality gates. There is no frontend framework, application backend or production npm dependency.
+The original portrait, near-black/violet palette, typography, sticky storytelling and violet circular transition remain intact. This upgrade separates static assets, handles keyboard/reduced-motion edge cases, stops idle pointer animation work and adds reproducible quality gates. Exact approved resume PDFs are prepared and tested locally; their public upload awaits explicit privacy approval. There is no frontend framework, application backend or production npm dependency.
 
 ## Inspect the engineering work
 
@@ -34,16 +34,20 @@ npm run verify       # structure, anchors, assets, resume/portrait hashes, JS sy
 npm run test:e2e     # Chromium + Firefox interactions, downloads, motion, axe regressions
 npm run test:visual  # immutable baseline vs current source at 7 widths
 npm run audit:performance
+npm run verify:release # authentic original PDF gate; currently blocked
 ```
 
 `npm test` runs the three quality gates. GitHub Actions runs these checks on PRs and the upgrade branch, then uploads screenshots, accessibility results and PDF verification artifacts. Visual comparison covers 320, 375, 390, 768, 1024, 1440 and 1920 px at the hero, statement, planet entry/expansion, both flagships and contact. Results are compared within each browser engine.
 
 Optional QA settings: `BROWSER_EXECUTABLE` selects an installed Chromium executable. `BROWSER_USE_PROXY=1` uses the environment's existing proxy for live-site audits while retaining certificate verification. `FIREFOX_QA_NO_NESTED_SANDBOX=1` is only for QA inside an already isolated container where Firefox cannot create a nested user namespace; normal local/CI tests leave it unset.
 
+Capture a hosted page with `AUDIT_URL=https://deploy-preview-1--evannaraya.netlify.app/ AUDIT_ENGINES=chromium node scripts/capture.mjs`. `AUDIT_WIDTHS=1440,1920` selects only those widths; use a separate `AUDIT_OUTPUT` for partial runs. Hosting traffic that prevents network-idle is explicitly recorded; application fonts and images still finish decoding before screenshots.
+
 ## Source, release and limits
 
 - [Architecture and visual system](docs/architecture.md)
 - [Audit and release recommendation](docs/audit.md)
+- [Owner release review, actual preview screenshots and measurements](docs/release-review.md)
 - [Proposed original PDF sizes and SHA-256](docs/resumes.json)
 - [Deploy Preview and rollback](docs/deployment.md)
 

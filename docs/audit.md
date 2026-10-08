@@ -23,7 +23,7 @@ A recoverable Git/source archive was preserved before product editing. Regular-m
 | IMPROVEMENT OPPORTUNITY / low, deferred | Long cinematic travel and small diagram metadata slow a quick visual scan. | Intro 258vh desktop / 225vh mobile; work title 198vh / 178vh | Existing 30-second hero role/stack/GitHub/resume are visible. A new quick-proof path or typography change requires approval. |
 | UNVERIFIED | Field INP, actual recruiter conversion, legal eligibility outside Indonesia, live client outcomes and commercial scale. | Portfolio claims | No new claims added. No real recruiter participants were invented. |
 
-Screenshots use `chromium-{width}-{state}` / `firefox-{width}-{state}` naming. The audit capture records the actual production URL; controlled visual regression separately renders the immutable Git baseline. Relevant evidence includes 390-hero, 390-agent, 1440-hero and 1440-planet-expanded.
+Screenshots use `chromium-{width}-{state}` / `firefox-{width}-{state}` naming. The audit capture records the actual production URL; controlled visual regression separately renders the immutable Git baseline. [Desktop hero](qa/desktop-hero.webp), [mobile overlap](qa/mobile-hero.webp), [mobile diagram](qa/mobile-diagram.webp) and [violet transition](qa/violet-transition.webp) compare actual production with the hosted preview. Hosting review controls remain visible in these unmasked captures.
 
 ## Engineering and quality gates
 
@@ -41,20 +41,20 @@ The initial Firefox attempt could launch but crashed content processes because t
 
 ## Performance
 
-The first executed controlled comparison used Lighthouse 13.5.0 against localhost, a fresh browser, the actual cinematic animation enabled, mobile 390×844 with Lighthouse mobile simulation and desktop 1440×900. These are **single-run lab measurements**, not field data.
+The final executed controlled comparison used Lighthouse 13.5.0 / Chromium 153.0.8010.0 against localhost, a fresh browser, the actual cinematic animation enabled, mobile 390×844 and desktop viewport 1440×900. Both used simulated mobile network/CPU settings: 150 ms RTT, 1,474.56 Kbps download and 4× CPU slowdown. The desktop column is a controlled desktop-viewport comparison under these same settings, not a standard desktop-preset benchmark. These are **single-run lab measurements**, not field data. [Recorded results](qa/performance.json).
 
 | Metric | Mobile before | Mobile after | Desktop before | Desktop after |
 | --- | --- | --- | --- | --- |
-| Performance | 99 | 99 | 75 | 90 |
+| Performance | 99 | 99 | 74 | 90 |
 | Accessibility | 95 | 96 | 100 | 100 |
 | Best practices / SEO | 100 / 100 | 100 / 100 | 100 / 100 | 100 / 100 |
-| LCP | 1.614 s | 1.803 s | 1.596 s | 1.728 s |
+| LCP | 1.606 s | 1.803 s | 1.617 s | 1.806 s |
 | CLS | 0 | 0 | 0 | 0 |
-| TBT | 0 ms | 0 ms | 290.5 ms | 0.69 ms |
-| JavaScript execution | 17.70 ms | 14.12 ms | 15.60 ms | 10.28 ms |
-| Initial transferred bytes | 190,749 | 145,795 | 190,749 | 145,795 |
+| TBT | 0 ms | 0 ms | 309.5 ms | 29.24 ms |
+| JavaScript execution | 15.42 ms | 16.48 ms | 19.35 ms | 16.58 ms |
+| Initial transferred bytes | 190,749 | 145,895 | 190,749 | 145,895 |
 
-LCP increased in this run after separating resources, although it stayed below the 2.5-second target. Image preload was then added and the final measurement is recorded in the completed release report. Do not treat a one-run score difference as a stable performance guarantee. Field INP was not measured; navigation Lighthouse TBT is not INP. Google's targets are LCP ≤2.5 s, CLS ≤0.1 and INP ≤200 ms at the 75th percentile of real visits ([official definitions](https://web.dev/articles/vitals)).
+LCP increased by roughly 0.2 seconds after separating resources, including the image preload, although it stayed below the 2.5-second lab target. This regression is not concealed. Do not treat a one-run score difference as a stable performance guarantee. Field INP was not measured; navigation Lighthouse TBT is not INP. Google's targets are LCP ≤2.5 s, CLS ≤0.1 and INP ≤200 ms at the 75th percentile of real visits ([official definitions](https://web.dev/articles/vitals)).
 
 Blur, grain, sticky geometry and the preserved transition remain visual rendering costs. They were not removed to inflate scores.
 
@@ -73,9 +73,9 @@ This is an expert walkthrough, not a user study.
 
 ## Deployment and release recommendation
 
-Production remains at the original published baseline. GitHub Actions and the existing Netlify project's PR preview must be confirmed at the final head before approval. See [deployment and rollback](deployment.md).
+Production remains at the original published baseline. [Draft PR #1](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/1) and the [existing project's Deploy Preview](https://deploy-preview-1--evannaraya.netlify.app/) were created. Application commit `777f388ba5167f742cb8f9f56ac2f274e832ba13` passed GitHub Actions; Netlify deploy `6ac77a93cece04000834c8d9` reported ready with that exact commit and site ID. A final documentation/tooling commit also requires checks at its own head. See [release review](release-review.md) and [deployment and rollback](deployment.md).
 
-**Recommendation:** prepare the PR preview for owner review. This preserves the requested visual identity and fixes nonvisual defects. Do not merge or publish without explicit owner approval. Deferred contrast and mobile overlap mean the portfolio cannot be described as fully WCAG AA or fully UX-remediated under the current visual lock.
+**Recommendation:** review the working preview, but hold production release until the authentic-resume publication blocker is resolved and the owner explicitly approves the final commit. Deferred contrast and mobile overlap mean the portfolio cannot be described as fully WCAG AA or fully UX-remediated under the current visual lock.
 
 ## Publication blocker and safe branch
 
