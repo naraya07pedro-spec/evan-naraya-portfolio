@@ -7,7 +7,7 @@
     "pages": 1,
     "careerTextSha256": "e6b16a3d3fd9d0d6d3c4c22ab81451078bd0813c07b0a1e1c4327d11f6b458c3",
     "source": "approved v3 PDF; exact original bytes",
-    "revision": "PDF creation date 2026-10-07; original file retained"
+    "revision": "v3 filename; exact source SHA-256 identifies the inspected revision; embedded creation timestamp unverified"
   },
   {
     "path": "assets/resumes/Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
@@ -17,6 +17,6 @@
     "pages": 1,
     "careerTextSha256": "789292a27d39dc642fe1a1f5b561bd8a3e052c5cf57618a9242e9169d594da04",
     "source": "approved v3 PDF; exact original bytes",
-    "revision": "PDF creation date 2026-10-07; original file retained"
+    "revision": "v3 filename; exact source SHA-256 identifies the inspected revision; embedded creation timestamp unverified"
   }
 ]

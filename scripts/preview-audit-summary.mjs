@@ -11,6 +11,7 @@ for(const engine of ['chromium','firefox']){
  assert.deepEqual(r.map(x=>x.viewport.width),[320,375,390,768,1024,1440,1920]);
 }
 assert.ok(captures.reports.every(r=>r.layout.documentWidth<=r.viewport.width),'Hosted document reflow regression');
+console.log('HOSTED_CAPTURE_FINDINGS '+JSON.stringify(captures.reports.filter(r=>r.errors.length||r.failures.length).map(r=>({engine:r.engine,viewport:r.viewport,errors:r.errors,failures:r.failures}))));
 assert.ok(captures.reports.every(r=>r.errors.length===0&&r.failures.length===0),'Hosted console/network findings: inspect capture.json');
 assert.equal(proposals.results.length,7);
 assert.ok(proposals.results.every(r=>r.projectResults.every(p=>p.contrastProposed.length===0)),'Proposal toolbar contrast still fails');
