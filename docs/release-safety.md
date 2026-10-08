@@ -28,11 +28,9 @@ records. Never populate approval fields from an assumed or fabricated decision.
 
 ### Mandatory merge enforcement: admin configuration blocker
 
-The new check is only a mandatory merge gate after GitHub requires it on
-`main`. The current integration returned HTTP 403 for branch-protection reads;
-no supported admin-write capability is available, and the browser was signed
-out. Existing main protection therefore remains **unverified**, not configured
-or claimed by this audit.
+The new check becomes a mandatory merge gate only after GitHub requires it on `main`. A follow-up ordinary branch read **verified `protected: false`, `protection.enabled: false`, enforcement `off` and empty required-check lists**. The repository ruleset list was empty. Main still points to the original production commit. This is a verified missing release control, rather than an unknown setting.
+
+The separate admin branch-protection endpoint returned HTTP 403. No supported admin-write capability is available, and the browser is signed out. This audit has not configured main enforcement.
 
 The owner/admin must inspect existing rules without weakening them, then:
 
@@ -124,7 +122,7 @@ are a separately labeled review record, not a replacement baseline.
 | Classification | Remaining issue | Release consequence |
 | --- | --- | --- |
 | VERIFIED DEFECT / high | Public v3 filenames still serve reconstructed PDFs; approved bytes/field consent missing | Release eligibility fails |
-| VERIFIED GAP / high | Release check was absent from CI; required main-check enforcement cannot be verified with current admin access | Separate failing check added; owner admin enforcement still required |
+| VERIFIED DEFECT / high | Main protection disabled, required checks empty and no repository rulesets | Separate failing release check added; owner admin enforcement still required |
 | REPRODUCED ISSUE / medium | Phone hero role/text intersects portrait/face | Proposal only; visual approval or explicit acceptance of this deferred issue needed |
 | VERIFIED DEFECT / medium | Both small device toolbar labels are 4.33:1, below 4.5:1 | Proposal only; no WCAG AA completion claim |
 | OPTIONAL ENHANCEMENT | Mobile navigation exposure and quicker proof navigation | No implementation under the visual lock |
@@ -134,3 +132,21 @@ are a separately labeled review record, not a replacement baseline.
 The separate [visual proposals](visual-proposals.md) show minimal scoped options.
 Measured application performance remains the earlier lab evidence: this
 follow-up changes tooling/docs only and does not claim new performance scores.
+
+## Executed follow-up and final verification
+
+Implementation commit `0b0234d76b941ee6d87608152ee3c8beef3f44b6` passed quality CI (PR run 37788330385). Its independent release check (37788330341) failed for the expected consent/asset blockers and uploaded only result JSON. Netlify preview deploy `6ac7a0f73a7a2800080499db` reported ready for this exact commit and existing site, context deploy-preview.
+
+Local checks completed: 22 structure/gate tests, 16 Chromium/Firefox browser checks and all 98 unchanged source comparisons passed. The executed local comparison had 196 changed pixels total: 28 in the top-left 6×6 area of Chromium 1440px captures across seven states; 91 comparisons were exact. Maximum ratio 0.00216% stayed below the **unchanged** 0.05% tolerance. This result is disclosed rather than claiming zero pixels changed. Product HTML/CSS/scroll JS/portrait/download bytes stayed identical to the reviewed application head.
+
+All 29 unique HTTPS destinations in the page, README/evidence map and preserved PDF links were requested with TLS validation: 28 returned 200; LinkedIn returned 999. Its availability/ownership remains unverified. HTTP 200 does not prove social identity or email deliverability. No message was sent.
+
+The local browser test cleanup now closes its servers even if a browser cannot launch. An initial attempt found the ephemeral Firefox installation absent; after official installation the complete two-engine suite executed successfully. CI uses its normal browser installation.
+
+Two candidates were saved privately for owner review, with exact-byte hashes verified after saving. Their bytes are never workflow inputs. Local proposal screenshots were generated and inspected before the workspace/cloud browser connection went offline. No historical QA files were deleted or overwritten.
+
+A separate `Preview safety audit` workflow continues independent work on GitHub's runner. It checks deployed asset hashes, hosted Chromium/Firefox interactions and all 7 widths × 7 viewport states, downloads both current public PDFs in both engines, parses/renders them with Poppler, and creates labeled-by-filename proposal captures against the local checkout. Only page/proposal PNGs and public JSON are uploaded; PDF bytes, extracted metadata and PDF renderings are excluded. PDF parsing/rendering is not a claim of native browser PDF-viewer inspection.
+
+Future per-run QA/proposal captures use 30-day CI artifacts rather than recurring Git commits. The existing 13-file / 556,489-byte historical archive stays in Git. There is no deletion or migration of that historical evidence. Proposed CSS is never imported by the application; the original 98-case source regression remains separate from hosted captures.
+
+The final head's CI, preview deploy ID and artifact links are recorded in [draft PR #1](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/1) after execution. A committed report cannot contain its own later CI result. Workspace reconnection is needed for any further local screenshot review; no successful final Cloud Browser session is claimed during the outage.

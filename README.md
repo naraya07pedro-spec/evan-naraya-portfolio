@@ -34,10 +34,10 @@ npm run verify       # structure, anchors, assets, resume/portrait hashes, JS sy
 npm run test:e2e     # Chromium + Firefox interactions, downloads, motion, axe regressions
 npm run test:visual  # immutable baseline vs current source at 7 widths
 npm run audit:performance
-npm run verify:release # authentic original PDF gate; currently blocked
+npm run verify:release # approved exact bytes + file/field consent; currently blocked
 ```
 
-`npm test` runs the three quality gates. GitHub Actions runs these checks on PRs and the upgrade branch, then uploads screenshots, accessibility results and PDF verification artifacts. Visual comparison covers 320, 375, 390, 768, 1024, 1440 and 1920 px at the hero, statement, planet entry/expansion, both flagships and contact. Results are compared within each browser engine.
+`npm test` runs the three quality gates. GitHub Actions runs these checks on PRs and the upgrade branch, then uploads public screenshots and accessibility/comparison JSON. PDF bytes are excluded. Release eligibility runs independently. Visual comparison covers 320, 375, 390, 768, 1024, 1440 and 1920 px at the hero, statement, planet entry/expansion, both flagships and contact. Results are compared within each browser engine.
 
 Optional QA settings: `BROWSER_EXECUTABLE` selects an installed Chromium executable. `BROWSER_USE_PROXY=1` uses the environment's existing proxy for live-site audits while retaining certificate verification. `FIREFOX_QA_NO_NESTED_SANDBOX=1` is only for QA inside an already isolated container where Firefox cannot create a nested user namespace; normal local/CI tests leave it unset.
 
@@ -55,8 +55,14 @@ Netlify stays on the existing `evannaraya` project, production branch `main`, ro
 
 Visual issues requiring approval remain documented. Accessibility gates prevent new violations; they do not certify WCAG 2.2 AA. Performance results are measured lab runs, not field INP or recruiter conversion data. No testimonials, outcomes, private client source, new tenure or work authorization were invented.
 
-## Current release blocker
+## Current release blockers
 
-Automatic approval review rejected GitHub publication of the authentic original resumes because they include a phone number and personal contact information whose public egress it considered unauthorized. This public branch contains only the already-public reconstructed PDFs from the production baseline. These are not represented as the authentic approved originals. The original v3 files were inspected and their proposed downloads passed locally; publication is pending explicit owner approval. No private PDF bytes or new contact data are in this branch history.
+Both public v3 downloads still contain the baseline's reconstructed PDFs. Authentic originals and two contact-only candidates were inspected privately; career evidence, coordinates, pixels and six links were preserved. The candidates remain private until the owner approves their exact hashes and public field categories.
 
-Run `npm run verify:release` before any production decision. It currently fails because the public PDFs do not match the approved originals in `docs/resumes.json`. General website CI passing does not resolve this blocker.
+The independent `Release readiness` / `release-eligibility` check fails for missing consent and asset mismatches. Quality `verify` remains independent. Ordinary branch metadata confirms `main` protection is disabled, required checks are empty and no repository rulesets exist. The owner/admin must require both checks without administrator bypass; current integration access cannot apply that setting.
+
+[Release-safety audit and exact candidate hashes](docs/release-safety.md) · [Unapproved visual proposals](docs/visual-proposals.md).
+
+The separate `Preview safety audit` workflow verifies deployed asset bytes, hosted Chromium/Firefox interactions, all target viewport states and downloaded PDF parsing/rendering. It also captures unapproved CSS proposals against the local checkout. Its artifacts exclude PDF bytes/renderings and private material. The original 98-case source regression and historical QA archive remain unchanged.
+
+Production merge still needs a separate explicit owner decision after the blockers are resolved. No auto-merge is enabled.

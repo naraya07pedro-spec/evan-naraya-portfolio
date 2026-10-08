@@ -1,5 +1,7 @@
 # Portfolio engineering audit — 8 October 2026
 
+The later [PR #1 release-safety follow-up](release-safety.md) supersedes release eligibility and private-candidate status. This original audit and all historical screenshot/JSON evidence remain preserved.
+
 ## Baseline and scope
 
 Production source was re-read from Git at `a4634a0e4161ca8667c873cc4f26c5c65041dca0`. Netlify reported deploy `6ac76d9a8f678c5c17a6cf53` ready and published with the same commit_ref. The production website was opened in the real Cloud Browser, and the live HTML was fetched with TLS validation. Hosting injects an additional Netlify HUD script/comment; it is not repository code.
