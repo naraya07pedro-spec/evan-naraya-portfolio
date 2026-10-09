@@ -6,15 +6,14 @@ import pixelmatch from 'pixelmatch';
 import {serve} from './serve.mjs';
 import {baselineRoot} from './baseline.mjs';
 import {launch,viewports,states,settle,scene} from './browser-utils.mjs';
+import {verifyHistoricalEvidence} from './historical-evidence.mjs';
 
 // The historical 98 comparison source and runner stay immutable. This explicit
 // source patch records the authorized responsive scope, not a regenerated image
 // baseline. Future product changes must not silently refresh it to pass tests.
 const reviewed='c841c02bac94ad957ef2112f43f6728aad5d1baa',reference='artifacts/responsive-reference',out='artifacts/responsive-visual';
 const show=path=>execFileSync('git',['show',reviewed+':'+path],{maxBuffer:4*1024*1024});
-const history=execFileSync('git',['ls-tree','-r','--name-only',reviewed,'docs/qa']).toString().trim().split('\n').filter(Boolean);
-for(const path of ['docs/baseline.json','scripts/visual-regression.mjs','docs/resume-release-approval.json',
- 'assets/images/evan-naraya-portrait.webp',...history])assert.ok((await readFile(path)).equals(show(path)),'Historical/consent bytes changed: '+path);
+await verifyHistoricalEvidence('.',reviewed);
 const paths=execFileSync('git',['ls-tree','-r','--name-only',reviewed,'index.html','assets']).toString().trim().split('\n');
 for(const path of paths){const target=reference+'/'+path;await mkdir(target.slice(0,target.lastIndexOf('/')),{recursive:true});await writeFile(target,show(path));}
 execFileSync('git',['apply','--directory='+reference,'docs/responsive-scope.patch']);
