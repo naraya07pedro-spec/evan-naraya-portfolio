@@ -25,7 +25,8 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox
       - run: npm run verify
       - run: npm run test:e2e
-      - run: npm run test:visual
+      - run: npm run test:responsive
+      - run: npm run test:visual:responsive
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -35,4 +36,8 @@ jobs:
             artifacts/visual/*.png
             artifacts/visual/results.json
             artifacts/accessibility/*.json
+            artifacts/responsive/*.png
+            artifacts/responsive/*-geometry.json
+            artifacts/responsive-visual/*.png
+            artifacts/responsive-visual/results.json
           retention-days: 14

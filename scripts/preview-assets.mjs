@@ -27,10 +27,15 @@ for (const path of paths) {
 }
 const response=await fetch(base,{signal:AbortSignal.timeout(20000)});
 const hostedHtml=await response.text();
-const index={status:response.status,repositorySha256:hash(Buffer.from(html)),hostedSha256:hash(Buffer.from(hostedHtml)),xRobotsTag:response.headers.get('x-robots-tag'),xFrameOptions:response.headers.get('x-frame-options'),contentSecurityPolicy:response.headers.get('content-security-policy')};
+const index={status:response.status,repositorySha256:hash(Buffer.from(html)),hostedSha256:hash(Buffer.from(hostedHtml)),xRobotsTag:response.headers.get('x-robots-tag'),xFrameOptions:response.headers.get('x-frame-options'),contentSecurityPolicy:response.headers.get('content-security-policy'),nosniff:response.headers.get('x-content-type-options'),referrerPolicy:response.headers.get('referrer-policy'),permissionsPolicy:response.headers.get('permissions-policy'),hsts:response.headers.get('strict-transport-security')};
 for (const path of paths) assert.ok(hostedHtml.includes('"/'+path.slice(1)+'"'),'Preview page missing asset reference '+path);
 for (const name of ['Evan_Naraya_CV_Automation_Integration_2026_v3','Evan_Naraya_CV_Backend_Integration_Python_2026_v3']) {
   const path='/assets/resumes/'+name+'_public_safe_candidate.pdf';
+  const r=await fetch(new URL(path,base),{signal:AbortSignal.timeout(15000)});
+  unavailablePrivateCandidates.push({path,status:r.status});
+}
+for(const name of ['Automation','Backend']){
+  const path='/assets/resumes/Evan_Naraya_'+name+'_Integration_Engineer_public_safe_candidate.pdf';
   const r=await fetch(new URL(path,base),{signal:AbortSignal.timeout(15000)});
   unavailablePrivateCandidates.push({path,status:r.status});
 }
@@ -46,6 +51,10 @@ await writeFile(out+'/public-assets.json',JSON.stringify(result,null,2)+'\n');
 assert.equal(index.status,200);
 assert.equal(index.xFrameOptions?.toUpperCase(),'SAMEORIGIN');
 assert.match(index.contentSecurityPolicy||'',/frame-ancestors 'self'(?:;|$)/);
+assert.equal(index.nosniff,'nosniff');
+assert.equal(index.referrerPolicy,'strict-origin-when-cross-origin');
+assert.match(index.permissionsPolicy||'',/camera=\(\)/);
+assert.match(index.hsts||'',/max-age=31536000/);
 assert.ok(/noindex/i.test(index.xRobotsTag||''),'Preview noindex header absent');
 assert.ok(publicAssets.every(a=>a.status===200&&a.sha256===a.expectedSha256),'Deployed public assets differ or are unavailable');
 assert.ok(unavailablePrivateCandidates.every(a=>a.status===404),'Private candidate filename unexpectedly public');

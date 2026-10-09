@@ -4,6 +4,14 @@ import {mkdtemp, mkdir, writeFile, readFile, rm, unlink, symlink} from 'node:fs/
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createHash} from 'node:crypto';
+import {PDFDocument,PDFName,PDFString} from 'pdf-lib';
+import {resumeLinks} from '../scripts/pdf-contract.mjs';
+async function fakePdf(marker,links=resumeLinks){
+ const doc=await PDFDocument.create(),page=doc.addPage([612,792]);
+ page.drawText('SYNTHETIC TEST '+marker,{x:20,y:750,size:12});
+ page.node.set(PDFName.of('Annots'),doc.context.obj(links.map((url,i)=>doc.context.register(doc.context.obj({Type:'Annot',Subtype:'Link',Rect:[20,700-i*30,220,720-i*30],A:{S:'URI',URI:PDFString.of(url)}})))));
+ return Buffer.from(await doc.save({useObjectStreams:false}));
+}
 import {checkRelease, owner, requiredFilenames, publicSafeFields, originalFields, publicationTargets} from '../scripts/release-eligibility.mjs';
 
 const sha = b => createHash('sha256').update(b).digest('hex');
@@ -13,18 +21,20 @@ async function fixture(t, variant = 'contact-redacted') {
   t.after(() => rm(root, {recursive:true, force:true}));
   await mkdir(join(root,'docs'));
   await mkdir(join(root,'assets/resumes'),{recursive:true});
-  const sources = [], candidates = [], files = [];
+  const sources = [], candidates = [], revisions=[], files = [];
   for (const [i, filename] of requiredFilenames.entries()) {
     const path = 'assets/resumes/' + filename;
-    const original = Buffer.from('%PDF-1.7\nsynthetic original fixture '+i+'\n%%EOF');
-    const redacted = Buffer.from('%PDF-1.7\nsynthetic contact-only fixture '+i+'\n%%EOF');
-    const bytes = variant === 'original' ? original : redacted;
+    const original = await fakePdf('original '+i);
+    const redacted = await fakePdf('redacted '+i);
+    const revised=await fakePdf('revision '+i);
+    const bytes = variant === 'original' ? original : variant==='verified-revision'?revised:redacted;
     sources.push({path,filename,sha256:sha(original),bytes:original.length,pages:1,careerTextSha256:sha(Buffer.from('synthetic career text '+i))});
     candidates.push({sourceFilename:filename,sourceSha256:sha(original),sha256:sha(redacted),bytes:redacted.length,pages:1,
       careerTextSha256:sha(Buffer.from('synthetic career text '+i)),careerTextAndCoordinatesUnchanged:true,
       careerPixelsUnchangedAt144Dpi:true,identityStackPixelsUnchanged:true,allSixLinksPreserved:true,
       phoneAndEmailAbsentInDecodedObjects:true,embeddedFiles:0,retainedFields:publicSafeFields});
-    files.push({path,sha256:sha(bytes),sourceSha256:sha(original),variant,
+    revisions.push({sourceFilename:filename,sourceSha256:sha(original),releasePath:path,sha256:sha(revised),bytes:revised.length,reviewedSourceSha256:sha(Buffer.from('revised source '+i)),careerTextSha256:sha(Buffer.from('revised career '+i)),pages:1,embeddedFiles:0,contactOnlyRedactionVerified:true,materialClaimsVerifiedAgainstSources:true,comparisonReference:'docs/test.md',retainedFields:publicSafeFields});
+    files.push({path,sha256:sha(bytes),sourceSha256:sha(original),reviewedSourceSha256:revisions.at(-1).reviewedSourceSha256,variant,
       publicFields:variant === 'original' ? originalFields : publicSafeFields});
     await writeFile(join(root,path),bytes);
   }
@@ -33,7 +43,8 @@ async function fixture(t, variant = 'contact-redacted') {
   await writeFile(join(root,'docs/resumes.json'),JSON.stringify(sources));
   await writeFile(join(root,'docs/resume-release-candidates.json'),JSON.stringify({schemaVersion:1,files:candidates}));
   await writeFile(join(root,'docs/resume-release-approval.json'),JSON.stringify(approval));
-  await writeFile(join(root,'index.html'),requiredFilenames.map(n => '<a href="/assets/resumes/'+n+'" download="'+n+'">CV</a>').join('\n'));
+  await writeFile(join(root,'docs/resume-revised-candidates.json'),JSON.stringify({schemaVersion:1,files:revisions}));
+  await writeFile(join(root,'index.html'),requiredFilenames.map(n => '<a href="/assets/resumes/'+n+'" download="'+n+'">CV</a>').join('\n')+resumeLinks.map(u=>'<a href="'+u+'">Public reference</a>').join('\n'));
   return root;
 }
 async function edit(root,path,mutate) {
@@ -125,4 +136,59 @@ test('download must name the exact release asset and browser filename',async t=>
 test('invalid or duplicated authentic source records fail',async t=>{
   const root=await fixture(t);await edit(root,'docs/resumes.json',a=>{a[0]=a[1];});
   await blocked(root,'SOURCE_SET');
+});
+
+
+test('missing public profile/project links fail closed',async t=>{
+ const root=await fixture(t);const path=join(root,'index.html');
+ await writeFile(path,(await readFile(path,'utf8')).replace('href="'+resumeLinks[1]+'"','href="https://example.invalid"'));
+ await blocked(root,'REQUIRED_LINK');
+});
+test('matching consent cannot approve corrupt or linkless PDF bytes',async t=>{
+ for(const bytes of [Buffer.from('%PDF-1.7\ncorrupt'),await fakePdf('no annotations',[])]){
+  const root=await fixture(t),path='assets/resumes/'+requiredFilenames[0];await writeFile(join(root,path),bytes);
+  await edit(root,'docs/resume-release-candidates.json',a=>{a.files[0].sha256=sha(bytes);a.files[0].bytes=bytes.length;});
+  await edit(root,'docs/resume-release-approval.json',a=>{a.files[0].sha256=sha(bytes);});
+  await blocked(root,'PDF_CONTRACT');
+ }
+});
+test('release transport fails closed on missing, denied or unavailable destinations',async t=>{
+ const root=await fixture(t);assert.equal((await checkRelease(root,{linkProbe:async()=>200})).eligible,true);
+ for(const status of [0,403,404,410,503,999]){
+  const r=await checkRelease(root,{linkProbe:async()=>status});assert.equal(r.eligible,false);assert.ok(r.errors.some(e=>e.code==='LINK_UNVERIFIED'));
+ }
+});
+
+test('evidence-reviewed revisions require exact revised-source consent',async t=>{
+ const root=await fixture(t,'verified-revision');assert.equal((await checkRelease(root)).eligible,true);
+ await edit(root,'docs/resume-release-approval.json',a=>{delete a.files[0].reviewedSourceSha256;});
+ await blocked(root,'REVISION_CONSENT');
+});
+test('revision evidence flags or authentic source inconsistencies fail closed',async t=>{
+ for(const field of ['sourceSha256','reviewedSourceSha256','careerTextSha256','materialClaimsVerifiedAgainstSources','retainedFields']){
+  const root=await fixture(t);await edit(root,'docs/resume-revised-candidates.json',r=>{r.files[0][field]=null;});await blocked(root,'REVISION_PROVENANCE');
+ }
+});
+
+test('access-wall verification needs recent exact owner evidence and cannot excuse a 404',async t=>{
+ const root=await fixture(t),url=resumeLinks[1],now=()=>new Date('2026-10-08T01:00:00Z');
+ const linkProbe=async u=>u===url?999:200;
+ assert.equal((await checkRelease(root,{linkProbe,now})).eligible,false);
+ await edit(root,'docs/resume-release-approval.json',a=>{a.linkVerifications=[{url,checkedBy:owner,checkedAt:'2026-10-08T00:30:00Z',reference:'SYNTHETIC owner browser evidence',result:'verified_in_browser'}];});
+ assert.equal((await checkRelease(root,{linkProbe,now})).eligible,true);
+ assert.equal((await checkRelease(root,{linkProbe:async u=>u===url?404:200,now})).eligible,false);
+ assert.equal((await checkRelease(root,{linkProbe,now:()=>new Date('2026-10-10T01:00:00Z')})).eligible,false);
+});
+
+test('embedded and automatic-action PDFs are rejected even with matching manifest hashes',async t=>{
+ for(const mode of ['attachment','action','missing-link']){
+  const root=await fixture(t),path='assets/resumes/'+requiredFilenames[0];
+  const doc=await PDFDocument.load(await readFile(join(root,path)));
+  if(mode==='attachment')await doc.attach(Buffer.from('SYNTHETIC confidential bytes'),'hidden.txt');
+  if(mode==='action')doc.catalog.set(PDFName.of('OpenAction'),doc.context.obj({S:'JavaScript',JS:PDFString.of('void(0)')}));
+  if(mode==='missing-link')doc.getPages()[0].node.delete(PDFName.of('Annots'));
+  const bytes=Buffer.from(await doc.save({useObjectStreams:false}));await writeFile(join(root,path),bytes);
+  await edit(root,'docs/resume-release-candidates.json',a=>{a.files[0].sha256=sha(bytes);a.files[0].bytes=bytes.length;});
+  await edit(root,'docs/resume-release-approval.json',a=>{a.files[0].sha256=sha(bytes);});await blocked(root,'PDF_CONTRACT');
+ }
 });

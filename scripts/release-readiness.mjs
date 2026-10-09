@@ -1,7 +1,8 @@
 import {mkdir, writeFile} from 'node:fs/promises';
 import {checkRelease} from './release-eligibility.mjs';
+import {probeReleaseLink} from './pdf-contract.mjs';
 
-const result = await checkRelease();
+const result = await checkRelease('.', {linkProbe:probeReleaseLink});
 await mkdir('artifacts/release-readiness', {recursive:true});
 await writeFile('artifacts/release-readiness/result.json', JSON.stringify(result, null, 2) + '\n');
 for (const asset of result.assets) console.log(asset.path + ': ' + (asset.variant || 'unapproved bytes'));

@@ -35,7 +35,7 @@ jobs:
       - run: npm run test:e2e
       - run: node scripts/validate-downloaded-pdfs.mjs
       - run: AUDIT_URL="$PREVIEW_URL" node scripts/capture.mjs
-      - run: node scripts/propose-visual-fixes.mjs
+      - run: npm run test:responsive
       - run: node scripts/preview-audit-summary.mjs
       - uses: actions/upload-artifact@v4
         if: always()
@@ -44,6 +44,6 @@ jobs:
           path: |
             artifacts/hosted-release-safety/*.png
             artifacts/hosted-release-safety/*.json
-            artifacts/visual-proposals/*.png
-            artifacts/visual-proposals/report.json
+            artifacts/responsive/*.png
+            artifacts/responsive/*-geometry.json
           retention-days: 30

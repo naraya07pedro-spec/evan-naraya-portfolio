@@ -35,12 +35,45 @@
  }
  const intro=document.querySelector('.intro-scene'), portal=document.querySelector('.work-title'),projects=[...document.querySelectorAll('.project-scene')];
  const progress=el=>{const r=el.getBoundingClientRect();return clamp(-r.top/Math.max(1,r.height-innerHeight))};
+
+ // Fit only from intrinsic content measurements, before scroll transforms.
+ // Desktop choreography stays unchanged whenever its content fits the frame.
+ function fitFrames(){
+  const narrow=innerWidth<=760;
+  if(intro){
+   const copy=intro.querySelector('.intro-copy');
+   const statement=intro.querySelector('.intro-statement');
+   const clearance=100+Math.max(copy.offsetHeight,statement.offsetHeight)+16;
+   const room=(innerHeight-clearance)/1.055;
+   if(innerWidth>1150){
+    const person=intro.querySelector('.shared-person');
+    intro.style.setProperty('--desktop-role-left',(innerWidth/2+person.offsetHeight*.96*1122/1402/2+16)+'px');
+   }
+   if(innerWidth>760&&innerWidth<=1150){
+    const name=intro.querySelector('.intro-left'),role=intro.querySelector('.intro-role');
+    const nameRight=name.offsetLeft+name.offsetWidth,gap=role.offsetLeft-nameRight;
+    intro.style.setProperty('--tablet-person-left',(nameRight+gap/2)+'px');
+    intro.style.setProperty('--tablet-person-height',Math.max(0,Math.min(innerHeight*.88,(gap-32)*1402/1122))+'px');
+   }
+   intro.style.setProperty('--portrait-height',Math.max(0,Math.min(innerHeight*.66,room))+'px');
+   intro.toggleAttribute('data-flow',narrow&&!reduce&&(100+copy.offsetHeight+24>innerHeight||room<160));
+  }
+  projects.forEach(section=>{
+   const stage=section.querySelector('.project-stage'),copy=section.querySelector('.project-copy'),device=section.querySelector('.project-device');
+   const style=getComputedStyle(stage),stacked=style.gridTemplateColumns.split(' ').length===1;
+   const needed=parseFloat(style.paddingTop)+parseFloat(style.paddingBottom)+copy.offsetHeight+parseFloat(style.rowGap||0)+device.offsetHeight;
+   section.toggleAttribute('data-flow',stacked&&needed>innerHeight-8);
+  });
+ }
+ fitFrames();
+ document.fonts.ready.then(()=>{fitFrames();request();});
+ addEventListener('resize',fitFrames,{passive:true});
  let scheduled=false;
  // All choreography thresholds, interpolation values and CSS variables below
  // are the production baseline. Scroll work remains coalesced to one RAF.
  function render(){scheduled=false;const max=document.documentElement.scrollHeight-innerHeight;root.style.setProperty('--progress',(max?scrollY/max*100:0)+'%');
  if(reduce)return;
- if(intro){const p=progress(intro);const exit=smooth(.17,.46,p),shift=smooth(.24,.59,p),ent=smooth(.48,.65,p),out=smooth(.84,.98,p),show=ent*(1-out);
+ if(intro&&!intro.hasAttribute('data-flow')){const p=progress(intro);const exit=smooth(.17,.46,p),shift=smooth(.24,.59,p),ent=smooth(.48,.65,p),out=smooth(.84,.98,p),show=ent*(1-out);
  const set=(k,v)=>setIfChanged(intro,k,v);
  set('--intro-left-o',(1-exit).toFixed(3));
   set('--intro-left-x',lerp(0,-85,exit)+'px');
@@ -78,7 +111,7 @@
   set('--work-copy-scale',lerp(1,.975,ex));
   set('--portal-label-o',inn*(1-out));
   set('--portal-label-y',(lerp(28,0,inn)+lerp(0,-18,out))+'px')}
- projects.forEach((section)=>{const p=progress(section),first=section.dataset.project==='1',ent=smooth(first?.10:0,first?.32:.26,p),exit=smooth(.74,1,p);const set=(k,v)=>setIfChanged(section,k,v);
+ projects.forEach((section)=>{if(section.hasAttribute('data-flow'))return;const p=progress(section),first=section.dataset.project==='1',ent=smooth(first?.10:0,first?.32:.26,p),exit=smooth(.74,1,p);const set=(k,v)=>setIfChanged(section,k,v);
  if(first)set('--p1-dark-o',smooth(.04,.34,p));
   set('--project-copy-x',(lerp(-70,0,ent)+lerp(0,-40,exit))+'px');
   set('--project-copy-y',(lerp(30,0,ent)+lerp(0,-35,exit))+'px');
@@ -91,7 +124,7 @@
  const request=()=>{if(!scheduled){scheduled=true;requestAnimationFrame(render)}};addEventListener('scroll',request,{passive:true});addEventListener('resize',request,{passive:true});render();
  const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.09});document.querySelectorAll('.reveal').forEach(el=>reduce?el.classList.add('visible'):observer.observe(el));
  motion.addEventListener('change',()=>{reduce=motion.matches;
- if(reduce)document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));updateCursor();request();});
+ if(reduce)document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));updateCursor();fitFrames();request();});
  // Keyboard focus can otherwise enter an opacity-zero sticky scene. Move only
  // in response to keyboard focus; ordinary pointer/scroll choreography is intact.
  document.addEventListener('focusin',e=>{

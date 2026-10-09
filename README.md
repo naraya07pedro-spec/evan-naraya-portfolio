@@ -66,3 +66,7 @@ The independent `Release readiness` / `release-eligibility` check fails for miss
 The separate `Preview safety audit` workflow verifies deployed asset bytes, hosted Chromium/Firefox interactions, all target viewport states and downloaded PDF parsing/rendering. It also captures unapproved CSS proposals against the local checkout. Its artifacts exclude PDF bytes/renderings and private material. The original 98-case source regression and historical QA archive remain unchanged.
 
 Production merge still needs a separate explicit owner decision after the blockers are resolved. No auto-merge is enabled.
+
+## Current release preparation
+
+See [responsive implementation and release gates](docs/responsive-release-preparation-20261009.md) and [final private resume selection](docs/resume-candidate-review-20261009.md). `npm test` now runs the scoped responsive regression independently of the preserved historical `test:visual` runner. PR #1 stays draft and release eligibility remains blocked until exact owner consent, approved resume installation and main protection are confirmed.

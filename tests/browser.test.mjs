@@ -7,7 +7,7 @@ import {baselineRoot} from '../scripts/baseline.mjs';
 import {launch,settle,scene} from '../scripts/browser-utils.mjs';
 const resumes=JSON.parse(await readFile('docs/published-resumes.json','utf8'));
 
-for(const engine of ['chromium','firefox']){
+for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
  test(engine+' interactions, downloads, motion and accessibility',{timeout:120000},async t=>{
   const server=await serve('.');let before,browser;
   const url=process.env.PREVIEW_URL||server.url;
@@ -56,8 +56,9 @@ for(const engine of ['chromium','firefox']){
    await t.test('mobile touch CTA, scrollable details and reflow',async()=>{
     const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true});
     const mobile=await context.newPage();await mobile.goto(url);await settle(mobile);
-    // Existing mobile nav is intentionally unchanged. The hero CTA is the current path.
-    assert.equal(await mobile.locator('nav').evaluate(e=>getComputedStyle(e).display),'none');
+    // Mobile keeps Work, Skills and Contact available without a JS menu.
+    assert.equal(await mobile.locator('nav').evaluate(e=>getComputedStyle(e).display),'flex');
+    for(const link of ['#work','#skills','#contact'])assert.ok(await mobile.locator('nav a[href="'+link+'"]').isVisible());
     await mobile.locator('.hero-actions a[href="#work"]').tap();
     await mobile.waitForFunction(()=>location.hash==='#work');
     await scene(mobile,'.project-scene[data-project="1"]',.5);

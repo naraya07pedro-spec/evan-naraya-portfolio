@@ -11,15 +11,18 @@
     "verify": "node --test tests/structure.test.mjs tests/release-readiness.test.mjs tests/browser-findings.test.mjs",
     "test:e2e": "node --test tests/browser.test.mjs",
     "test:visual": "node scripts/visual-regression.mjs",
-    "test": "npm run verify && npm run test:e2e && npm run test:visual",
+    "test": "npm run verify && npm run test:e2e && npm run test:responsive && npm run test:visual:responsive",
     "audit:performance": "node scripts/performance.mjs",
-    "verify:release": "node scripts/release-readiness.mjs"
+    "verify:release": "node scripts/release-readiness.mjs",
+    "test:responsive": "node --test tests/responsive.test.mjs",
+    "test:visual:responsive": "node scripts/responsive-visual-regression.mjs"
   },
   "devDependencies": {
-    "playwright": "1.62.1",
     "axe-core": "4.13.0",
-    "pngjs": "7.0.0",
+    "lighthouse": "13.5.0",
+    "pdf-lib": "1.17.1",
     "pixelmatch": "7.1.0",
-    "lighthouse": "13.5.0"
+    "playwright": "1.62.1",
+    "pngjs": "7.0.0"
   }
 }
