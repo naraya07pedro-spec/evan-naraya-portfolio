@@ -39,6 +39,8 @@ Owner consent must approve these **exact final filenames and hashes**, exposed `
 
 The release command also probes required destinations. A LinkedIn access wall is not treated as a broken URL, but it **does not pass without evidence**: if HTTP 403/429/999 persists, the owner must actually open that exact profile and record a recent `linkVerifications` entry (URL, owner, UTC check time, verified_in_browser result, reference to the real confirmation). A 404/410 or other failure cannot be excused by that record. No such verification has been invented or added.
 
+Follow-up: authorized Work legitimately confirmed the public LinkedIn profile in the Cloud Browser at `2026-10-09T16:53:04.673Z`, with actual actor `work_browser_operator` and private screenshot evidence. This supersedes the owner-only link task above. The gate now also accepts a referenced, recent Work browser observation, records its actual actor, and still rejects broken URLs, unknown actors, missing references and observations older than 24 hours. This is link evidence only; it is not an owner publication decision. No approval manifest fields were changed.
+
 ## Current recommendation: personal portfolio website correction
 
 The two preceding 36,129/36,130-byte candidates were recovered from the privately saved ZIP and their exact hashes verified again. Their website field and two website annotations still pointed to `varevant.com`. The requested personal portfolio website is `https://evannaraya.netlify.app/`. The original candidates remain preserved; they were not overwritten or publicly installed.

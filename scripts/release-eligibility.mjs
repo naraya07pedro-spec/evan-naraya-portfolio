@@ -134,12 +134,13 @@ export async function checkRelease(root = '.', {linkProbe,approvalManifestSha256
       const status=await linkProbe(url);links.push({url,status});
       const manual=approval?.linkVerifications?.find(r=>r?.url===url);
       const age=now().getTime()-Date.parse(manual?.checkedAt);
-      // An access wall is not a 404. Require recent, referenced OWNER evidence
-      // of a real browser check; never infer that evidence or exempt broken URLs.
-      const attested=[403,429,999].includes(status)&&manual?.checkedBy===owner&&validDate(manual?.checkedAt)&&
+      // A real owner or authorized Work browser observation can establish an
+      // access-walled destination. Record the actual actor; this declaration is
+      // not authentication or publication consent and never exempts broken URLs.
+      const attested=[403,429,999].includes(status)&&[owner,'work_browser_operator'].includes(manual?.checkedBy)&&validDate(manual?.checkedAt)&&
         age>=0&&age<=24*60*60*1000&&manual?.result==='verified_in_browser'&&
         typeof manual?.reference==='string'&&manual.reference.trim().length>0;
-      if(attested)links.at(-1).verification='recorded owner browser verification';
+      if(attested)links.at(-1).verification={method:'recorded browser verification',checkedBy:manual.checkedBy,checkedAt:manual.checkedAt};
       else if(!Number.isInteger(status)||status<200||status>=300)block('LINK_UNVERIFIED','Required destination did not verify successfully ('+status+'): '+url);
     }
   }

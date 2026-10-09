@@ -228,6 +228,21 @@ test('access-wall verification needs recent exact owner evidence and cannot excu
  assert.equal((await checkRelease(root,{linkProbe,now:()=>new Date('2026-10-10T01:00:00Z')})).eligible,false);
 });
 
+test('authorized Work browser evidence records its actual actor and never implies human consent',async t=>{
+ const root=await fixture(t),url=resumeLinks[1],now=()=>new Date('2026-10-08T01:00:00Z');
+ const linkProbe=async u=>u===url?999:200;
+ await edit(root,'docs/resume-release-approval.json',a=>{a.linkVerifications=[{url,checkedBy:'work_browser_operator',checkedAt:'2026-10-08T00:30:00Z',reference:'SYNTHETIC Work browser evidence',result:'verified_in_browser'}];});
+ const result=await checkRelease(root,{linkProbe,now});
+ assert.equal(result.eligible,true);assert.equal(result.consent.humanAuthorizationProven,false);
+ assert.equal(result.links.find(r=>r.url===url).verification.checkedBy,'work_browser_operator');
+ for(const status of [404,410,503])assert.equal((await checkRelease(root,{linkProbe:async u=>u===url?status:200,now})).eligible,false);
+ assert.equal((await checkRelease(root,{linkProbe,now:()=>new Date('2026-10-10T01:00:00Z')})).eligible,false);
+ await edit(root,'docs/resume-release-approval.json',a=>{a.linkVerifications[0].checkedBy='unverified_actor';});
+ assert.equal((await checkRelease(root,{linkProbe,now})).eligible,false);
+ await edit(root,'docs/resume-release-approval.json',a=>{a.linkVerifications[0].checkedBy='work_browser_operator';a.linkVerifications[0].reference=' ';});
+ assert.equal((await checkRelease(root,{linkProbe,now})).eligible,false);
+});
+
 test('embedded and automatic-action PDFs are rejected even with matching manifest hashes',async t=>{
  for(const mode of ['attachment','action','missing-link']){
   const root=await fixture(t),path='assets/resumes/'+requiredFilenames[0];
