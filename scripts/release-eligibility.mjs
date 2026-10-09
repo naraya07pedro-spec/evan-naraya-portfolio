@@ -1,7 +1,7 @@
 import {readFile, lstat, realpath, readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {createHash} from 'node:crypto';
-import {inspectPdf,resumeLinks} from './pdf-contract.mjs';
+import {inspectPdf,resumeLinks,portfolioWebsite} from './pdf-contract.mjs';
 
 export const owner = 'naraya07pedro-spec';
 export const requiredFilenames = [
@@ -17,11 +17,14 @@ const sameFields = (actual, expected) => Array.isArray(actual) &&
   actual.length === expected.length && new Set(actual).size === actual.length &&
   expected.every(field => actual.includes(field));
 const validDate = value => typeof value === 'string' &&
-  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value) && Number.isFinite(Date.parse(value));
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value) && Number.isFinite(Date.parse(value)) &&
+  new Date(value).toISOString().slice(0,19) === value.slice(0,19);
 
-// Verifies recorded consent and exact reviewed bytes, not a person's intent.
-// Owner review and protected-main required checks enforce that human decision.
-export async function checkRelease(root = '.', {linkProbe,now=()=>new Date()} = {}) {
+// A manifest is an owner declaration, not authenticated evidence of human intent.
+// The separate repository setting binds reviewed manifest bytes. It is not a
+// signature: authorized setting/workflow editors can still change either side.
+// Actual owner consent and protected-main review remain separate human gates.
+export async function checkRelease(root = '.', {linkProbe,approvalManifestSha256,now=()=>new Date()} = {}) {
   const errors = [], assets = [];
   const block = (code, message) => errors.push({code, message});
   root = await realpath(resolve(root));
@@ -33,6 +36,11 @@ export async function checkRelease(root = '.', {linkProbe,now=()=>new Date()} = 
   const candidates = await json('docs/resume-release-candidates.json');
   const revisions = await json('docs/resume-revised-candidates.json');
   const approval = await json('docs/resume-release-approval.json');
+  let manifestSha256 = null;
+  try { manifestSha256 = digest(await readFile(resolve(root,'docs/resume-release-approval.json'))); } catch {}
+  const externalBindingMatches = validHash(approvalManifestSha256) && approvalManifestSha256 === manifestSha256;
+  if (!externalBindingMatches)
+    block('CONSENT_BINDING', 'Exact reviewed approval-manifest bytes are not bound by the separate repository Actions setting; this setting is not proof of human consent');
   let html = '';
   try { html = await readFile(resolve(root, 'index.html'), 'utf8'); }
   catch { block('MISSING_PAGE', 'index.html is missing'); }
@@ -49,7 +57,7 @@ export async function checkRelease(root = '.', {linkProbe,now=()=>new Date()} = 
      new Set(revisions.files.map(r=>r?.sourceFilename)).size!==requiredFilenames.length||
      revisions.files.some(r=>!requiredFilenames.includes(r?.sourceFilename)))block('REVISION_SET','Exactly two evidence-reviewed revised candidate records are required');
   if (approval?.schemaVersion !== 1 || approval.status !== 'approved' ||
-      approval.approvedBy !== owner || !validDate(approval.approvedAt) ||
+      approval.approvedBy !== owner || !validDate(approval.approvedAt) || Date.parse(approval.approvedAt)>now().getTime() ||
       typeof approval.approvalReference !== 'string' || !approval.approvalReference.trim())
     block('OWNER_CONSENT', 'Exact files and public field categories await recorded owner approval');
   if (!sameFields(approval?.publicationTargets, publicationTargets))
@@ -87,6 +95,7 @@ export async function checkRelease(root = '.', {linkProbe,now=()=>new Date()} = 
        !Number.isSafeInteger(revision.bytes)||revision.bytes<1||revision.pages!==1||revision.embeddedFiles!==0||
        revision.contactOnlyRedactionVerified!==true||revision.materialClaimsVerifiedAgainstSources!==true||
        typeof revision.comparisonReference!=='string'||!revision.comparisonReference.startsWith('docs/')||
+       revision.personalPortfolioWebsite!==portfolioWebsite||
        !sameFields(revision.retainedFields,publicSafeFields))block('REVISION_PROVENANCE',filename+': revised evidence/public-field provenance is invalid');
     let bytes;
     try {
@@ -99,9 +108,9 @@ export async function checkRelease(root = '.', {linkProbe,now=()=>new Date()} = 
     const variant = sha256 === source?.sha256 ? 'original' : sha256 === candidate?.sha256 ? 'contact-redacted' : sha256===revision?.sha256?'verified-revision':null;
     assets.push({path, bytes: bytes.length, sha256, variant});
     if (bytes.subarray(0,5).toString() !== '%PDF-') block('NOT_PDF', filename + ': invalid PDF signature');
-    try {Object.assign(assets.at(-1),await inspectPdf(bytes));}
+    try {Object.assign(assets.at(-1),await inspectPdf(bytes,{requirePortfolio:variant==='verified-revision'}));}
     catch {block('PDF_CONTRACT',filename + ': invalid PDF, active/embedded data, or missing/unsafe clickable profile/project links');}
-    if (!variant) block('ASSET_MISMATCH', filename + ': bytes are neither authentic original nor verified contact-only candidate');
+    if (!variant) block('ASSET_MISMATCH', filename + ': bytes do not match an authentic original, reviewed contact-only candidate or verified revision');
     const expected = variant === 'original' ? source : variant==='verified-revision'?revision:candidate;
     if (variant && bytes.length !== expected.bytes) block('SIZE_MISMATCH', filename + ': reviewed file size differs');
     if (!consent || consent.sha256 !== sha256 || consent.sourceSha256 !== source?.sha256 || consent.variant !== variant)
@@ -121,7 +130,7 @@ export async function checkRelease(root = '.', {linkProbe,now=()=>new Date()} = 
   // Unit tests inject transport. Production release checks use actual requests.
   // No network/private fixture dependency in ordinary deterministic quality.
   if(linkProbe&&errors.length===0){
-    for(const url of [...resumeLinks,'https://varevant.com']){
+    for(const url of [...resumeLinks,portfolioWebsite,'https://varevant.com']){
       const status=await linkProbe(url);links.push({url,status});
       const manual=approval?.linkVerifications?.find(r=>r?.url===url);
       const age=now().getTime()-Date.parse(manual?.checkedAt);
@@ -131,8 +140,9 @@ export async function checkRelease(root = '.', {linkProbe,now=()=>new Date()} = 
         age>=0&&age<=24*60*60*1000&&manual?.result==='verified_in_browser'&&
         typeof manual?.reference==='string'&&manual.reference.trim().length>0;
       if(attested)links.at(-1).verification='recorded owner browser verification';
-      else if(status<200||status>=400)block('LINK_UNVERIFIED','Required destination did not verify successfully ('+status+'): '+url);
+      else if(!Number.isInteger(status)||status<200||status>=300)block('LINK_UNVERIFIED','Required destination did not verify successfully ('+status+'): '+url);
     }
   }
-  return {eligible: errors.length === 0, owner, assets, links, errors};
+  return {eligible: errors.length === 0, owner,
+    consent: {manifestSha256,externalBindingMatches,humanAuthorizationProven:false}, assets, links, errors};
 }

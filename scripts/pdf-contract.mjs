@@ -8,9 +8,10 @@ export const resumeLinks = [
  'https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime',
  'https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n'
 ];
+export const portfolioWebsite = 'https://evannaraya.netlify.app/';
 // Parsing and annotations are independent of hash consent. No PDF bytes or
 // extracted personal fields enter reports or CI artifacts.
-export async function inspectPdf(bytes){
+export async function inspectPdf(bytes,{requirePortfolio=false}={}){
  const doc=await PDFDocument.load(bytes,{throwOnInvalidObject:true,updateMetadata:false});
  if(doc.isEncrypted||doc.getPageCount()!==1)throw Error('Expected one unencrypted page');
  for(const [,object] of doc.context.enumerateIndirectObjects()){
@@ -31,9 +32,10 @@ export async function inspectPdf(bytes){
   if(!(uri instanceof PDFString||uri instanceof PDFHexString))throw Error('Link lacks a URI');
   const rect=a.lookup(PDFName.of('Rect'),PDFArray).asArray().map(x=>Number(x.toString()));
   if(rect.length!==4||rect.some(x=>!Number.isFinite(x))||rect[0]<0||rect[1]<0||rect[2]>width||rect[3]>height||rect[2]<=rect[0]||rect[3]<=rect[1])throw Error('Invalid link hit rectangle');
-  const url=uri.decodeText();if(![...resumeLinks,'https://varevant.com'].includes(url))throw Error('Unexpected resume destination');links.push(url);
+  const url=uri.decodeText();if(![...resumeLinks,'https://varevant.com',portfolioWebsite].includes(url))throw Error('Unexpected resume destination');links.push(url);
  }
  if(resumeLinks.some(url=>!links.includes(url)))throw Error('Missing required clickable profile/project link');
+ if(requirePortfolio&&!links.includes(portfolioWebsite))throw Error('Missing personal portfolio hyperlink');
  return {pages:1,clickableRequiredLinks:resumeLinks.length};
 }
 

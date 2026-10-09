@@ -38,6 +38,9 @@ for(const name of ['Automation','Backend']){
   const path='/assets/resumes/Evan_Naraya_'+name+'_Integration_Engineer_public_safe_candidate.pdf';
   const r=await fetch(new URL(path,base),{signal:AbortSignal.timeout(15000)});
   unavailablePrivateCandidates.push({path,status:r.status});
+  const finalPath='/assets/resumes/Evan_Naraya_'+name+'_Integration_Engineer_portfolio_public_safe_candidate.pdf';
+  const finalResponse=await fetch(new URL(finalPath,base),{signal:AbortSignal.timeout(15000)});
+  unavailablePrivateCandidates.push({path:finalPath,status:finalResponse.status});
 }
 const sources=[html,await readFile('README.md','utf8'),await readFile('docs/evidence-map.md','utf8')];
 const urls=[...new Set(sources.flatMap(s=>[...s.matchAll(/(?:href|src)="(https:\/\/[^"]+)"|\]\((https:\/\/[^)]+)\)/g)].map(m=>m[1]||m[2])))].sort();

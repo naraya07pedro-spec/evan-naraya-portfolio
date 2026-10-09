@@ -22,6 +22,10 @@ jobs:
           node-version: 22
       - run: npm ci --ignore-scripts
       - run: npm run verify:release
+        env:
+          # Set outside the PR only after reviewing the exact owner decision.
+          # This integrity binding is not a signature or independent consent proof.
+          RESUME_APPROVAL_MANIFEST_SHA256: ${{ vars.RESUME_APPROVAL_MANIFEST_SHA256 }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:

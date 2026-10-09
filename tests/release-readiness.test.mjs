@@ -5,16 +5,23 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createHash} from 'node:crypto';
 import {PDFDocument,PDFName,PDFString} from 'pdf-lib';
-import {resumeLinks} from '../scripts/pdf-contract.mjs';
+import {resumeLinks,portfolioWebsite,inspectPdf} from '../scripts/pdf-contract.mjs';
 async function fakePdf(marker,links=resumeLinks){
  const doc=await PDFDocument.create(),page=doc.addPage([612,792]);
  page.drawText('SYNTHETIC TEST '+marker,{x:20,y:750,size:12});
  page.node.set(PDFName.of('Annots'),doc.context.obj(links.map((url,i)=>doc.context.register(doc.context.obj({Type:'Annot',Subtype:'Link',Rect:[20,700-i*30,220,720-i*30],A:{S:'URI',URI:PDFString.of(url)}})))));
  return Buffer.from(await doc.save({useObjectStreams:false}));
 }
-import {checkRelease, owner, requiredFilenames, publicSafeFields, originalFields, publicationTargets} from '../scripts/release-eligibility.mjs';
+import {checkRelease as checkReleaseContract, owner, requiredFilenames, publicSafeFields, originalFields, publicationTargets} from '../scripts/release-eligibility.mjs';
 
 const sha = b => createHash('sha256').update(b).digest('hex');
+// Existing synthetic scenarios simulate a matching external repository setting.
+// No fixture represents authentic owner consent. Binding failures use the
+// production contract directly so edits cannot automatically refresh approval.
+async function checkRelease(root,options={}) {
+  const approvalManifestSha256=sha(await readFile(join(root,'docs/resume-release-approval.json')).catch(()=>Buffer.alloc(0)));
+  return checkReleaseContract(root,{approvalManifestSha256,...options});
+}
 // Synthetic byte fixtures exercise the gate. They are not CVs or career evidence.
 async function fixture(t, variant = 'contact-redacted') {
   const root = await mkdtemp(join(tmpdir(), 'portfolio-release-gate-'));
@@ -26,14 +33,14 @@ async function fixture(t, variant = 'contact-redacted') {
     const path = 'assets/resumes/' + filename;
     const original = await fakePdf('original '+i);
     const redacted = await fakePdf('redacted '+i);
-    const revised=await fakePdf('revision '+i);
+    const revised=await fakePdf('revision '+i,[...resumeLinks,portfolioWebsite]);
     const bytes = variant === 'original' ? original : variant==='verified-revision'?revised:redacted;
     sources.push({path,filename,sha256:sha(original),bytes:original.length,pages:1,careerTextSha256:sha(Buffer.from('synthetic career text '+i))});
     candidates.push({sourceFilename:filename,sourceSha256:sha(original),sha256:sha(redacted),bytes:redacted.length,pages:1,
       careerTextSha256:sha(Buffer.from('synthetic career text '+i)),careerTextAndCoordinatesUnchanged:true,
       careerPixelsUnchangedAt144Dpi:true,identityStackPixelsUnchanged:true,allSixLinksPreserved:true,
       phoneAndEmailAbsentInDecodedObjects:true,embeddedFiles:0,retainedFields:publicSafeFields});
-    revisions.push({sourceFilename:filename,sourceSha256:sha(original),releasePath:path,sha256:sha(revised),bytes:revised.length,reviewedSourceSha256:sha(Buffer.from('revised source '+i)),careerTextSha256:sha(Buffer.from('revised career '+i)),pages:1,embeddedFiles:0,contactOnlyRedactionVerified:true,materialClaimsVerifiedAgainstSources:true,comparisonReference:'docs/test.md',retainedFields:publicSafeFields});
+    revisions.push({sourceFilename:filename,sourceSha256:sha(original),releasePath:path,sha256:sha(revised),bytes:revised.length,reviewedSourceSha256:sha(Buffer.from('revised source '+i)),careerTextSha256:sha(Buffer.from('revised career '+i)),pages:1,embeddedFiles:0,contactOnlyRedactionVerified:true,materialClaimsVerifiedAgainstSources:true,comparisonReference:'docs/test.md',retainedFields:publicSafeFields,personalPortfolioWebsite:portfolioWebsite});
     files.push({path,sha256:sha(bytes),sourceSha256:sha(original),reviewedSourceSha256:revisions.at(-1).reviewedSourceSha256,variant,
       publicFields:variant === 'original' ? originalFields : publicSafeFields});
     await writeFile(join(root,path),bytes);
@@ -78,6 +85,13 @@ test('owner identity, approval time and reference cannot be omitted',async t=>{
     const root=await fixture(t);await edit(root,'docs/resume-release-approval.json',a=>{a[field]='';});
     await blocked(root,'OWNER_CONSENT');
   }
+});
+test('impossible calendar dates and future approval timestamps are refused',async t=>{
+ for(const approvedAt of ['2026-02-31T00:00:00Z','2030-01-01T00:00:00Z']){
+  const root=await fixture(t);await edit(root,'docs/resume-release-approval.json',a=>{a.approvedAt=approvedAt;});
+  const result=await checkRelease(root,{now:()=>new Date('2026-10-09T12:00:00Z')});
+  assert.equal(result.eligible,false);assert.ok(result.errors.some(e=>e.code==='OWNER_CONSENT'));
+ }
 });
 test('publication consent must name all three public destinations',async t=>{
   const root=await fixture(t);await edit(root,'docs/resume-release-approval.json',a=>{a.publicationTargets=publicationTargets.slice(0,2);});
@@ -154,15 +168,49 @@ test('matching consent cannot approve corrupt or linkless PDF bytes',async t=>{
 });
 test('release transport fails closed on missing, denied or unavailable destinations',async t=>{
  const root=await fixture(t);assert.equal((await checkRelease(root,{linkProbe:async()=>200})).eligible,true);
- for(const status of [0,403,404,410,503,999]){
+ for(const status of [0,301,302,304,307,308,403,404,410,429,503,999,NaN,undefined]){
   const r=await checkRelease(root,{linkProbe:async()=>status});assert.equal(r.eligible,false);assert.ok(r.errors.some(e=>e.code==='LINK_UNVERIFIED'));
  }
+});
+
+test('an approved JSON declaration alone is not release authorization',async t=>{
+ const root=await fixture(t);
+ const result=await checkReleaseContract(root);
+ assert.equal(result.eligible,false);
+ assert.ok(result.errors.some(e=>e.code==='CONSENT_BINDING'));
+ assert.equal(result.consent.externalBindingMatches,false);
+ assert.equal(result.consent.humanAuthorizationProven,false);
+});
+test('missing, invalid or mismatched external manifest bindings fail closed',async t=>{
+ const root=await fixture(t);
+ for(const approvalManifestSha256 of ['',null,'0'.repeat(64),'not-a-digest']){
+  const result=await checkReleaseContract(root,{approvalManifestSha256});
+  assert.equal(result.eligible,false);assert.ok(result.errors.some(e=>e.code==='CONSENT_BINDING'));
+ }
+});
+test('any unreviewed manifest-byte edit invalidates the previous binding',async t=>{
+ const root=await fixture(t),path=join(root,'docs/resume-release-approval.json');
+ const approvalManifestSha256=sha(await readFile(path));
+ assert.equal((await checkReleaseContract(root,{approvalManifestSha256})).eligible,true);
+ await edit(root,'docs/resume-release-approval.json',a=>{a.approvalReference+=' unreviewed edit';});
+ const result=await checkReleaseContract(root,{approvalManifestSha256});
+ assert.equal(result.eligible,false);assert.ok(result.errors.some(e=>e.code==='CONSENT_BINDING'));
+ // Whitespace also changes exact reviewed bytes; there is no canonicalization
+ // that would hide a changed approval file from the external binding.
+ await writeFile(path,(await readFile(path,'utf8'))+'\n');
+ assert.equal((await checkReleaseContract(root,{approvalManifestSha256})).eligible,false);
 });
 
 test('evidence-reviewed revisions require exact revised-source consent',async t=>{
  const root=await fixture(t,'verified-revision');assert.equal((await checkRelease(root)).eligible,true);
  await edit(root,'docs/resume-release-approval.json',a=>{delete a.files[0].reviewedSourceSha256;});
  await blocked(root,'REVISION_CONSENT');
+});
+test('final revised PDFs require a clickable personal portfolio website',async()=>{
+ const missing=await fakePdf('site missing');
+ await assert.rejects(()=>inspectPdf(missing,{requirePortfolio:true}),/Missing personal portfolio hyperlink/);
+ const bytes=await fakePdf('site present',[...resumeLinks,portfolioWebsite]);
+ assert.equal((await inspectPdf(bytes,{requirePortfolio:true})).pages,1);
 });
 test('revision evidence flags or authentic source inconsistencies fail closed',async t=>{
  for(const field of ['sourceSha256','reviewedSourceSha256','careerTextSha256','materialClaimsVerifiedAgainstSources','retainedFields']){

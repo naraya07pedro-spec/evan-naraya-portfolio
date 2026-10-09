@@ -2,7 +2,8 @@ import {mkdir, writeFile} from 'node:fs/promises';
 import {checkRelease} from './release-eligibility.mjs';
 import {probeReleaseLink} from './pdf-contract.mjs';
 
-const result = await checkRelease('.', {linkProbe:probeReleaseLink});
+const result = await checkRelease('.', {linkProbe:probeReleaseLink,
+  approvalManifestSha256:process.env.RESUME_APPROVAL_MANIFEST_SHA256});
 await mkdir('artifacts/release-readiness', {recursive:true});
 await writeFile('artifacts/release-readiness/result.json', JSON.stringify(result, null, 2) + '\n');
 for (const asset of result.assets) console.log(asset.path + ': ' + (asset.variant || 'unapproved bytes'));
