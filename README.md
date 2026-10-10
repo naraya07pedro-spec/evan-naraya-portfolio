@@ -4,7 +4,7 @@ Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/), Evan Naray
 
 For operations teams: lead intake and API handoffs, document processing and cited answers, and controlled AI actions. The portfolio maps each function to inspectable source, tests and recovery behavior. Public reference implementations and historical workflow evidence are distinct from self-reported private client scope; no customer ROI or deployment scale is inferred.
 
-The original portrait, near-black/violet palette, typography, sticky storytelling and violet circular transition remain intact. This upgrade separates static assets, handles keyboard/reduced-motion edge cases, stops idle pointer animation work and adds reproducible quality gates. Exact approved resume PDFs are prepared and tested locally; their public upload awaits explicit privacy approval. There is no frontend framework, application backend or production npm dependency.
+The original portrait, near-black/violet palette, typography, sticky storytelling and violet circular transition remain intact. This upgrade separates static assets, handles keyboard/reduced-motion edge cases, stops idle pointer animation work and adds reproducible quality gates. Privately reviewed resume candidates are prepared and inspected; their public upload awaits exact-file privacy approval. There is no frontend framework, application backend or production npm dependency.
 
 ## Inspect the engineering work
 
@@ -59,7 +59,7 @@ Visual issues requiring approval remain documented. Accessibility gates prevent 
 
 ## Current release blockers
 
-Both public v3 downloads still contain the baseline's reconstructed PDFs. Authentic originals and two contact-only candidates were inspected privately; career evidence, coordinates, pixels and six links were preserved. The candidates remain private until the owner approves their exact hashes and public field categories.
+Both public v3 downloads still contain the baseline's reconstructed PDFs. Authentic originals, contact-only variants and the separate evidence-reviewed editorial candidates were inspected privately. Their exact provenance and career comparison are recorded in the release documents. Candidates remain private until the owner approves the exact files and public field categories.
 
 The independent `Release readiness` / `release-eligibility` check fails for missing consent and asset mismatches. Quality `verify` remains independent. A fresh 10 October branch response now reports `main` protected, with GitHub Actions `verify` and `release-eligibility` required at enforcement level `everyone`. This supersedes the earlier unprotected observation. The complete administrative policy, review requirements and bypass settings have not been freshly inspected by this integration.
 
@@ -71,7 +71,7 @@ Production merge still needs a separate explicit owner decision after the blocke
 
 ## Current release preparation
 
-See [responsive implementation and release gates](docs/responsive-release-preparation-20261009.md) and [final private resume selection](docs/resume-candidate-review-20261009.md). `npm test` now runs the scoped responsive regression independently of the preserved historical `test:visual` runner. PR #1 stays draft and release eligibility remains blocked until exact owner consent, approved resume installation and main protection are confirmed.
+See [responsive implementation and release gates](docs/responsive-release-preparation-20261009.md) and [final private resume selection](docs/resume-candidate-review-20261009.md). `npm test` now runs the scoped responsive regression independently of the preserved historical `test:visual` runner. PR #1 stays draft. Main now reports required release checks; release eligibility remains blocked until exact owner consent, its separate Actions binding and approved resume installation are complete.
 
 ## Business-purpose V13 draft
 
