@@ -40,4 +40,5 @@ jobs:
             artifacts/responsive/*-geometry.json
             artifacts/responsive-visual/*.png
             artifacts/responsive-visual/results.json
+            artifacts/responsive-visual/business-copy-geometry.json
           retention-days: 14
