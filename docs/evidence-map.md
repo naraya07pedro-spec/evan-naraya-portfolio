@@ -2,6 +2,21 @@
 
 Reviewed 8 October 2026. This map links inspectable engineering decisions; it does not infer customer scale, uptime, revenue or years of experience.
 
+## Business function → inspectable reference
+
+V13 bridge checked 10 October 2026. These are capabilities and reference behaviors, not newly claimed customer deployments.
+
+| Function | Implemented behavior | Proof entry point |
+| --- | --- | --- |
+| Lead intake and API handoff | Verify signed input, normalize/validate leads, reserve event identity and retain downstream outcomes | [PIR handler](https://github.com/naraya07pedro-spec/production-integration-reference/blob/293de5a5b356dc67b02cd027cef4338016b652d2/src/handler.ts) and [tests](https://github.com/naraya07pedro-spec/production-integration-reference/tree/293de5a5b356dc67b02cd027cef4338016b652d2/tests) |
+| Routing and follow-up controls | Historical queue/dispatch, suppression/state checks and uncertain-send holds | [n8n review guide](https://github.com/naraya07pedro-spec/varevant.com/blob/829711f66a3b65f7d8e819a6c3144b7f2d044a57/n8n/README.md) and [exported controls](https://github.com/naraya07pedro-spec/varevant.com/blob/829711f66a3b65f7d8e819a6c3144b7f2d044a57/n8n/tests/exported-controls.test.mjs) |
+| Operational document lookup | Process files, version/delete sources, return source citations and hold uncertain extraction for review | [Knowledge document tests](https://github.com/naraya07pedro-spec/varevant.com/blob/0ccf6f89dc9e00665c5c68fd3527493ff20a4275/examples/agentic-systems-lab/knowledge-runtime/tests/test_documents.py) and [retrieval](https://github.com/naraya07pedro-spec/varevant.com/blob/0ccf6f89dc9e00665c5c68fd3527493ff20a4275/examples/agentic-systems-lab/knowledge-runtime/knowledge_runtime/retrieval.py) |
+| Controlled AI actions | Bound tools, persist approvals for sensitive writes, record intent and reconcile uncertainty | [Agent quick review](https://github.com/naraya07pedro-spec/agent-runtime-python/blob/f292f3cdb5d6daf5650e495898dbe8f8a710ea75/README.md) and [process-death tests](https://github.com/naraya07pedro-spec/agent-runtime-python/blob/f292f3cdb5d6daf5650e495898dbe8f8a710ea75/tests/failure_injection/test_process_death.py) |
+
+An operational property, travel or recruitment team could use these patterns; that is an application inference, not an implemented industry-specific case study. No live CRM integration acceptance is established by the synthetic downstream HTTP demo. The original technical provenance below is retained.
+
+## Revision-scoped engineering evidence
+
 | Reference | Failure → decision | Implementation and executable evidence | Scope and limit |
 | --- | --- | --- | --- |
 | [Bounded Agent Runtime](https://github.com/naraya07pedro-spec/agent-runtime-python) | Worker dies after possible external success → persist intent and reconcile uncertainty | [Worker](https://github.com/naraya07pedro-spec/agent-runtime-python/blob/f292f3cdb5d6daf5650e495898dbe8f8a710ea75/app/worker.py), [process-death tests](https://github.com/naraya07pedro-spec/agent-runtime-python/blob/f292f3cdb5d6daf5650e495898dbe8f8a710ea75/tests/failure_injection/test_process_death.py), [architecture](https://github.com/naraya07pedro-spec/agent-runtime-python/tree/f292f3cdb5d6daf5650e495898dbe8f8a710ea75/docs), [v2 archive](https://github.com/naraya07pedro-spec/agent-runtime-python/tree/f292f3cdb5d6daf5650e495898dbe8f8a710ea75/evidence/v2) | Archived source `833a4eff040bea8b952e84d9b5207c2335c036c2`: 261 passed, 90.00999% combined coverage. [Archived CI](https://github.com/naraya07pedro-spec/agent-runtime-python/actions/runs/37262155984) reports success. The later source snapshot is separate. No universal exactly-once or commercial use claim. |

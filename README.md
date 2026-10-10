@@ -2,16 +2,18 @@
 
 Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/), Evan Naraya's existing cinematic portfolio for Automation, Integration, Python/FastAPI Backend and AI Implementation roles.
 
+For operations teams: lead intake and API handoffs, document processing and cited answers, and controlled AI actions. The portfolio maps each function to inspectable source, tests and recovery behavior. Public reference implementations and historical workflow evidence are distinct from self-reported private client scope; no customer ROI or deployment scale is inferred.
+
 The original portrait, near-black/violet palette, typography, sticky storytelling and violet circular transition remain intact. This upgrade separates static assets, handles keyboard/reduced-motion edge cases, stops idle pointer animation work and adds reproducible quality gates. Exact approved resume PDFs are prepared and tested locally; their public upload awaits explicit privacy approval. There is no frontend framework, application backend or production npm dependency.
 
 ## Inspect the engineering work
 
-| Reference | Review entry point |
-| --- | --- |
-| Bounded Agent Runtime | [Source](https://github.com/naraya07pedro-spec/agent-runtime-python) · [archived v2 evidence](https://github.com/naraya07pedro-spec/agent-runtime-python/tree/main/evidence/v2) |
-| Knowledge Workflow Runtime | [Source and run instructions](https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime) · [verification](https://github.com/naraya07pedro-spec/varevant.com/blob/main/examples/agentic-systems-lab/knowledge-runtime/docs/verification.md) |
-| Production Integration Reference | [Source, tests and limitations](https://github.com/naraya07pedro-spec/production-integration-reference) |
-| VAREVANT n8n engineering | [Historical source and incident evidence](https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n) |
+| Reference | Business function | Review entry point |
+| --- | --- | --- |
+| Bounded Agent Runtime | Bound AI tool access; review sensitive writes and recover uncertain outcomes | [Source](https://github.com/naraya07pedro-spec/agent-runtime-python) · [archived v2 evidence](https://github.com/naraya07pedro-spec/agent-runtime-python/tree/main/evidence/v2) |
+| Knowledge Workflow Runtime | Process files and return current-source citations, with review before handoff | [Source and run instructions](https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime) · [verification](https://github.com/naraya07pedro-spec/varevant.com/blob/main/examples/agentic-systems-lab/knowledge-runtime/docs/verification.md) |
+| Production Integration Reference | Validate signed lead intake, control duplicate events and hand off to an API | [Source, tests and limitations](https://github.com/naraya07pedro-spec/production-integration-reference) |
+| VAREVANT n8n engineering | Lead routing/follow-up controls, state/suppression checks and recovery evidence | [Historical source and incident evidence](https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n) |
 
 The [evidence map](docs/evidence-map.md) connects failure scenarios to implementation, tests, exact revisions and operational consequences. Public references are separate from self-reported private client scope. Project test totals are not website test totals or claims of commercial deployment.
 
@@ -70,3 +72,9 @@ Production merge still needs a separate explicit owner decision after the blocke
 ## Current release preparation
 
 See [responsive implementation and release gates](docs/responsive-release-preparation-20261009.md) and [final private resume selection](docs/resume-candidate-review-20261009.md). `npm test` now runs the scoped responsive regression independently of the preserved historical `test:visual` runner. PR #1 stays draft and release eligibility remains blocked until exact owner consent, approved resume installation and main protection are confirmed.
+
+## Business-purpose V13 draft
+
+[Execution, evidence boundaries and rollback](docs/business-proof-v13-20261010.md) · [Exact copy/link delta](docs/business-proof-scope.json) · [Prepared LinkedIn additions](docs/linkedin-business-purpose-v13.md).
+
+V13 changes content and proof links in the existing structure. It preserves the production CSS/JS, portrait, original named projects, diagrams, scoped test figures and historical visual evidence. The responsive visual suite separately protects the exact authorized copy delta, measures pre-V13/current geometry, and keeps the original 0.05% residual tolerance. The long mobile contact heading is shortened through wording alone. Public CV stand-ins retain their bytes and are labeled draft. The approved two mailto destinations remain unchanged. LinkedIn text is prepared only; no social profile or other engineering repository was modified.
