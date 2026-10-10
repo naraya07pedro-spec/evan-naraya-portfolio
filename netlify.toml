@@ -1,9 +1,17 @@
 [build]
   publish = "."
 
+# The website has no runtime dependencies or build step. Browser tooling is
+# installed by GitHub Actions, not by the static Netlify deploy.
+[build.environment]
+  NODE_ENV = "production"
+
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Content-Security-Policy = "base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'none'"
+

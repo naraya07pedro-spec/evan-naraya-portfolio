@@ -1,0 +1,22 @@
+[
+  {
+    "path": "assets/resumes/Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+    "filename": "Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+    "bytes": 109481,
+    "sha256": "cf5be0f03273fd2edb5424103b3720c57bdc8a53061951ac732b8989a7d56ead",
+    "pages": 1,
+    "careerTextSha256": "e6b16a3d3fd9d0d6d3c4c22ab81451078bd0813c07b0a1e1c4327d11f6b458c3",
+    "source": "approved v3 PDF; exact original bytes",
+    "revision": "v3 filename; exact source SHA-256 identifies the inspected revision; embedded creation timestamp unverified"
+  },
+  {
+    "path": "assets/resumes/Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+    "filename": "Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+    "bytes": 108838,
+    "sha256": "78bf0dc5bf3baa80257f32639a2d6c3990fa6eb6e781ffddd1739afc0b53eef0",
+    "pages": 1,
+    "careerTextSha256": "789292a27d39dc642fe1a1f5b561bd8a3e052c5cf57618a9242e9169d594da04",
+    "source": "approved v3 PDF; exact original bytes",
+    "revision": "v3 filename; exact source SHA-256 identifies the inspected revision; embedded creation timestamp unverified"
+  }
+]

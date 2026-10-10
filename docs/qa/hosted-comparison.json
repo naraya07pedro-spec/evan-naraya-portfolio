@@ -1,0 +1,590 @@
+[
+  {
+    "width": 320,
+    "state": "hero",
+    "changed": 11585,
+    "bounds": {
+      "minX": 16,
+      "minY": 744,
+      "maxX": 303,
+      "maxY": 799
+    },
+    "height": 800
+  },
+  {
+    "width": 320,
+    "state": "statement",
+    "changed": 12306,
+    "bounds": {
+      "minX": 16,
+      "minY": 744,
+      "maxX": 303,
+      "maxY": 799
+    },
+    "height": 800
+  },
+  {
+    "width": 320,
+    "state": "planet-entry",
+    "changed": 13331,
+    "bounds": {
+      "minX": 16,
+      "minY": 744,
+      "maxX": 303,
+      "maxY": 799
+    },
+    "height": 800
+  },
+  {
+    "width": 320,
+    "state": "planet-expanded",
+    "changed": 11737,
+    "bounds": {
+      "minX": 16,
+      "minY": 744,
+      "maxX": 303,
+      "maxY": 799
+    },
+    "height": 800
+  },
+  {
+    "width": 320,
+    "state": "agent",
+    "changed": 11440,
+    "bounds": {
+      "minX": 16,
+      "minY": 744,
+      "maxX": 303,
+      "maxY": 799
+    },
+    "height": 800
+  },
+  {
+    "width": 320,
+    "state": "knowledge",
+    "changed": 12600,
+    "bounds": {
+      "minX": 16,
+      "minY": 744,
+      "maxX": 303,
+      "maxY": 799
+    },
+    "height": 800
+  },
+  {
+    "width": 320,
+    "state": "contact",
+    "changed": 13252,
+    "bounds": {
+      "minX": 16,
+      "minY": 744,
+      "maxX": 303,
+      "maxY": 799
+    },
+    "height": 800
+  },
+  {
+    "width": 375,
+    "state": "hero",
+    "changed": 14071,
+    "bounds": {
+      "minX": 16,
+      "minY": 756,
+      "maxX": 358,
+      "maxY": 811
+    },
+    "height": 812
+  },
+  {
+    "width": 375,
+    "state": "statement",
+    "changed": 14944,
+    "bounds": {
+      "minX": 16,
+      "minY": 756,
+      "maxX": 358,
+      "maxY": 811
+    },
+    "height": 812
+  },
+  {
+    "width": 375,
+    "state": "planet-entry",
+    "changed": 15234,
+    "bounds": {
+      "minX": 16,
+      "minY": 756,
+      "maxX": 358,
+      "maxY": 811
+    },
+    "height": 812
+  },
+  {
+    "width": 375,
+    "state": "planet-expanded",
+    "changed": 14470,
+    "bounds": {
+      "minX": 16,
+      "minY": 756,
+      "maxX": 358,
+      "maxY": 811
+    },
+    "height": 812
+  },
+  {
+    "width": 375,
+    "state": "agent",
+    "changed": 13605,
+    "bounds": {
+      "minX": 16,
+      "minY": 756,
+      "maxX": 358,
+      "maxY": 811
+    },
+    "height": 812
+  },
+  {
+    "width": 375,
+    "state": "knowledge",
+    "changed": 13605,
+    "bounds": {
+      "minX": 16,
+      "minY": 756,
+      "maxX": 358,
+      "maxY": 811
+    },
+    "height": 812
+  },
+  {
+    "width": 375,
+    "state": "contact",
+    "changed": 15191,
+    "bounds": {
+      "minX": 16,
+      "minY": 756,
+      "maxX": 358,
+      "maxY": 811
+    },
+    "height": 812
+  },
+  {
+    "width": 390,
+    "state": "hero",
+    "changed": 14832,
+    "bounds": {
+      "minX": 16,
+      "minY": 788,
+      "maxX": 373,
+      "maxY": 843
+    },
+    "height": 844
+  },
+  {
+    "width": 390,
+    "state": "statement",
+    "changed": 15652,
+    "bounds": {
+      "minX": 16,
+      "minY": 788,
+      "maxX": 373,
+      "maxY": 843
+    },
+    "height": 844
+  },
+  {
+    "width": 390,
+    "state": "planet-entry",
+    "changed": 15956,
+    "bounds": {
+      "minX": 16,
+      "minY": 788,
+      "maxX": 373,
+      "maxY": 843
+    },
+    "height": 844
+  },
+  {
+    "width": 390,
+    "state": "planet-expanded",
+    "changed": 15360,
+    "bounds": {
+      "minX": 16,
+      "minY": 788,
+      "maxX": 373,
+      "maxY": 843
+    },
+    "height": 844
+  },
+  {
+    "width": 390,
+    "state": "agent",
+    "changed": 14537,
+    "bounds": {
+      "minX": 16,
+      "minY": 788,
+      "maxX": 373,
+      "maxY": 843
+    },
+    "height": 844
+  },
+  {
+    "width": 390,
+    "state": "knowledge",
+    "changed": 14280,
+    "bounds": {
+      "minX": 16,
+      "minY": 788,
+      "maxX": 373,
+      "maxY": 843
+    },
+    "height": 844
+  },
+  {
+    "width": 390,
+    "state": "contact",
+    "changed": 15930,
+    "bounds": {
+      "minX": 16,
+      "minY": 788,
+      "maxX": 373,
+      "maxY": 843
+    },
+    "height": 844
+  },
+  {
+    "width": 768,
+    "state": "hero",
+    "changed": 29257,
+    "bounds": {
+      "minX": 16,
+      "minY": 968,
+      "maxX": 751,
+      "maxY": 1023
+    },
+    "height": 1024
+  },
+  {
+    "width": 768,
+    "state": "statement",
+    "changed": 29564,
+    "bounds": {
+      "minX": 16,
+      "minY": 968,
+      "maxX": 751,
+      "maxY": 1023
+    },
+    "height": 1024
+  },
+  {
+    "width": 768,
+    "state": "planet-entry",
+    "changed": 27126,
+    "bounds": {
+      "minX": 16,
+      "minY": 968,
+      "maxX": 751,
+      "maxY": 1023
+    },
+    "height": 1024
+  },
+  {
+    "width": 768,
+    "state": "planet-expanded",
+    "changed": 31023,
+    "bounds": {
+      "minX": 16,
+      "minY": 968,
+      "maxX": 751,
+      "maxY": 1023
+    },
+    "height": 1024
+  },
+  {
+    "width": 768,
+    "state": "agent",
+    "changed": 27165,
+    "bounds": {
+      "minX": 16,
+      "minY": 968,
+      "maxX": 751,
+      "maxY": 1023
+    },
+    "height": 1024
+  },
+  {
+    "width": 768,
+    "state": "knowledge",
+    "changed": 27165,
+    "bounds": {
+      "minX": 16,
+      "minY": 968,
+      "maxX": 751,
+      "maxY": 1023
+    },
+    "height": 1024
+  },
+  {
+    "width": 768,
+    "state": "contact",
+    "changed": 27269,
+    "bounds": {
+      "minX": 16,
+      "minY": 968,
+      "maxX": 751,
+      "maxY": 1023
+    },
+    "height": 1024
+  },
+  {
+    "width": 1024,
+    "state": "hero",
+    "changed": 30684,
+    "bounds": {
+      "minX": 128,
+      "minY": 844,
+      "maxX": 1005,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1024,
+    "state": "statement",
+    "changed": 30649,
+    "bounds": {
+      "minX": 128,
+      "minY": 844,
+      "maxX": 1005,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1024,
+    "state": "planet-entry",
+    "changed": 28158,
+    "bounds": {
+      "minX": 128,
+      "minY": 844,
+      "maxX": 1005,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1024,
+    "state": "planet-expanded",
+    "changed": 31901,
+    "bounds": {
+      "minX": 128,
+      "minY": 844,
+      "maxX": 1005,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1024,
+    "state": "agent",
+    "changed": 28344,
+    "bounds": {
+      "minX": 128,
+      "minY": 844,
+      "maxX": 1005,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1024,
+    "state": "knowledge",
+    "changed": 28344,
+    "bounds": {
+      "minX": 128,
+      "minY": 844,
+      "maxX": 1005,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1024,
+    "state": "contact",
+    "changed": 27998,
+    "bounds": {
+      "minX": 128,
+      "minY": 844,
+      "maxX": 1005,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1440,
+    "state": "hero",
+    "changed": 31707,
+    "bounds": {
+      "minX": 336,
+      "minY": 844,
+      "maxX": 1421,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1440,
+    "state": "statement",
+    "changed": 31216,
+    "bounds": {
+      "minX": 336,
+      "minY": 844,
+      "maxX": 1421,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1440,
+    "state": "planet-entry",
+    "changed": 28498,
+    "bounds": {
+      "minX": 336,
+      "minY": 844,
+      "maxX": 1421,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1440,
+    "state": "planet-expanded",
+    "changed": 31834,
+    "bounds": {
+      "minX": 336,
+      "minY": 844,
+      "maxX": 1421,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1440,
+    "state": "agent",
+    "changed": 28665,
+    "bounds": {
+      "minX": 336,
+      "minY": 844,
+      "maxX": 1421,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1440,
+    "state": "knowledge",
+    "changed": 30941,
+    "bounds": {
+      "minX": 336,
+      "minY": 844,
+      "maxX": 1421,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1440,
+    "state": "contact",
+    "changed": 27911,
+    "bounds": {
+      "minX": 336,
+      "minY": 844,
+      "maxX": 1421,
+      "maxY": 899
+    },
+    "height": 900
+  },
+  {
+    "width": 1920,
+    "state": "hero",
+    "changed": 31987,
+    "bounds": {
+      "minX": 576,
+      "minY": 1024,
+      "maxX": 1901,
+      "maxY": 1079
+    },
+    "height": 1080
+  },
+  {
+    "width": 1920,
+    "state": "statement",
+    "changed": 30536,
+    "bounds": {
+      "minX": 576,
+      "minY": 1024,
+      "maxX": 1901,
+      "maxY": 1079
+    },
+    "height": 1080
+  },
+  {
+    "width": 1920,
+    "state": "planet-entry",
+    "changed": 28023,
+    "bounds": {
+      "minX": 576,
+      "minY": 1024,
+      "maxX": 1901,
+      "maxY": 1079
+    },
+    "height": 1080
+  },
+  {
+    "width": 1920,
+    "state": "planet-expanded",
+    "changed": 31360,
+    "bounds": {
+      "minX": 576,
+      "minY": 1024,
+      "maxX": 1901,
+      "maxY": 1079
+    },
+    "height": 1080
+  },
+  {
+    "width": 1920,
+    "state": "agent",
+    "changed": 28089,
+    "bounds": {
+      "minX": 576,
+      "minY": 1024,
+      "maxX": 1901,
+      "maxY": 1079
+    },
+    "height": 1080
+  },
+  {
+    "width": 1920,
+    "state": "knowledge",
+    "changed": 30584,
+    "bounds": {
+      "minX": 576,
+      "minY": 1024,
+      "maxX": 1901,
+      "maxY": 1079
+    },
+    "height": 1080
+  },
+  {
+    "width": 1920,
+    "state": "contact",
+    "changed": 27357,
+    "bounds": {
+      "minX": 576,
+      "minY": 1024,
+      "maxX": 1901,
+      "maxY": 1079
+    },
+    "height": 1080
+  }
+]

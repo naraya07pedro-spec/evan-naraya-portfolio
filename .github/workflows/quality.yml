@@ -1,0 +1,44 @@
+name: Portfolio quality
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches: [main, "chore/portfolio-engineering-upgrade-*"]
+permissions:
+  contents: read
+concurrency:
+  group: portfolio-quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium firefox
+      - run: npm run verify
+      - run: npm run test:e2e
+      - run: npm run test:visual:responsive
+      - run: npm run test:responsive
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-quality-${{ github.sha }}
+          # Explicit public QA evidence only; never upload PDF/download bytes.
+          path: |
+            artifacts/visual/*.png
+            artifacts/visual/results.json
+            artifacts/accessibility/*.json
+            artifacts/responsive/*.png
+            artifacts/responsive/*-geometry.json
+            artifacts/responsive-visual/*.png
+            artifacts/responsive-visual/results.json
+            artifacts/responsive-visual/business-copy-geometry.json
+          retention-days: 14

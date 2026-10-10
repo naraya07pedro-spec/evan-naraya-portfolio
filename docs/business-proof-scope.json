@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "authorization": "User-supplied WORK_PORTFOLIO_BUSINESS_PROOF_END_TO_END_V13; draft PR #1 only",
+  "reviewedHead": "b8cb14fc579a4875c1c4b528c601cc7cf094a781",
+  "beforeSha256": "3e60f0ea65be19320cedf109aa5969576755ea07a201555a1b9f7ff12f5f4d16",
+  "afterSha256": "fe4ba4f00117c6b8655591d7a4e7f8799f548d553b6e838510bf5af3972a84a6",
+  "edits": [
+    {
+      "before": "Evan Naraya — Automation &amp; Integration Engineer",
+      "after": "Evan Naraya — AI Automation &amp; Integration Engineer",
+      "occurrences": 3
+    },
+    {
+      "before": "Evan Naraya builds Python/FastAPI, n8n, API and PostgreSQL integrations with tested failure recovery. Explore source and verified engineering evidence.",
+      "after": "Evan Naraya builds lead intake, document workflows and controlled AI with Python/FastAPI, n8n and PostgreSQL. Inspect public source, tests and recovery evidence.",
+      "occurrences": 1
+    },
+    {
+      "before": "Automation, backend integrations, and real failure-mode evidence.",
+      "after": "Lead intake, document workflows and controlled AI — with inspectable engineering evidence.",
+      "occurrences": 1
+    },
+    {
+      "before": "Python/FastAPI, n8n, APIs and PostgreSQL — source, tests and failure recovery evidence.",
+      "after": "AI automation, backend and integrations for operational workflows — source, tests and recovery evidence.",
+      "occurrences": 1
+    },
+    {
+      "before": "\"jobTitle\":\"Automation & Integration Engineer\"",
+      "after": "\"jobTitle\":\"AI Automation & Integration Engineer\"",
+      "occurrences": 1
+    },
+    {
+      "before": "aria-label=\"Download Automation and Integration resume (PDF)\"",
+      "after": "aria-label=\"Download current Automation and Integration CV draft (PDF)\"",
+      "occurrences": 1
+    },
+    {
+      "before": ">Resume ↓</a>",
+      "after": ">CV draft ↓</a>",
+      "occurrences": 1
+    },
+    {
+      "before": "<span class=\"role-small\">Automation &amp;</span>",
+      "after": "<span class=\"role-small\">AI Automation &amp;</span>",
+      "occurrences": 1
+    },
+    {
+      "before": "<p class=\"hero-caption\">Python / FastAPI · n8n · APIs · PostgreSQL</p>",
+      "after": "<p class=\"hero-caption\">Lead intake · documents · API workflows</p>",
+      "occurrences": 1
+    },
+    {
+      "before": ">View work ↗</a>",
+      "after": ">View systems ↗</a>",
+      "occurrences": 1
+    },
+    {
+      "before": "See the engineering proof →",
+      "after": "See systems and proof →",
+      "occurrences": 1
+    },
+    {
+      "before": "Public source, tests, and failure paths.",
+      "after": "Lead intake, documents, and controlled AI.",
+      "occurrences": 1
+    },
+    {
+      "before": "What if an external action succeeds, then its worker crashes? This runtime records intent first and reconciles uncertain outcomes instead of blindly retrying.",
+      "after": "AI actions need boundaries and safe recovery. This reference records intent before API calls, holds sensitive writes for approval, and reconciles uncertain outcomes.",
+      "occurrences": 1
+    },
+    {
+      "before": "Documents change. Tools need boundaries. This runtime tracks source versions, provides cited retrieval, and holds uncertain extractions for review.",
+      "after": "Find answers in current documents. This reference processes files, tracks versions, returns source citations, and holds uncertain extraction for review.",
+      "occurrences": 1
+    },
+    {
+      "before": ">Inspect the source →</a>",
+      "after": ">Source &amp; tests →</a>",
+      "occurrences": 2
+    },
+    {
+      "before": "Signed webhook intake, atomic reservation, bounded retries, and recovery-aware outcome handling.",
+      "after": "Lead intake with signed webhooks, duplicate-event checks, bounded retries, and saved handoff outcomes.",
+      "occurrences": 1
+    },
+    {
+      "before": "Historical workflow source with suppression, state checks, no-send paths, and recorded recovery work.",
+      "after": "Lead routing and follow-up controls: suppression, state checks, no-send paths, and recovery evidence.",
+      "occurrences": 1
+    },
+    {
+      "before": "<p class=\"kicker\">HOW I WORK</p>",
+      "after": "<p class=\"kicker\">WHAT I BUILD</p>",
+      "occurrences": 1
+    },
+    {
+      "before": "<h3>Validate first.</h3><p>Check identity, permissions, and inputs before acting.</p>",
+      "after": "<h3>Route leads.</h3><p>Validate lead intake and API handoffs. <a href=\"https://github.com/naraya07pedro-spec/production-integration-reference/tree/293de5a5b356dc67b02cd027cef4338016b652d2\" target=\"_blank\" rel=\"noopener noreferrer\">PIR source ↗</a></p>",
+      "occurrences": 1
+    },
+    {
+      "before": "<h3>Persist state.</h3><p>Record intent before irreversible API calls.</p>",
+      "after": "<h3>Find answers.</h3><p>Find cited answers in current documents. <a href=\"https://github.com/naraya07pedro-spec/varevant.com/tree/0ccf6f89dc9e00665c5c68fd3527493ff20a4275/examples/agentic-systems-lab/knowledge-runtime\" target=\"_blank\" rel=\"noopener noreferrer\">Source ↗</a></p>",
+      "occurrences": 1
+    },
+    {
+      "before": "<h3>Handle uncertainty.</h3><p>Reconcile ambiguous outcomes. Don’t blindly retry.</p>",
+      "after": "<h3>Control AI.</h3><p>Review sensitive writes; reconcile uncertainty. <a href=\"https://github.com/naraya07pedro-spec/agent-runtime-python/tree/f292f3cdb5d6daf5650e495898dbe8f8a710ea75\" target=\"_blank\" rel=\"noopener noreferrer\">Source ↗</a></p>",
+      "occurrences": 1
+    },
+    {
+      "before": "Let’s talk<br><em>engineering.</em>",
+      "after": "Let’s<br><em>connect.</em>",
+      "occurrences": 1
+    },
+    {
+      "before": "Open to remote Automation, Integration, Backend, and AI Implementation roles.",
+      "after": "Open to remote AI Automation, Backend, Integration, and Implementation roles.",
+      "occurrences": 1
+    },
+    {
+      "before": ">Automation resume ↓</a>",
+      "after": ">Automation CV draft ↓</a>",
+      "occurrences": 1
+    },
+    {
+      "before": ">Backend resume ↓</a>",
+      "after": ">Backend CV draft ↓</a>",
+      "occurrences": 1
+    }
+  ]
+}

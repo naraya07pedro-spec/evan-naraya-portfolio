@@ -1,0 +1,49 @@
+name: Preview safety audit
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: ["chore/portfolio-engineering-upgrade-*"]
+permissions:
+  contents: read
+concurrency:
+  group: portfolio-preview-safety-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preview-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PREVIEW_URL: https://deploy-preview-${{ github.event.pull_request.number || 1 }}--evannaraya.netlify.app/
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+      AUDIT_ENGINES: chromium,firefox
+      AUDIT_OUTPUT: artifacts/hosted-release-safety
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium firefox
+      - run: sudo apt-get install -y --no-install-recommends poppler-utils
+      - run: node scripts/preview-assets.mjs
+      - run: npm run test:e2e
+      - run: node scripts/validate-downloaded-pdfs.mjs
+      - run: AUDIT_URL="$PREVIEW_URL" node scripts/capture.mjs
+      - run: npm run test:responsive
+      - run: node scripts/preview-audit-summary.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preview-safety-${{ github.event.pull_request.head.sha || github.sha }}
+          path: |
+            artifacts/hosted-release-safety/*.png
+            artifacts/hosted-release-safety/*.json
+            artifacts/responsive/*.png
+            artifacts/responsive/*-geometry.json
+          retention-days: 30
