@@ -28,15 +28,22 @@ const original=await serve(await baselineRoot()),expected=await serve(reference)
 await mkdir(out,{recursive:true});const results=[];
 const copyGeometry=[];
 const geometry=page=>page.evaluate(()=>{
- const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height};};
+ const rectOf=e=>{
+  const r=e.getBoundingClientRect();let visible=r.right>0&&r.left<innerWidth&&r.bottom>0&&r.top<innerHeight;
+  for(let a=e;a&&visible;a=a.parentElement){const s=getComputedStyle(a);if(s.display==='none'||s.visibility==='hidden'||Number(s.opacity)<.05)visible=false;
+   if(a!==e){const p=a.getBoundingClientRect();if(['hidden','clip'].includes(s.overflowX)&&(r.right<=p.left||r.left>=p.right))visible=false;if(['hidden','clip'].includes(s.overflowY)&&(r.bottom<=p.top||r.top>=p.bottom))visible=false;}
+  }
+  return{x:r.x,y:r.y,width:r.width,height:r.height,visible};
+ };
+ const rect=s=>rectOf(document.querySelector(s));
  const scenes=[...document.querySelectorAll('.scene')].map(e=>({selector:e.className,project:e.dataset.project||null,flow:e.hasAttribute('data-flow'),height:e.getBoundingClientRect().height,stageHeight:e.querySelector('.sticky-stage').getBoundingClientRect().height}));
  const caption=document.querySelector('.hero-caption'),paragraphs=[...document.querySelectorAll('.project-copy>p:not(.result)')];
  const lines=e=>Math.round(e.getBoundingClientRect().height/parseFloat(getComputedStyle(e).lineHeight));
  const h=document.querySelector('#contact-heading'),walk=document.createTreeWalker(h,NodeFilter.SHOW_TEXT);let node;const clippedHeading=[];
  while((node=walk.nextNode()))for(let i=0;i<node.length;i++){if(!node.textContent[i].trim())continue;const r=document.createRange();r.setStart(node,i);r.setEnd(node,i+1);const b=r.getBoundingClientRect();if(b.left<0||b.right>innerWidth+.5)clippedHeading.push(node.textContent[i]);}
- return{scenes,portrait:rect('.shared-person-img'),planet:rect('.planet'),name:rect('.intro-left'),role:rect('.intro-role'),captionLines:lines(caption),projectLines:paragraphs.map(lines),devices:[...document.querySelectorAll('.project-device')].map(e=>{const r=e.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height};}),clippedHeading,overflow:document.documentElement.scrollWidth>innerWidth};
+ return{documentHeight:document.documentElement.scrollHeight,scenes,portrait:rect('.shared-person-img'),planet:rect('.planet'),name:rect('.intro-left'),role:rect('.intro-role'),captionLines:lines(caption),projectLines:paragraphs.map(lines),devices:[...document.querySelectorAll('.project-device')].map(rectOf),clippedHeading,overflow:document.documentElement.scrollWidth>innerWidth};
 });
-const closeRect=(a,b,label,tolerance=1)=>{for(const key of ['x','y','width','height'])assert.ok(Math.abs(a[key]-b[key])<=tolerance,label+' '+key+' changed by '+(b[key]-a[key]));};
+const closeRect=(a,b,label,tolerance=1)=>{assert.equal(b.visible,a.visible,label+' painted visibility changed');if(!a.visible)return;for(const key of ['x','y','width','height'])assert.ok(Math.abs(a[key]-b[key])<=tolerance,label+' '+key+' changed by '+(b[key]-a[key]));};
 const compare=(a,b)=>{const x=PNG.sync.read(a),y=PNG.sync.read(b);assert.equal(x.width,y.width);assert.equal(x.height,y.height);const diff=new PNG({width:x.width,height:x.height});const changedPixels=pixelmatch(x.data,y.data,diff.data,x.width,x.height,{threshold:.1,includeAA:false});return{changedPixels,ratio:changedPixels/(x.width*x.height),diff};};
 try{
  for(const engine of(process.env.QA_ENGINES||'chromium,firefox').split(',')){
@@ -71,6 +78,8 @@ try{
      for(let i=0;i<2;i++){
       assert.ok(Math.abs(afterGeometry.projectLines[i]-beforeGeometry.projectLines[i])<=1,'Flagship paragraph reflow exceeds one line');
       const x=beforeGeometry.devices[i],y=afterGeometry.devices[i];
+      assert.equal(y.visible,x.visible,'Project device painted visibility changed');
+      if(!x.visible)continue;
       for(const key of ['x','width','height'])assert.ok(Math.abs(x[key]-y[key])<=1,'Project device geometry changed');
       assert.ok(Math.abs(x.y-y.y)<=24,'Project device moved beyond one copy line');
      }
@@ -81,7 +90,7 @@ try{
  }
 }finally{
  await writeFile(out+'/results.json',JSON.stringify({reviewed,businessCopyReviewedHead:businessProofScope.reviewedHead,businessCopyAfterSha256:businessProofScope.afterSha256,originalBaseline:'a4634a0e4161ca8667c873cc4f26c5c65041dca0',historicalEvidenceUnchanged:true,reference:'explicit responsive patch + exact authorized V13 copy scope; not regenerated historical screenshots',results},null,2)+'\n');
- await writeFile(out+'/business-copy-geometry.json',JSON.stringify({scope:'Independent pre-V13/current geometry at seven widths and key normal-motion states; CSS, JS, portrait and historical evidence stay protected; <=1 paragraph line of copy reflow allowed',results:copyGeometry},null,2)+'\n');
+ await writeFile(out+'/business-copy-geometry.json',JSON.stringify({scope:'Independent pre-V13/current painted geometry at seven widths and key normal-motion states; unchanged scene sizing and 1px hero/portrait/planet tolerance; <=1 flagship paragraph line of copy reflow allowed; off-screen coordinates and total normal-flow document height recorded, not mistaken for visible choreography',results:copyGeometry},null,2)+'\n');
  await Promise.all([original.close(),expected.close(),current.close(),copyBefore.close()]);
 }
 console.log(JSON.stringify({comparisons:results.length,unexpectedMax:Math.max(...results.map(x=>x.unexpectedDiff.ratio)),actualHistoricalDiffMax:Math.max(...results.map(x=>x.originalDiff.ratio))}));
