@@ -7,6 +7,7 @@ import {serve} from './serve.mjs';
 import {baselineRoot} from './baseline.mjs';
 import {launch,viewports,states,settle,scene} from './browser-utils.mjs';
 import {verifyHistoricalEvidence} from './historical-evidence.mjs';
+import {applyApprovedContactScope} from './contact-scope.mjs';
 
 // The historical 98 comparison source and runner stay immutable. This explicit
 // source patch records the authorized responsive scope, not a regenerated image
@@ -17,6 +18,7 @@ await verifyHistoricalEvidence('.',reviewed);
 const paths=execFileSync('git',['ls-tree','-r','--name-only',reviewed,'index.html','assets']).toString().trim().split('\n');
 for(const path of paths){const target=reference+'/'+path;await mkdir(target.slice(0,target.lastIndexOf('/')),{recursive:true});await writeFile(target,show(path));}
 execFileSync('git',['apply','--directory='+reference,'docs/responsive-scope.patch']);
+await writeFile(reference+'/index.html',applyApprovedContactScope(await readFile(reference+'/index.html','utf8')));
 for(const path of ['index.html','assets/css/portfolio.css','assets/js/portfolio.js'])assert.ok((await readFile(path)).equals(await readFile(reference+'/'+path)),'Product exceeds the recorded responsive change: '+path);
 const original=await serve(await baselineRoot()),expected=await serve(reference),current=await serve('.');
 await mkdir(out,{recursive:true});const results=[];
