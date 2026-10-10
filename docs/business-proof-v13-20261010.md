@@ -35,6 +35,10 @@ Local validation before push: all 46 structural/unit/contract tests passed. The 
 
 ## Release boundary and rollback
 
-Quality, hosted-preview audit and release eligibility are separate. The consent manifest remains pending. The two private CV candidates and contact data are not installed or uploaded in this change. Exact owner file/field/destination consent and its Actions-variable binding remain required; administrator main protection is an additional release dependency. No foreign work authorization, degree, longer tenure or completed MAXY implementation is inferred.
+Quality, hosted-preview audit and release eligibility are separate. The consent manifest remains pending. The two private CV candidates and contact data are not installed or uploaded in this change. Exact owner file/field/destination consent and its Actions-variable binding remain required. A fresh 10 October GitHub branch response reports main `protected:true`, with required GitHub Actions checks `verify` and `release-eligibility`, enforcement level `everyone`. This supersedes the earlier unprotected observation; complete administrator review/bypass policy inspection remains unavailable. No foreign work authorization, degree, longer tenure or completed MAXY implementation is inferred.
+
+## First-head QA correction
+
+At V13 head `bcff5b4685de9695cb8f944c7efc8671b30c8d56`, 46 contract tests, the two-browser interaction/accessibility suite and all 80 responsive configurations passed. The independent pre-V13 geometry check rejected a 38px portrait y displacement. The revised statement-foot copy had changed intrinsic text wrapping used by the existing fit calculation. Its original paragraph is restored; business purpose remains in the hero, project summaries, supporting cards and compact source map. CSS, JavaScript, image bytes and test tolerances are unchanged. The source scope is narrowed to 25 exact interventions rather than accepting the geometry change.
 
 Undo V13 by reverting its commits on this same PR branch. This restores the starting content and scope code without rewriting history or touching main. A failed preview never replaces production. No Netlify publish/restore operation is needed.

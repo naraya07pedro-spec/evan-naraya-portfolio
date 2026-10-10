@@ -63,10 +63,11 @@ try{
      // the named cinematic geometry must not move. Flagship copy may reflow
      // by at most one line, documented separately from unexpected pixel diffs.
      assert.equal(afterGeometry.captionLines,beforeGeometry.captionLines,'Hero caption reflow');
-     closeRect(beforeGeometry.portrait,afterGeometry.portrait,'Portrait');
-     closeRect(beforeGeometry.planet,afterGeometry.planet,'Planet');
-     closeRect(beforeGeometry.name,afterGeometry.name,'Name');
-     closeRect(beforeGeometry.role,afterGeometry.role,'Role');
+     const slot=engine+' '+viewport.width+' '+state;
+     closeRect(beforeGeometry.portrait,afterGeometry.portrait,'Portrait / '+slot);
+     closeRect(beforeGeometry.planet,afterGeometry.planet,'Planet / '+slot);
+     closeRect(beforeGeometry.name,afterGeometry.name,'Name / '+slot);
+     closeRect(beforeGeometry.role,afterGeometry.role,'Role / '+slot);
      for(let i=0;i<2;i++){
       assert.ok(Math.abs(afterGeometry.projectLines[i]-beforeGeometry.projectLines[i])<=1,'Flagship paragraph reflow exceeds one line');
       const x=beforeGeometry.devices[i],y=afterGeometry.devices[i];

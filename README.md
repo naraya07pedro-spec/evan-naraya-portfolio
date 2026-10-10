@@ -61,7 +61,7 @@ Visual issues requiring approval remain documented. Accessibility gates prevent 
 
 Both public v3 downloads still contain the baseline's reconstructed PDFs. Authentic originals and two contact-only candidates were inspected privately; career evidence, coordinates, pixels and six links were preserved. The candidates remain private until the owner approves their exact hashes and public field categories.
 
-The independent `Release readiness` / `release-eligibility` check fails for missing consent and asset mismatches. Quality `verify` remains independent. Ordinary branch metadata confirms `main` protection is disabled, required checks are empty and no repository rulesets exist. The owner/admin must require both checks without administrator bypass; current integration access cannot apply that setting.
+The independent `Release readiness` / `release-eligibility` check fails for missing consent and asset mismatches. Quality `verify` remains independent. A fresh 10 October branch response now reports `main` protected, with GitHub Actions `verify` and `release-eligibility` required at enforcement level `everyone`. This supersedes the earlier unprotected observation. The complete administrative policy, review requirements and bypass settings have not been freshly inspected by this integration.
 
 [Release-safety audit and exact candidate hashes](docs/release-safety.md) · [Unapproved visual proposals](docs/visual-proposals.md).
 

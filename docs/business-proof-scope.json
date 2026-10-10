@@ -3,7 +3,7 @@
   "authorization": "User-supplied WORK_PORTFOLIO_BUSINESS_PROOF_END_TO_END_V13; draft PR #1 only",
   "reviewedHead": "b8cb14fc579a4875c1c4b528c601cc7cf094a781",
   "beforeSha256": "3e60f0ea65be19320cedf109aa5969576755ea07a201555a1b9f7ff12f5f4d16",
-  "afterSha256": "66126a6e431c691807fe7b74212c4c8b85f112839558438ab1647e528273e0f6",
+  "afterSha256": "fe4ba4f00117c6b8655591d7a4e7f8799f548d553b6e838510bf5af3972a84a6",
   "edits": [
     {
       "before": "Evan Naraya — Automation &amp; Integration Engineer",
@@ -53,11 +53,6 @@
     {
       "before": ">View work ↗</a>",
       "after": ">View systems ↗</a>",
-      "occurrences": 1
-    },
-    {
-      "before": "Reliable APIs, explicit state, and recovery paths. Not just the happy path.",
-      "after": "Lead handoffs, document lookup, and AI actions—with approval and recovery.",
       "occurrences": 1
     },
     {
