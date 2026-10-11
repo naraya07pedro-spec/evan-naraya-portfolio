@@ -20,6 +20,61 @@ const validDate = value => typeof value === 'string' &&
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value) && Number.isFinite(Date.parse(value)) &&
   new Date(value).toISOString().slice(0,19) === value.slice(0,19);
 
+// Separate, explicit contract for owner-selected 2026 PDFs. The legacy
+// authentic-v3 synthetic fixtures continue to exercise the original branch.
+const selectedFilenames=['Evan_Naraya_Automation_Integration_Engineer.pdf','Evan_Naraya_Backend_Integration_Engineer.pdf'];
+const selectedFields=['name','role','location_timezone','personal_email','github_profile','linkedin_profile','website'];
+async function checkSelectedRelease(root,{linkProbe,approvalManifestSha256,now},approval) {
+ const errors=[],assets=[],block=(code,message)=>errors.push({code,message});
+ const manifestBytes=await readFile(resolve(root,'docs/resume-release-approval.json'));
+ const manifestSha256=digest(manifestBytes);
+ const externalBindingMatches=validHash(approvalManifestSha256)&&approvalManifestSha256===manifestSha256;
+ if(!externalBindingMatches)block('CONSENT_BINDING','Owner-approved PDF manifest hash is not independently bound by the repository Actions setting');
+ if(approval.schemaVersion!==1||approval.status!=='approved'||approval.approvedBy!==owner||
+    !validDate(approval.approvedAt)||Date.parse(approval.approvedAt)>now().getTime()||
+    typeof approval.approvalReference!=='string'||!approval.approvalReference.includes('2026-10-11'))
+   block('OWNER_CONSENT','Owner approval must identify an actual specific authorization');
+ if(!sameFields(approval.publicationTargets,publicationTargets))
+   block('PUBLICATION_CONSENT','Repository, preview and eventual production destinations must be named');
+ const files=approval.files;
+ if(!Array.isArray(files)||files.length!==2||new Set(files.map(x=>x?.path)).size!==2||
+    files.some(x=>!selectedFilenames.some(n=>x.path==='assets/resumes/'+n)))
+   block('APPROVAL_SET','Consent must identify both and only the new CV release paths');
+ let names=[];
+ try{names=await readdir(resolve(root,'assets/resumes'));}
+ catch{block('MISSING_DIRECTORY','Missing release assets directory');}
+ for(const name of names)if(!selectedFilenames.includes(name))block('UNAPPROVED_ASSET','Unapproved residual PDF asset: '+name);
+ let html='';
+ try{html=await readFile(resolve(root,'index.html'),'utf8');}
+ catch{block('MISSING_PAGE','index.html missing');}
+ for(const filename of selectedFilenames){
+   const path='assets/resumes/'+filename,consent=files?.find(x=>x?.path===path);
+   if(!consent||!validHash(consent.sha256)||consent.variant!=='reviewed-owner-selected'||!sameFields(consent.publicFields,selectedFields))
+     block('FILE_CONSENT_MISMATCH',filename+': exact digest, variant and field authorization required');
+   let bytes;
+   try{const abs=resolve(root,path),stat=await lstat(abs);
+     if(!stat.isFile()||stat.isSymbolicLink()||await realpath(abs)!==abs)throw Error('not regular');
+     bytes=await readFile(abs);
+   }catch{block('MISSING_ASSET',filename+': missing or unsafe file');continue;}
+   const sha256=digest(bytes);assets.push({path,bytes:bytes.length,sha256,variant:'reviewed-owner-selected'});
+   if(sha256!==consent?.sha256)block('ASSET_MISMATCH',filename+': actual bytes differ from approved hash');
+   if(bytes.subarray(0,5).toString()!=='%PDF-')block('NOT_PDF',filename+': invalid PDF signature');
+   try{Object.assign(assets.at(-1),await inspectPdf(bytes,{requirePortfolio:true,allowOwnerEmail:true}));}
+   catch(e){block('PDF_CONTRACT',filename+': '+e.message);}
+   if(![...html.matchAll(/<a\\b[^>]*>/g)].some(a=>a[0].includes('href="/'+path+'"')&&a[0].includes('download="'+filename+'"')))
+     block('DOWNLOAD_REFERENCE',filename+': public download anchor must use exact path/name');
+ }
+ for(const url of resumeLinks)if(!html.includes('href="'+url+'"'))block('REQUIRED_LINK','Required project/profile link missing: '+url);
+ const links=[];
+ if(linkProbe&&errors.length===0){
+  for(const url of [...resumeLinks,portfolioWebsite,'https://varevant.com']){
+   const status=await linkProbe(url);links.push({url,status});
+   if(!Number.isInteger(status)||status<200||status>=300)
+     block('LINK_UNVERIFIED','Required destination did not verify ('+status+'): '+url);
+  }
+ }
+ return {eligible:errors.length===0,owner,consent:{manifestSha256,externalBindingMatches,humanAuthorizationProven:false},assets,links,errors};
+}
 // A manifest is an owner declaration, not authenticated evidence of human intent.
 // The separate repository setting binds reviewed manifest bytes. It is not a
 // signature: authorized setting/workflow editors can still change either side.
@@ -32,6 +87,11 @@ export async function checkRelease(root = '.', {linkProbe,approvalManifestSha256
     try { return JSON.parse(await readFile(resolve(root, path), 'utf8')); }
     catch { block('INVALID_MANIFEST', path + ' is missing or invalid JSON'); return null; }
   }
+  // Choose the owner-approved new CV contract without altering legacy fixtures.
+  let selectedApproval=null;
+  try{selectedApproval=JSON.parse(await readFile(resolve(root,'docs/resume-release-approval.json'),'utf8'));}catch{}
+  if(selectedApproval?.files?.some(x=>x?.variant==='reviewed-owner-selected'))
+    return checkSelectedRelease(root,{linkProbe,approvalManifestSha256,now},selectedApproval);
   const originals = await json('docs/resumes.json');
   const candidates = await json('docs/resume-release-candidates.json');
   const revisions = await json('docs/resume-revised-candidates.json');
