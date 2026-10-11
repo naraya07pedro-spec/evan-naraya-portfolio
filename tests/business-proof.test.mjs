@@ -7,8 +7,19 @@ const show=path=>execFileSync('git',['show',businessProofScope.reviewedHead+':'+
 
 test('V13 is an exact content delta against its actual reviewed Git source',async()=>{
  const before=show('index.html').toString();
- assert.equal(applyBusinessProofScope(before),await readFile('index.html','utf8'));
- for(const path of ['assets/css/portfolio.css','assets/js/portfolio.js','assets/images/evan-naraya-portrait.webp','docs/responsive-scope.patch','docs/resume-release-approval.json'])
+ const current=await readFile('index.html','utf8');
+ const start=current.indexOf('<section class="biz-examples-intro');
+ const end=current.indexOf('<section class="project-scene scene" data-project="1"',start);
+ assert.ok(start>0&&end>start,'Business scenes must precede the original technical projects');
+ const injected=current.slice(start,end);
+ assert.equal((injected.match(/class="project-scene biz-scene scene"/g)||[]).length,3);
+ for(const label of ['Auto Lead Follow-Up','Auto Document Processing','Internal AI Assistant','Auto Data Sync','Auto Reporting','Autopilot Tasks'])
+  assert.ok(injected.includes(label),'Missing business illustration: '+label);
+ assert.equal(current.slice(0,start)+current.slice(end),applyBusinessProofScope(before),'V13 baseline outside new business section changed');
+ const css=await readFile('assets/css/portfolio.css','utf8');
+ assert.ok(css.startsWith(show('assets/css/portfolio.css').toString()),'Original cinematic CSS must remain byte-identical');
+ assert.ok(css.includes('/* Business demonstrations use the same sticky'),'Business animation contract missing');
+ for(const path of ['assets/js/portfolio.js','assets/images/evan-naraya-portrait.webp','docs/responsive-scope.patch','docs/resume-release-approval.json'])
   assert.ok((await readFile(path)).equals(show(path)),'Protected V13 input changed: '+path);
 });
 
