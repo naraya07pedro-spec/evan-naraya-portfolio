@@ -124,3 +124,21 @@ a,[tabindex]{scroll-margin-top:100px}
 @media(max-width:850px){.biz-card{grid-template-columns:1fr}.biz-mini-grid{grid-template-columns:1fr 1fr}.biz-mini p{min-height:0}}
 @media(max-width:540px){.biz-preview{padding:14px;min-height:245px}.biz-step-track span{font-size:9px;padding:8px 2px}.biz-mini-grid{grid-template-columns:1fr}.biz-card{padding:20px}.biz-document{gap:9px}.biz-paper{width:86px}.biz-fields{min-width:0}.biz-fields span{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.biz-examples *{animation:none!important;transition:none!important}}
+
+/* Business demonstrations use the same sticky .project-scene, .project-stage,
+   .project-copy and .project-device scroll transforms as the flagship work. */
+.biz-examples-intro{background:radial-gradient(circle at 72% 62%,#32265c45,transparent 54%),#07070e;color:#f4f1fb}
+.biz-examples-intro .biz-heading{margin:0}
+.biz-scene{height:148vh}
+.biz-scene .biz-stage{grid-template-columns:minmax(260px,.72fr) minmax(540px,1.28fr);background:radial-gradient(circle at 65% 45%,rgba(101,80,211,.22),transparent 60%),#070810}
+.biz-scene .biz-copy{max-width:450px}
+.biz-scene .biz-preview{width:min(68vw,1000px);min-height:min(58vh,490px);margin:0;justify-self:end;border-radius:14px;padding:clamp(18px,2.4vw,34px);gap:clamp(15px,2vw,28px)}
+.biz-scene .biz-window-head{font-size:clamp(14px,1.2vw,18px)}
+.biz-scene .biz-inquiry{padding:clamp(12px,1.6vw,21px)}
+.biz-scene .biz-chat-question,.biz-scene .biz-chat-answer{padding:clamp(14px,2vw,24px)}
+.biz-scene .biz-preview .biz-status{margin-top:auto}
+.biz-examples-outro{background:#080910}
+.biz-examples-outro .biz-mini-grid{margin-top:0}
+@media(max-width:1100px){.biz-scene .biz-stage{grid-template-columns:minmax(210px,.85fr) minmax(360px,1.15fr)}.biz-scene .biz-preview{width:100%;min-height:295px}}
+@media(max-width:760px){.biz-scene .biz-stage{grid-template-columns:1fr}.biz-scene .biz-preview{width:100%;min-height:245px}.biz-scene[data-flow]{height:auto}.biz-scene[data-flow] .sticky-stage{position:relative;height:auto;overflow:visible}.biz-scene[data-flow] .project-copy,.biz-scene[data-flow] .project-device{transform:none!important;opacity:1!important}.biz-scene .biz-copy h3{font-size:clamp(30px,7vw,42px)}}
+@media(prefers-reduced-motion:reduce){.biz-scene .project-copy,.biz-scene .project-device{transform:none!important;opacity:1!important}}
