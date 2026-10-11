@@ -15,7 +15,8 @@
     "audit:performance": "node scripts/performance.mjs",
     "verify:release": "node scripts/release-readiness.mjs",
     "test:responsive": "node --test tests/responsive.test.mjs",
-    "test:visual:responsive": "node scripts/responsive-visual-regression.mjs"
+    "test:visual:responsive": "node scripts/business-scene-qa.mjs",
+    "test:visual:historical": "node scripts/responsive-visual-regression.mjs"
   },
   "devDependencies": {
     "axe-core": "4.13.0",
