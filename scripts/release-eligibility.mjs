@@ -61,7 +61,7 @@ async function checkSelectedRelease(root,{linkProbe,approvalManifestSha256,now},
    if(bytes.subarray(0,5).toString()!=='%PDF-')block('NOT_PDF',filename+': invalid PDF signature');
    try{Object.assign(assets.at(-1),await inspectPdf(bytes,{requirePortfolio:true,allowOwnerEmail:true}));}
    catch(e){block('PDF_CONTRACT',filename+': '+e.message);}
-   if(![...html.matchAll(/<a\\b[^>]*>/g)].some(a=>a[0].includes('href="/'+path+'"')&&a[0].includes('download="'+filename+'"')))
+   if(![...html.matchAll(/<a\b[^>]*>/g)].some(a=>a[0].includes('href="/'+path+'"')&&a[0].includes('download="'+filename+'"')))
      block('DOWNLOAD_REFERENCE',filename+': public download anchor must use exact path/name');
  }
  for(const url of resumeLinks)if(!html.includes('href="'+url+'"'))block('REQUIRED_LINK','Required project/profile link missing: '+url);
