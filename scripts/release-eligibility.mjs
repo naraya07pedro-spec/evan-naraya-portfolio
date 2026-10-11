@@ -69,7 +69,23 @@ async function checkSelectedRelease(root,{linkProbe,approvalManifestSha256,now},
  if(linkProbe&&errors.length===0){
   for(const url of [...resumeLinks,portfolioWebsite,'https://varevant.com']){
    const status=await linkProbe(url);links.push({url,status});
-   if(!Number.isInteger(status)||status<200||status>=300)
+   // LinkedIn rejects automated fetches with 999. An independent public
+   // index observation can verify only this exact canonical profile, not any URL.
+   let indexed=false;
+   if(status===999&&url==='https://www.linkedin.com/in/evannaraya'){
+     try{
+       const evidence=JSON.parse(await readFile(resolve(root,'docs/linkedin-public-verification.json'),'utf8'));
+       const observation=Date.parse(evidence.checkedAt);
+       indexed=evidence.schemaVersion===1&&evidence.targetUrl===url&&
+         evidence.indexedUrl==='https://id.linkedin.com/in/evannaraya'&&
+         evidence.method==='public_search_index'&&
+         evidence.pageTitle.includes('Evan Naraya')&&
+         Number.isFinite(observation)&&now().getTime()>=observation&&
+         now().getTime()-observation<=72*60*60*1000;
+       if(indexed)links.at(-1).verification={method:'separately observed public profile index; direct access blocked',checkedAt:evidence.checkedAt,indexedUrl:evidence.indexedUrl};
+     }catch{}
+   }
+   if(!indexed&&(!Number.isInteger(status)||status<200||status>=300))
      block('LINK_UNVERIFIED','Required destination did not verify ('+status+'): '+url);
   }
  }
