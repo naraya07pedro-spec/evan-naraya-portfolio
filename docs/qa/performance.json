@@ -1,0 +1,78 @@
+{
+  "scope": "Single-run controlled localhost comparison. Real visual animation remains enabled. Not field Core Web Vitals or public network timing.",
+  "results": [
+    {
+      "formFactor": "mobile",
+      "name": "before",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 99,
+        "accessibility": 95,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCPms": 1606.085,
+      "CLS": 0,
+      "TBTms": 0,
+      "jsExecutionMs": 15.423999999999989,
+      "transferBytes": 190749,
+      "INP": "Not measurable by navigation Lighthouse; no field data or invented INP",
+      "warnings": []
+    },
+    {
+      "formFactor": "mobile",
+      "name": "after",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 99,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCPms": 1803.384,
+      "CLS": 0,
+      "TBTms": 0,
+      "jsExecutionMs": 16.475999999999992,
+      "transferBytes": 145895,
+      "INP": "Not measurable by navigation Lighthouse; no field data or invented INP",
+      "warnings": []
+    },
+    {
+      "formFactor": "desktop",
+      "name": "before",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 74,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCPms": 1616.576,
+      "CLS": 0,
+      "TBTms": 309.5,
+      "jsExecutionMs": 19.34799999999999,
+      "transferBytes": 190749,
+      "INP": "Not measurable by navigation Lighthouse; no field data or invented INP",
+      "warnings": []
+    },
+    {
+      "formFactor": "desktop",
+      "name": "after",
+      "lighthouseVersion": "13.5.0",
+      "scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "LCPms": 1805.522,
+      "CLS": 0,
+      "TBTms": 29.239000000000033,
+      "jsExecutionMs": 16.57999999999999,
+      "transferBytes": 145895,
+      "INP": "Not measurable by navigation Lighthouse; no field data or invented INP",
+      "warnings": []
+    }
+  ],
+  "measurementConditions": "Chromium 153.0.8010.0; Lighthouse 13.5.0; fresh localhost browser; mobile390x844 / desktop1440x900; simulated network RTT150ms,1474.56Kbps download;4xCPU slowdown for both. Cinematic motion enabled. Final controlled run."
+}

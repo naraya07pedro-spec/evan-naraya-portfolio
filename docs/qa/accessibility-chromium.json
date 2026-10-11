@@ -1,0 +1,180 @@
+[
+  {
+    "engine": "chromium",
+    "width": 390,
+    "state": "hero",
+    "before": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-body"
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-body"
+      }
+    ],
+    "after": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      }
+    ],
+    "added": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "state": "agent",
+    "before": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-body"
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-body"
+      }
+    ],
+    "after": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      }
+    ],
+    "added": []
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "state": "contact",
+    "before": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-body"
+      },
+      {
+        "id": "scrollable-region-focusable",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-body"
+      }
+    ],
+    "after": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      }
+    ],
+    "added": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "state": "hero",
+    "before": [],
+    "after": [],
+    "added": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "state": "agent",
+    "before": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      }
+    ],
+    "after": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      }
+    ],
+    "added": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "state": "contact",
+    "before": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      }
+    ],
+    "after": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"1\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      },
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "target": "section[data-project=\"2\"] > .project-stage.sticky-stage > .project-device[role=\"group\"] > .device-top > b"
+      }
+    ],
+    "added": []
+  }
+]

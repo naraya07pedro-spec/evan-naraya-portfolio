@@ -1,0 +1,982 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 320,
+      "height": 800
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1024,
+      "height": 900
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "hero",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "statement",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "planet-entry",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "planet-expanded",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "agent",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "knowledge",
+    "changedPixels": 0,
+    "ratio": 0
+  },
+  {
+    "engine": "firefox",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "state": "contact",
+    "changedPixels": 0,
+    "ratio": 0
+  }
+]

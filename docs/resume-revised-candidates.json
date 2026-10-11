@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "filename": "Evan_Naraya_Automation_Integration_Engineer_portfolio_public_safe_candidate.pdf",
+      "sha256": "1e17024c6d69d39ebd723c20eed08eb72e556e74fd5957c93ae17c5abeee60c5",
+      "bytes": 37931,
+      "reviewedSourceFilename": "Evan_Naraya_Automation_Integration_Engineer (1).pdf",
+      "reviewedSourceSha256": "4c884f195eb5a2999eaa894da8161b1b7eb24d06600b2411296202cd498db5c8",
+      "pages": 1,
+      "links": [
+        "https://evannaraya.netlify.app/",
+        "https://github.com/naraya07pedro-spec",
+        "https://github.com/naraya07pedro-spec/agent-runtime-python",
+        "https://github.com/naraya07pedro-spec/production-integration-reference",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n",
+        "https://www.linkedin.com/in/evannaraya"
+      ],
+      "careerTextSha256": "01fc859375eb9e020a8052af2f51676e72b84a1ac2f9a8260657664cedc1fd72",
+      "editorialChange": "none; replace contact/footer website with personal portfolio URL; career pixels/text unchanged from previous candidate",
+      "contactOnlyRedactionVerified": true,
+      "embeddedFiles": 0,
+      "sourceFilename": "Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+      "sourceSha256": "cf5be0f03273fd2edb5424103b3720c57bdc8a53061951ac732b8989a7d56ead",
+      "releasePath": "assets/resumes/Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+      "retainedFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ],
+      "removedFields": [
+        "personal_phone",
+        "personal_email"
+      ],
+      "materialClaimsVerifiedAgainstSources": true,
+      "comparisonReference": "docs/resume-candidate-review-20261009.md",
+      "publicPublicationStatus": "pending exact owner consent",
+      "previousCandidateFilename": "Evan_Naraya_Automation_Integration_Engineer_public_safe_candidate.pdf",
+      "previousCandidateSha256": "6a858d7da1ffdeb71f12ce48aac95a76133577f7991f8491f216bcfe8ddc30a4",
+      "previousCandidateBytes": 36129,
+      "previousCareerTextSha256": "60713dc5c4251c0a6707070081c393d4ca0a213a5b84558377930ae4cb575e95",
+      "careerTextExtraction": "PyMuPDF get_textbox([0,104,612,741]); collapse Unicode whitespace; strip; UTF-8 SHA-256",
+      "personalPortfolioWebsite": "https://evannaraya.netlify.app/",
+      "careerPixelsUnchangedFromPreviousCandidateAt144Dpi": true,
+      "careerTextUnchangedFromPreviousCandidate": true
+    },
+    {
+      "filename": "Evan_Naraya_Backend_Integration_Engineer_portfolio_public_safe_candidate.pdf",
+      "sha256": "cdef50caa510c9a422c983871c15f5a19eaeb7db89bdf6b41ec8466a082433c2",
+      "bytes": 37955,
+      "reviewedSourceFilename": "Evan_Naraya_Backend_Integration_Engineer (1).pdf",
+      "reviewedSourceSha256": "9314233eea0cd8a6228fbdab8e95d49522746a31b0a2113583aed20d60e8a4c5",
+      "pages": 1,
+      "links": [
+        "https://evannaraya.netlify.app/",
+        "https://github.com/naraya07pedro-spec",
+        "https://github.com/naraya07pedro-spec/agent-runtime-python",
+        "https://github.com/naraya07pedro-spec/production-integration-reference",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n",
+        "https://www.linkedin.com/in/evannaraya"
+      ],
+      "careerTextSha256": "162e8a6f2c185a01cf6182fe2a0f196761cbb4d013b2c3c8df68d09a4c0b8710",
+      "editorialChange": "restore verified 60 Code nodes; replace contact/footer website with personal portfolio URL; career pixels/text unchanged from previous candidate",
+      "contactOnlyRedactionVerified": true,
+      "embeddedFiles": 0,
+      "sourceFilename": "Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+      "sourceSha256": "78bf0dc5bf3baa80257f32639a2d6c3990fa6eb6e781ffddd1739afc0b53eef0",
+      "releasePath": "assets/resumes/Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+      "retainedFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ],
+      "removedFields": [
+        "personal_phone",
+        "personal_email"
+      ],
+      "materialClaimsVerifiedAgainstSources": true,
+      "comparisonReference": "docs/resume-candidate-review-20261009.md",
+      "publicPublicationStatus": "pending exact owner consent",
+      "previousCandidateFilename": "Evan_Naraya_Backend_Integration_Engineer_public_safe_candidate.pdf",
+      "previousCandidateSha256": "9597c8c3d39c7c057f0732e1e4d466e0c95918bc83e02ee20ece3c5596efc40e",
+      "previousCandidateBytes": 36130,
+      "previousCareerTextSha256": "270d4fd2ffa3ee187e71b317818610bcda0e05741b64300ef9dfdfca77f5d3e3",
+      "careerTextExtraction": "PyMuPDF get_textbox([0,104,612,741]); collapse Unicode whitespace; strip; UTF-8 SHA-256",
+      "personalPortfolioWebsite": "https://evannaraya.netlify.app/",
+      "careerPixelsUnchangedFromPreviousCandidateAt144Dpi": true,
+      "careerTextUnchangedFromPreviousCandidate": true
+    }
+  ],
+  "previousRecommendations": [
+    {
+      "filename": "Evan_Naraya_Automation_Integration_Engineer_public_safe_candidate.pdf",
+      "sha256": "6a858d7da1ffdeb71f12ce48aac95a76133577f7991f8491f216bcfe8ddc30a4",
+      "bytes": 36129,
+      "reviewedSourceFilename": "Evan_Naraya_Automation_Integration_Engineer (1).pdf",
+      "reviewedSourceSha256": "4c884f195eb5a2999eaa894da8161b1b7eb24d06600b2411296202cd498db5c8",
+      "pages": 1,
+      "links": [
+        "https://github.com/naraya07pedro-spec",
+        "https://github.com/naraya07pedro-spec/agent-runtime-python",
+        "https://github.com/naraya07pedro-spec/production-integration-reference",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n",
+        "https://varevant.com",
+        "https://www.linkedin.com/in/evannaraya"
+      ],
+      "careerTextSha256": "60713dc5c4251c0a6707070081c393d4ca0a213a5b84558377930ae4cb575e95",
+      "editorialChange": "none",
+      "contactOnlyRedactionVerified": true,
+      "embeddedFiles": 0,
+      "sourceFilename": "Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+      "sourceSha256": "cf5be0f03273fd2edb5424103b3720c57bdc8a53061951ac732b8989a7d56ead",
+      "releasePath": "assets/resumes/Evan_Naraya_CV_Automation_Integration_2026_v3.pdf",
+      "retainedFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ],
+      "removedFields": [
+        "personal_phone",
+        "personal_email"
+      ],
+      "materialClaimsVerifiedAgainstSources": true,
+      "comparisonReference": "docs/resume-candidate-review-20261009.md",
+      "publicPublicationStatus": "pending exact owner consent"
+    },
+    {
+      "filename": "Evan_Naraya_Backend_Integration_Engineer_public_safe_candidate.pdf",
+      "sha256": "9597c8c3d39c7c057f0732e1e4d466e0c95918bc83e02ee20ece3c5596efc40e",
+      "bytes": 36130,
+      "reviewedSourceFilename": "Evan_Naraya_Backend_Integration_Engineer (1).pdf",
+      "reviewedSourceSha256": "9314233eea0cd8a6228fbdab8e95d49522746a31b0a2113583aed20d60e8a4c5",
+      "pages": 1,
+      "links": [
+        "https://github.com/naraya07pedro-spec",
+        "https://github.com/naraya07pedro-spec/agent-runtime-python",
+        "https://github.com/naraya07pedro-spec/production-integration-reference",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime",
+        "https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n",
+        "https://varevant.com",
+        "https://www.linkedin.com/in/evannaraya"
+      ],
+      "careerTextSha256": "270d4fd2ffa3ee187e71b317818610bcda0e05741b64300ef9dfdfca77f5d3e3",
+      "editorialChange": "restore verified 60 Code nodes",
+      "contactOnlyRedactionVerified": true,
+      "embeddedFiles": 0,
+      "sourceFilename": "Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+      "sourceSha256": "78bf0dc5bf3baa80257f32639a2d6c3990fa6eb6e781ffddd1739afc0b53eef0",
+      "releasePath": "assets/resumes/Evan_Naraya_CV_Backend_Integration_Python_2026_v3.pdf",
+      "retainedFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ],
+      "removedFields": [
+        "personal_phone",
+        "personal_email"
+      ],
+      "materialClaimsVerifiedAgainstSources": true,
+      "comparisonReference": "docs/resume-candidate-review-20261009.md",
+      "publicPublicationStatus": "pending exact owner consent"
+    }
+  ]
+}

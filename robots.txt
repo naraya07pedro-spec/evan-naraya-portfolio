@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://evannaraya.netlify.app/sitemap.xml
