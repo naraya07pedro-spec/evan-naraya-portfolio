@@ -40,7 +40,7 @@ for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
     await page.locator('.statement-link').focus();await settle(page);
     assert.ok(Number(await page.locator('.intro-statement').evaluate(e=>getComputedStyle(e).opacity))>.5);
     await page.locator('.project-link').first().focus();await settle(page);
-    assert.ok(Number(await page.locator('.project-copy').first().evaluate(e=>getComputedStyle(e).opacity))>.5);
+    assert.ok(Number(await page.locator('.project-scene[data-project="1"] .project-copy').evaluate(e=>getComputedStyle(e).opacity))>.5);
     assert.equal(await page.locator('.device-body').first().getAttribute('tabindex'),'0');
     await page.locator('.device-body').first().focus();assert.ok(await page.locator('.device-body').first().evaluate(e=>e.matches(':focus')));
    });
