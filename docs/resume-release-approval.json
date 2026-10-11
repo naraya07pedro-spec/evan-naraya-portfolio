@@ -1,9 +1,42 @@
 {
   "schemaVersion": 1,
-  "status": "pending",
-  "approvedBy": null,
-  "approvedAt": null,
-  "approvalReference": null,
-  "publicationTargets": [],
-  "files": []
+  "status": "approved",
+  "approvedBy": "naraya07pedro-spec",
+  "approvedAt": "2026-10-11T06:05:00Z",
+  "approvalReference": "Owner explicitly approved publication of these two selected PDF CVs with email, LinkedIn and GitHub, and without phone, in ChatGPT conversation dated 2026-10-11. Production merge remains separate.",
+  "publicationTargets": [
+    "public_github_repository",
+    "netlify_deploy_preview",
+    "netlify_production_site"
+  ],
+  "files": [
+    {
+      "path": "assets/resumes/Evan_Naraya_Automation_Integration_Engineer.pdf",
+      "sha256": "1879726a0ab142ebc32593cc92129ed3ef7cbdd9b8ab2b24e727840a70463595",
+      "variant": "reviewed-owner-selected",
+      "publicFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "personal_email",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ]
+    },
+    {
+      "path": "assets/resumes/Evan_Naraya_Backend_Integration_Engineer.pdf",
+      "sha256": "344e46d57f53c344c46ca1e5575b83bb1bf718dfdfe6c02f02f2e284ba9cb1cb",
+      "variant": "reviewed-owner-selected",
+      "publicFields": [
+        "name",
+        "role",
+        "location_timezone",
+        "personal_email",
+        "github_profile",
+        "linkedin_profile",
+        "website"
+      ]
+    }
+  ]
 }
