@@ -11,7 +11,7 @@ export const resumeLinks = [
 export const portfolioWebsite = 'https://evannaraya.netlify.app/';
 // Parsing and annotations are independent of hash consent. No PDF bytes or
 // extracted personal fields enter reports or CI artifacts.
-export async function inspectPdf(bytes,{requirePortfolio=false}={}){
+export async function inspectPdf(bytes,{requirePortfolio=false,allowOwnerEmail=false}={}){
  const doc=await PDFDocument.load(bytes,{throwOnInvalidObject:true,updateMetadata:false});
  if(doc.isEncrypted||doc.getPageCount()!==1)throw Error('Expected one unencrypted page');
  for(const [,object] of doc.context.enumerateIndirectObjects()){
@@ -32,9 +32,11 @@ export async function inspectPdf(bytes,{requirePortfolio=false}={}){
   if(!(uri instanceof PDFString||uri instanceof PDFHexString))throw Error('Link lacks a URI');
   const rect=a.lookup(PDFName.of('Rect'),PDFArray).asArray().map(x=>Number(x.toString()));
   if(rect.length!==4||rect.some(x=>!Number.isFinite(x))||rect[0]<0||rect[1]<0||rect[2]>width||rect[3]>height||rect[2]<=rect[0]||rect[3]<=rect[1])throw Error('Invalid link hit rectangle');
-  const url=uri.decodeText();if(![...resumeLinks,'https://varevant.com',portfolioWebsite].includes(url))throw Error('Unexpected resume destination');links.push(url);
+  const url=uri.decodeText();const approved=allowOwnerEmail&&['mailto:evannarayahp@gmail.com','https://linkedin.com/in/evannaraya'].includes(url);
+  if(!approved&&![...resumeLinks,'https://varevant.com',portfolioWebsite].includes(url))throw Error('Unexpected resume destination');links.push(url);
  }
- if(resumeLinks.some(url=>!links.includes(url)))throw Error('Missing required clickable profile/project link');
+ if(resumeLinks.some(url=>!links.includes(url)&&!(allowOwnerEmail&&url==='https://www.linkedin.com/in/evannaraya'&&links.includes('https://linkedin.com/in/evannaraya'))))throw Error('Missing required clickable profile/project link');
+ if(allowOwnerEmail&&!links.includes('mailto:evannarayahp@gmail.com'))throw Error('Missing approved email hyperlink');
  if(requirePortfolio&&!links.includes(portfolioWebsite))throw Error('Missing personal portfolio hyperlink');
  return {pages:1,clickableRequiredLinks:resumeLinks.length};
 }
