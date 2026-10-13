@@ -1,0 +1,42 @@
+{
+  "captureDate": "2026-10-13",
+  "baselineCommit": "a82ec7c268dc0d909c3cd3f64222bbd66bd3cae6",
+  "htmlSHA256": "7169550d5aeaf5dcecd87dda4d987522cf87ed7942bec7247975c29e5cdaceec",
+  "files": [
+    {
+      "path": "docs/screenshots/console-integration/desktop-console-after.png",
+      "sha256": "0a070c1f05508c14e2137ad590b31005a2a7f6770b845f4ca48a314021bb6c91",
+      "bytes": 902855
+    },
+    {
+      "path": "docs/screenshots/console-integration/desktop-console-reduced-motion.png",
+      "sha256": "5fc29279f2f289ed9a96f574377009c4f3f4e631f5fa1d2c6520e3b5483211ba",
+      "bytes": 886794
+    },
+    {
+      "path": "docs/screenshots/console-integration/desktop-hero-after.png",
+      "sha256": "a80e7feffd1b8415ca2fbea0e869dce6482874611b450310e5f4e6691bb4103b",
+      "bytes": 964730
+    },
+    {
+      "path": "docs/screenshots/console-integration/desktop-hero-before.png",
+      "sha256": "c1427936c9a727a1f55757b85b484d3f92891b777691ef04cc33f92e4e806ed7",
+      "bytes": 965288
+    },
+    {
+      "path": "docs/screenshots/console-integration/mobile-console-after.png",
+      "sha256": "7260209cda34dccedd47a68ac315df25d4c9d201b4cd35047752a70a3f927230",
+      "bytes": 362289
+    },
+    {
+      "path": "docs/screenshots/console-integration/mobile-hero-after.png",
+      "sha256": "2a70155466403a3fae0c0c8e1752028c871c9dfe71be655f214e533ec67a50b3",
+      "bytes": 345059
+    },
+    {
+      "path": "docs/screenshots/console-integration/mobile-hero-before.png",
+      "sha256": "2a70155466403a3fae0c0c8e1752028c871c9dfe71be655f214e533ec67a50b3",
+      "bytes": 345059
+    }
+  ]
+}

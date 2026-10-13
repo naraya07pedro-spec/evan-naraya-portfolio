@@ -3,7 +3,7 @@ import {readFile, stat} from 'node:fs/promises';
 import {resolve, sep, extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json','.webp':'image/webp','.png':'image/png','.svg':'image/svg+xml','.pdf':'application/pdf','.txt':'text/plain; charset=utf-8','.xml':'application/xml'};
+const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json','.webp':'image/webp','.png':'image/png','.mp4':'video/mp4','.webm':'video/webm','.svg':'image/svg+xml','.pdf':'application/pdf','.txt':'text/plain; charset=utf-8','.xml':'application/xml'};
 export async function serve(root, port=0) {
   root=resolve(root);
   const server=createServer(async(req,res)=>{

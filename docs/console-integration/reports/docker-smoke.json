@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-13T02:36:43.134Z",
+  "runtime": "Docker Compose / native PostgreSQL / compiled Node backend / standalone Next.js",
+  "outcomes": [
+    {
+      "name": "standalone frontend serves HTML and every referenced JS/CSS asset",
+      "status": "passed"
+    },
+    {
+      "name": "same-origin rewrite reaches API and rejects unauthenticated access",
+      "status": "passed"
+    },
+    {
+      "name": "compiled API authenticates with a persisted database session",
+      "status": "passed"
+    },
+    {
+      "name": "separate worker leaves an unapproved execution without attempts or output",
+      "status": "passed"
+    },
+    {
+      "name": "duplicate request retains one execution identity across the container API",
+      "status": "passed"
+    },
+    {
+      "name": "approval runs real HTTP and persists ticket, attempt and events",
+      "status": "passed"
+    },
+    {
+      "name": "rejection stays terminal with zero attempts and recovery denied",
+      "status": "passed"
+    },
+    {
+      "name": "real HTTP 503 exhausts the configured two attempts",
+      "status": "passed"
+    },
+    {
+      "name": "manual recovery retains the run ID and persists success on total attempt three",
+      "status": "passed"
+    },
+    {
+      "name": "viewer mutation and cross-owner execution access are denied",
+      "status": "passed"
+    }
+  ]
+}

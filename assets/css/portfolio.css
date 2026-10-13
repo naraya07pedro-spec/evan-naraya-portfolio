@@ -142,3 +142,21 @@ a,[tabindex]{scroll-margin-top:100px}
 @media(max-width:1100px){.biz-scene .biz-stage{grid-template-columns:minmax(210px,.85fr) minmax(360px,1.15fr)}.biz-scene .biz-preview{width:100%;min-height:295px}}
 @media(max-width:760px){.biz-scene .biz-stage{grid-template-columns:1fr}.biz-scene .biz-preview{width:100%;min-height:245px}.biz-scene[data-flow]{height:auto}.biz-scene[data-flow] .sticky-stage{position:relative;height:auto;overflow:visible}.biz-scene[data-flow] .project-copy,.biz-scene[data-flow] .project-device{transform:none!important;opacity:1!important}.biz-scene .biz-copy h3{font-size:clamp(30px,7vw,42px)}}
 @media(prefers-reduced-motion:reduce){.biz-scene .project-copy,.biz-scene .project-device{transform:none!important;opacity:1!important}}
+
+/* Operations Console: authentic evidence within the existing cinematic scene contract. */
+.console-scene .project-copy{max-width:470px}
+.console-scene h2{font-size:clamp(34px,3vw,48px);line-height:1.04}
+.console-scene .result{margin:14px 0 10px}
+.console-scene .console-disclosure{font-size:12px;line-height:1.55;color:#c4badb}
+.console-scene .console-stack{font-size:11px;line-height:1.7;color:#c4badb;margin:12px 0}
+.console-links{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:14px}
+.console-links a{font-size:12px;line-height:1.5;color:#dac8ff;text-decoration:underline;text-underline-offset:4px;padding:5px 0}
+.console-links .project-link{margin:0}
+.console-capture{margin:0;width:100%;max-width:100%;background:#0b1018}
+.console-scene .project-stack{color:#c4badb}
+.console-image-link{display:block}
+.console-image-link img{display:block;width:100%;height:auto}
+.console-capture figcaption{padding:13px 16px;font-size:10px;line-height:1.6;color:#c4badb;background:#0e0b19}
+.console-capture .device-top b{color:#c4badb}
+.console-capture figcaption a{color:#dac8ff;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){.console-scene h2{font-size:36px}.console-scene .console-disclosure{font-size:12px}.console-links{gap:6px 16px}.console-capture figcaption{padding:10px 12px}}

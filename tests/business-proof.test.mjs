@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {readFile} from 'node:fs/promises';
 import {applyBusinessProofScope,businessProofScope} from '../scripts/business-proof-scope.mjs';
+import {restorePortfolioMain} from '../scripts/console-integration-scope.mjs';
 const show=path=>execFileSync('git',['show',businessProofScope.reviewedHead+':'+path],{maxBuffer:4*1024*1024});
 
 test('V13 is an exact content delta against its actual reviewed Git source',async()=>{
  const before=show('index.html').toString();
- const current=await readFile('index.html','utf8');
+ const current=restorePortfolioMain(await readFile('index.html','utf8'));
  const start=current.indexOf('<section class="biz-examples-intro');
  const end=current.indexOf('<section class="project-scene scene" data-project="1"',start);
  assert.ok(start>0&&end>start,'Business scenes must precede the original technical projects');

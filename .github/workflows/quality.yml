@@ -25,17 +25,24 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox
       - run: npm run verify
       - run: npm run test:e2e
+      - run: npm run test:console
       - run: npm run test:visual:responsive
       - run: npm run test:responsive
+      - name: Dependency and known-secret verification
+        run: |
+          npm audit --audit-level=moderate --json > artifacts/portfolio-dependency-audit.json
+          node scripts/scan-public-secrets.mjs
       - name: Measure original-main and current-draft performance
         run: |
           export BROWSER_EXECUTABLE="$(node --input-type=module -e 'import {chromium} from "playwright"; console.log(chromium.executablePath())')"
           npm run audit:performance
+      - name: Package reviewed source and patch
+        run: node scripts/package-review.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: portfolio-quality-${{ github.sha }}
-          # Explicit public QA evidence only; never upload PDF/download bytes.
+          # Public QA and tracked review source only; no private/downloaded PDF evidence.
           path: |
             artifacts/visual/*.png
             artifacts/visual/results.json
@@ -47,4 +54,11 @@ jobs:
             artifacts/responsive-visual/business-copy-geometry.json
             artifacts/performance/*.json
             artifacts/performance/*.html
+            artifacts/business-scene-qa/*.png
+            artifacts/business-scene-qa/results.json
+            artifacts/console-integration/*.png
+            artifacts/console-integration/results.json
+            artifacts/portfolio-dependency-audit.json
+            artifacts/public-secret-scan.json
+            artifacts/review-packages/*
           retention-days: 14

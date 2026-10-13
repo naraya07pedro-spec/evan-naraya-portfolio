@@ -1,0 +1,73 @@
+{
+  "reviewedMain": "3d7e1c47d497e03c1b86681b61661023323a6e79",
+  "reviewedPrHead": "a82ec7c268dc0d909c3cd3f64222bbd66bd3cae6",
+  "mainHTMLSHA256": "58674401d13f3581dde7edbfa88fcb436cf425d6887b9bbc3bd70d6339972c1e",
+  "prHTMLSHA256": "13d4c62cb3f57b3bcffc050205f79a421cb6c3ae13802be6ada093e34d525296",
+  "integratedHTMLSHA256": "7169550d5aeaf5dcecd87dda4d987522cf87ed7942bec7247975c29e5cdaceec",
+  "baseCSSSHA256": "94206e9e4ca93a55fecf7f915de1f8849a8a644e7dc92dacac5279d6154df769",
+  "appendedCSSSHA256": "2a1a34dfaa35edd779c4c591747cc7e066c49ae85689296b330ed90d884b8fa2",
+  "positioningEdits": [
+    {
+      "before": "Evan Naraya \u2014 AI Automation &amp; Integration Engineer",
+      "after": "Evan Naraya \u2014 Backend &amp; Integration Engineer",
+      "occurrences": 3
+    },
+    {
+      "before": "Evan Naraya builds lead intake, document workflows and controlled AI with Python/FastAPI, n8n and PostgreSQL. Inspect public source, tests and recovery evidence.",
+      "after": "Evan Naraya builds backend services, API integrations, and AI systems using Python, FastAPI, TypeScript, and PostgreSQL. Explore code, tests, and recovery evidence.",
+      "occurrences": 1
+    },
+    {
+      "before": "Lead intake, document workflows and controlled AI \u2014 with inspectable engineering evidence.",
+      "after": "Backend services, API integrations and AI systems \u2014 with inspectable engineering evidence.",
+      "occurrences": 1
+    },
+    {
+      "before": "AI automation, backend and integrations for operational workflows \u2014 source, tests and recovery evidence.",
+      "after": "Backend engineering, APIs and AI integrations \u2014 with inspectable source, tests and recovery evidence.",
+      "occurrences": 1
+    },
+    {
+      "before": "\"jobTitle\":\"AI Automation & Integration Engineer\"",
+      "after": "\"jobTitle\":\"Backend & Integration Engineer\"",
+      "occurrences": 1
+    },
+    {
+      "before": "<span class=\"role-small\">AI Automation &amp;</span>",
+      "after": "<span class=\"role-small\">Backend &amp;</span>",
+      "occurrences": 1
+    },
+    {
+      "before": "Lead routing \u00b7 document search \u00b7 AI tools",
+      "after": "APIs \u00b7 backend systems \u00b7 AI integrations",
+      "occurrences": 1
+    }
+  ],
+  "consoleEdits": [
+    {
+      "before": "02 FLAGSHIP SYSTEMS",
+      "after": "03 FLAGSHIP SYSTEMS",
+      "occurrences": 1
+    },
+    {
+      "before": "<section class=\"biz-examples-intro section-pad\"",
+      "after": "<section class=\"project-scene console-scene scene\" id=\"operations-console\" data-project=\"console\" aria-labelledby=\"console-heading\" aria-describedby=\"console-sandbox\"><div class=\"sticky-stage project-stage\"><div class=\"project-copy\"><div class=\"project-count\">01 / 03 \u00b7 FULL-STACK ENGINEERING</div><h2 id=\"console-heading\">Full-Stack AI Operations Console</h2><p>A working Next.js interface, Fastify API and PostgreSQL worker system. Configure workflows, approve execution, inspect saved attempts, and recover failed runs.</p><p class=\"result\">58/58 system tests \u00b7 10/10 browser cases in each native and Docker environment \u00b7 10/10 Docker smoke checks</p><p class=\"console-disclosure\" id=\"console-sandbox\">Deterministic HTTP sandbox for AI triage; no live production LLM or customer deployment.</p><p class=\"console-stack\">Next.js \u00b7 React \u00b7 TypeScript \u00b7 Fastify \u00b7 PostgreSQL \u00b7 Prisma \u00b7 Docker</p><div class=\"console-links\"><a class=\"project-link\" href=\"https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/tree/654ce3b762f45a126ff844604daf0d830e54bf21\" target=\"_blank\" rel=\"noopener noreferrer\">Source \u2192</a><a href=\"https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/blob/654ce3b762f45a126ff844604daf0d830e54bf21/docs/ARCHITECTURE.md\" target=\"_blank\" rel=\"noopener noreferrer\">Architecture \u2197</a><a href=\"https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/blob/654ce3b762f45a126ff844604daf0d830e54bf21/docs/EVIDENCE.md\" target=\"_blank\" rel=\"noopener noreferrer\">Engineering evidence \u2197</a><a href=\"https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/blob/654ce3b762f45a126ff844604daf0d830e54bf21/docs/PORTFOLIO_CASE_STUDY.md\" target=\"_blank\" rel=\"noopener noreferrer\">Case study \u2197</a><a href=\"https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/actions/runs/38337575725\" target=\"_blank\" rel=\"noopener noreferrer\">Verified CI \u2197</a><a href=\"/assets/projects/operations-console/workflow-demo.mp4\" target=\"_blank\" rel=\"noopener noreferrer\">Watch workflow demo \u2197</a></div></div><figure class=\"project-device console-capture\"><div class=\"device-top\"><i></i><i></i><i></i><b>RUNNING APPLICATION / CI CAPTURE</b></div><a class=\"console-image-link\" href=\"/assets/projects/operations-console/dashboard.png\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Open authentic Operations Console dashboard screenshot at full size\"><img src=\"/assets/projects/operations-console/dashboard.png\" width=\"1440\" height=\"1000\" loading=\"lazy\" decoding=\"async\" alt=\"Operations Console dashboard with two workflows, three persisted executions, a recovered successful run and a rejected run.\"></a><figcaption>Authentic browser capture \u00b7 synthetic test records \u00b7 <a href=\"https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/actions/runs/38337575725\" target=\"_blank\" rel=\"noopener noreferrer\">CI run 38337575725</a></figcaption></figure><div class=\"project-stack\">WORKFLOWS \u00b7 APPROVALS \u00b7 RECOVERY</div><div class=\"scene-index\" aria-hidden=\"true\">03</div></div></section><section class=\"biz-examples-intro section-pad\"",
+      "occurrences": 1
+    },
+    {
+      "before": "01 / 02 \u00b7 PYTHON / FASTAPI",
+      "after": "02 / 03 \u00b7 PYTHON / FASTAPI",
+      "occurrences": 1
+    },
+    {
+      "before": "02 / 02 \u00b7 FASTAPI / PGVECTOR / MCP",
+      "after": "03 / 03 \u00b7 FASTAPI / PGVECTOR / MCP",
+      "occurrences": 1
+    },
+    {
+      "before": "Open to remote AI Automation, Backend, Integration, and Implementation roles.",
+      "after": "Open to remote Backend &amp; Integration Engineer, Software Engineer, Full-Stack Engineer, and AI Implementation Engineer roles.",
+      "occurrences": 1
+    }
+  ]
+}

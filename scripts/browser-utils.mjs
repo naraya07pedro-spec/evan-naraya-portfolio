@@ -10,7 +10,7 @@ export async function launch(engine='chromium'){
 export async function settle(page){
   await page.evaluate(async()=>{
     await document.fonts.ready;
-    await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));
+    await Promise.all([...document.images].filter(i=>{const r=i.getBoundingClientRect();return i.loading!=='lazy'||i.complete||(r.bottom>=0&&r.top<=innerHeight);}).map(i=>i.decode().catch(()=>{})));
     await Promise.all(document.getAnimations().filter(a=>a.effect?.getComputedTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{})));
     await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
   });

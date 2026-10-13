@@ -33,6 +33,7 @@ jobs:
       - run: sudo apt-get install -y --no-install-recommends poppler-utils
       - run: node scripts/preview-assets.mjs
       - run: npm run test:e2e
+      - run: npm run test:console
       - run: node scripts/validate-downloaded-pdfs.mjs
       - run: AUDIT_URL="$PREVIEW_URL" node scripts/capture.mjs
       - run: npm run test:responsive
@@ -46,4 +47,7 @@ jobs:
             artifacts/hosted-release-safety/*.json
             artifacts/responsive/*.png
             artifacts/responsive/*-geometry.json
+            artifacts/console-integration/*.png
+            artifacts/console-integration/results.json
+            artifacts/accessibility/*.json
           retention-days: 30
