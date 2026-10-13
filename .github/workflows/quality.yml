@@ -38,6 +38,24 @@ jobs:
           npm run audit:performance
       - name: Package reviewed source and patch
         run: node scripts/package-review.mjs
+      - name: Preserve compact verification and source packages
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-verification-${{ github.event.pull_request.head.sha || github.sha }}
+          if-no-files-found: error
+          path: |
+            artifacts/accessibility/*.json
+            artifacts/console-integration/results.json
+            artifacts/console-integration/chromium-1440-console-no-preference.png
+            artifacts/console-integration/chromium-390-console-no-preference.png
+            artifacts/business-scene-qa/results.json
+            artifacts/responsive/*-geometry.json
+            artifacts/performance/summary.json
+            artifacts/portfolio-dependency-audit.json
+            artifacts/public-secret-scan.json
+            artifacts/review-packages/*
+          retention-days: 30
       - uses: actions/upload-artifact@v4
         if: always()
         with:

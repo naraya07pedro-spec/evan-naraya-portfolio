@@ -1,0 +1,145 @@
+{
+  "inspectedAt": "2026-10-13T08:11:53.470Z",
+  "reviewedImplementationCommit": "0449b1065564502e1f0a53a60aea33e9333990fb",
+  "qualityCheckoutCommit": "dc04614f8644cb55688566c009e920f56d18131e",
+  "quality": {
+    "runURL": "https://github.com/naraya07pedro-spec/evan-naraya-portfolio/actions/runs/38363444897",
+    "jobId": 115182843720,
+    "conclusion": "success",
+    "contractTests": {
+      "passed": 51,
+      "failed": 0,
+      "skipped": 0
+    },
+    "browserTests": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    },
+    "consoleMetrics": {
+      "engines": [
+        "chromium",
+        "firefox"
+      ],
+      "comparisons": 54,
+      "maxUnexpectedPixelRatio": 0.00038657407407407407,
+      "consoleFrames": 36,
+      "axeScans": 4,
+      "videoPlaybackEngines": 2
+    },
+    "businessCaptures": 98,
+    "responsiveTestGroups": {
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "preview": {
+    "runURL": "https://github.com/naraya07pedro-spec/evan-naraya-portfolio/actions/runs/38363444812",
+    "jobId": 115182842617,
+    "conclusion": "success",
+    "browserTests": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    },
+    "consoleMetrics": {
+      "engines": [
+        "chromium",
+        "firefox"
+      ],
+      "comparisons": 54,
+      "maxUnexpectedPixelRatio": 0.00038657407407407407,
+      "consoleFrames": 36,
+      "axeScans": 4,
+      "videoPlaybackEngines": 2
+    },
+    "hostedSummary": {
+      "expectedHead": "0449b1065564502e1f0a53a60aea33e9333990fb",
+      "checkedAt": "2026-10-13T07:43:58.838Z",
+      "preview": "https://deploy-preview-2--evannaraya.netlify.app/",
+      "hostedBrowserViewportRuns": 14,
+      "hostedViewportStates": 98,
+      "hostedFullPageCaptures": 14,
+      "unexpectedConsoleOrNetworkFindings": 0,
+      "knownBrowserHostingWarnings": 28,
+      "publicAssetsMatched": 7,
+      "downloadedPdfsParsedAndRendered": 4,
+      "responsiveViewportStates": 560,
+      "responsiveImplemented": true,
+      "toolbarContrastRatio": 4.525627325670142,
+      "hostingNetworkIdleTimeouts": 0,
+      "limitations": [
+        "Hosted captures are not the immutable 98 source-regression comparisons",
+        "Raw hosted screenshots retain Netlify hosting controls",
+        "PDF rendering verification is Poppler, not a claim of native browser PDF-viewer inspection"
+      ]
+    },
+    "netlify": {
+      "id": "6acddedd4cad2bdcce7b0a93",
+      "context": "deploy-preview",
+      "state": "ready",
+      "commit": "0449b1065564502e1f0a53a60aea33e9333990fb"
+    }
+  },
+  "release": {
+    "runURL": "https://github.com/naraya07pedro-spec/evan-naraya-portfolio/actions/runs/38363445045",
+    "conclusion": "success",
+    "scope": "Exact existing approved CV bytes/consent; production release remains owner-controlled"
+  },
+  "artifacts": [
+    {
+      "id": 11796208146,
+      "name": "portfolio-quality-dc04614f8644cb55688566c009e920f56d18131e",
+      "bytes": 465696346,
+      "sha256ReportedByGitHub": "sha256:1ddd55089fa478cc1efbd22967a199ee67a91fc8a78f1f6bf64eb452a53a2f5b",
+      "expiresAt": "2026-10-27T07:43:54Z",
+      "fullZIPDigestIndependentlyVerified": false
+    },
+    {
+      "id": 11795814292,
+      "name": "preview-safety-0449b1065564502e1f0a53a60aea33e9333990fb",
+      "bytes": 472021363,
+      "sha256ReportedByGitHub": "sha256:8e5e106ecb0de651b390d68654d3a332f9ad90ae54eefaaad586b2074e1d1b81",
+      "expiresAt": "2026-11-12T07:43:59Z",
+      "fullZIPDigestIndependentlyVerified": false
+    }
+  ],
+  "provenance": "Counts exported from actual successful job logs and primary API responses. This is an inspection receipt, not a manufactured test-runner report. Large artifact ZIP transfer timed out twice for preview; source test outcomes were independently inspected. Compact evidence artifacts are added for reliable final collection.",
+  "selectedQualityLogLines": [
+    "2026-10-13T07:34:39.9249058Z # tests 51",
+    "2026-10-13T07:34:39.9249447Z # pass 51",
+    "2026-10-13T07:34:39.9249646Z # fail 0",
+    "2026-10-13T07:34:39.9250046Z # skipped 0",
+    "2026-10-13T07:35:14.4877136Z # tests 16",
+    "2026-10-13T07:35:14.4878210Z # pass 16",
+    "2026-10-13T07:35:14.4878828Z # fail 0",
+    "2026-10-13T07:35:14.4880026Z # skipped 0",
+    "2026-10-13T07:37:03.3361997Z {\"engines\":[\"chromium\",\"firefox\"],\"comparisons\":54,\"maxUnexpectedPixelRatio\":0.00038657407407407407,\"consoleFrames\":36,\"axeScans\":4,\"videoPlaybackEngines\":2}",
+    "2026-10-13T07:38:03.9462562Z Business-scene QA: 98 screenshots across Chromium and Firefox at seven widths; all viewport geometry checks passed",
+    "2026-10-13T07:43:17.0493359Z # tests 3",
+    "2026-10-13T07:43:17.0494051Z # pass 3",
+    "2026-10-13T07:43:17.0494876Z # fail 0",
+    "2026-10-13T07:43:17.0495666Z # skipped 0",
+    "2026-10-13T07:43:17.5639456Z {\"checkedAt\":\"2026-10-13T07:43:17.562Z\",\"scannedTextFiles\":86,\"findings\":[],\"scope\":\"Known patterns in current tracked/unignored text; no binary, entropy or history claim\"}",
+    "2026-10-13T07:43:27.7145434Z before mobile { performance: 98, accessibility: 95, 'best-practices': 100, seo: 100 } LCP 1617 CLS 0",
+    "2026-10-13T07:43:35.6248953Z after mobile {",
+    "2026-10-13T07:43:35.6250406Z } LCP 1804 CLS 0",
+    "2026-10-13T07:43:43.1675988Z before desktop {",
+    "2026-10-13T07:43:43.1677496Z } LCP 1608 CLS 0",
+    "2026-10-13T07:43:50.7208021Z after desktop {",
+    "2026-10-13T07:43:50.7209631Z } LCP 1803 CLS 0"
+  ],
+  "selectedHostedLogLines": [
+    "2026-10-13T07:35:56.5691148Z # tests 16",
+    "2026-10-13T07:35:56.5691694Z # pass 16",
+    "2026-10-13T07:35:56.5691934Z # fail 0",
+    "2026-10-13T07:35:56.5692461Z # skipped 0",
+    "2026-10-13T07:37:43.1677979Z {\"engines\":[\"chromium\",\"firefox\"],\"comparisons\":54,\"maxUnexpectedPixelRatio\":0.00038657407407407407,\"consoleFrames\":36,\"axeScans\":4,\"videoPlaybackEngines\":2}",
+    "2026-10-13T07:43:58.7839268Z # tests 3",
+    "2026-10-13T07:43:58.7839751Z # pass 3",
+    "2026-10-13T07:43:58.7840007Z # fail 0",
+    "2026-10-13T07:43:58.7840499Z # skipped 0",
+    "2026-10-13T07:43:58.8446410Z HOSTED_RELEASE_SAFETY_SUMMARY {\"expectedHead\":\"0449b1065564502e1f0a53a60aea33e9333990fb\",\"checkedAt\":\"2026-10-13T07:43:58.838Z\",\"preview\":\"https://deploy-preview-2--evannaraya.netlify.app/\",\"hostedBrowserViewportRuns\":14,\"hostedViewportStates\":98,\"hostedFullPageCaptures\":14,\"unexpectedConsoleOrNetworkFindings\":0,\"knownBrowserHostingWarnings\":28,\"publicAssetsMatched\":7,\"downloadedPdfsParsedAndRendered\":4,\"responsiveViewportStates\":560,\"responsiveImplemented\":true,\"toolbarContrastRatio\":4.525627325670142,\"hostingNetworkIdleTimeouts\":0,\"limitations\":[\"Hosted captures are not the immutable 98 source-regression comparisons\",\"Raw hosted screenshots retain Netlify hosting controls\",\"PDF rendering verification is Poppler, not a claim of native browser PDF-viewer inspection\"]}"
+  ]
+}

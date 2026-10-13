@@ -19,6 +19,6 @@ Existing mobile/reduced-motion rules use normal flow when content cannot fit a s
 
 Install/run/verify using README. Netlify retains its existing root publish directory and no compilation command. Updating this draft triggers Git Deploy Preview, not production. `node scripts/package-review.mjs` produces source-commit-bound FULL/PATCH archives, PATCH_MANIFEST.txt and SHA256SUMS as CI artifacts. FULL contains already approved tracked public CV assets; private/downloaded PDF evidence is excluded.
 
-The local workspace reset mid-delivery. The already uploaded media were recovered into a Git checkpoint, reports were redownloaded/digest-checked, and the restored HTML hash matched the previously exercised version exactly. Final CI verifies the restored source; no prior full report was invented to replace lost transient logs.
+Large full-matrix artifacts stay available in CI. Separate compact artifacts retain important JSON, selected authentic frames and source packages so their download/inspection does not depend on a near-500 MB transfer.
 
 No physical-device/Safari, broad accessibility certification or live LLM claim. The supplemental backup upload was quota-blocked; primary demo/reports are in Git. Owner approval is required for merge/production. CV replacement and LinkedIn publication are outside this work.

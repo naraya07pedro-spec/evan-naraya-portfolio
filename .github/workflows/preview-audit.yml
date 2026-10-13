@@ -38,6 +38,20 @@ jobs:
       - run: AUDIT_URL="$PREVIEW_URL" node scripts/capture.mjs
       - run: npm run test:responsive
       - run: node scripts/preview-audit-summary.mjs
+      - name: Preserve compact hosted verification
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preview-verification-${{ github.event.pull_request.head.sha || github.sha }}
+          if-no-files-found: error
+          path: |
+            artifacts/hosted-release-safety/*.json
+            artifacts/accessibility/*.json
+            artifacts/responsive/*-geometry.json
+            artifacts/console-integration/results.json
+            artifacts/console-integration/chromium-1440-console-no-preference.png
+            artifacts/console-integration/chromium-390-console-no-preference.png
+          retention-days: 30
       - uses: actions/upload-artifact@v4
         if: always()
         with:

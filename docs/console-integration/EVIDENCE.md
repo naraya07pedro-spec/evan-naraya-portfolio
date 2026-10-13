@@ -28,3 +28,8 @@ Raw browser traces/storage, login request bodies, signed download URLs, containe
 A supplemental 12,280,118-byte, 48-file private backup upload was rejected because file-storage quota was full. The important original demo, dashboard, reports and selected portfolio captures are retained in Git independently of that backup and CI expiration. Earlier Console CI_VERIFICATION.json describes implementation run 38336697920; its durations/captures are not substituted for the final-head run inspected here.
 
 The AI provider is deterministic, not a live production LLM. Ownership is per user, self-approval is allowed, and sandbox deduplication is process-local. No customer deployment, universal exactly-once delivery, ROI, traffic or live LLM quality is claimed. [Known limitations](https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/blob/654ce3b762f45a126ff844604daf0d830e54bf21/docs/KNOWN_LIMITATIONS.md). No merge or production deployment was initiated.
+
+
+## Portfolio implementation CI
+
+[Verified receipt](CI_VERIFICATION.json) links exact successful quality, hosted and release runs for implementation head `0449b1065564502e1f0a53a60aea33e9333990fb`. It preserves actual log excerpts and explicitly separates metadata-reported large ZIP digests from independent digest checks. The subsequent change adds compact evidence packaging and this receipt; application HTML/CSS/JS remain identical. Latest-head checks and final artifact inspection are linked in [draft PR #2](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/2).
