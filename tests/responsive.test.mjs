@@ -53,7 +53,7 @@ for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
         const r=rect(e),stage=e.closest('.sticky-stage');if(r.bottom<=0||r.top>=innerHeight||r.right<=0||r.left>=innerWidth)return false;if(!stage||getComputedStyle(stage).overflow!=='hidden')return false;
         const s=rect(stage);return r.top<s.top-1||r.bottom>s.bottom+1||r.left<s.left-1||r.right>s.right+1;
        }).map(e=>e.className),
-       ink:[...new Set(ink)],toolbarColor:getComputedStyle(document.querySelector('.device-top b')).color};
+       ink:[...new Set(ink)],toolbarColor:getComputedStyle(document.querySelector('.project-scene[data-project="1"] .device-top b')).color};
      });
      assert.ok(geometry.documentWidth<=width,'Overflow '+JSON.stringify({width,height,name,geometry}));
      // During the hero exit, text deliberately slides out while fading. Once

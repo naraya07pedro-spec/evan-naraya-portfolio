@@ -1,80 +1,47 @@
 # Evan Naraya engineering portfolio
 
-Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/), Evan Naraya's existing cinematic portfolio for Automation, Integration, Python/FastAPI Backend and AI Implementation roles.
+Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/). The existing cinematic portfolio presents backend, API integration, full-stack and AI implementation work through inspectable source and verification. The website stays static HTML/CSS/JavaScript; Next.js/Fastify describe the featured Console application.
 
-For operations teams: lead intake and API handoffs, document processing and cited answers, and controlled AI actions. The portfolio maps each function to inspectable source, tests and recovery behavior. Public reference implementations and historical workflow evidence are distinct from self-reported private client scope; no customer ROI or deployment scale is inferred.
-
-The original portrait, near-black/violet palette, typography, sticky storytelling and violet circular transition remain intact. This upgrade separates static assets, handles keyboard/reduced-motion edge cases, stops idle pointer animation work and adds reproducible quality gates. Privately reviewed resume candidates are prepared and inspected; their public upload awaits exact-file privacy approval. There is no frontend framework, application backend or production npm dependency.
-
-## Inspect the engineering work
-
-| Reference | Business function | Review entry point |
+| Project | Demonstrated work | Proof |
 | --- | --- | --- |
-| Bounded Agent Runtime | Bound AI tool access; review sensitive writes and recover uncertain outcomes | [Source](https://github.com/naraya07pedro-spec/agent-runtime-python) · [archived v2 evidence](https://github.com/naraya07pedro-spec/agent-runtime-python/tree/main/evidence/v2) |
-| Knowledge Workflow Runtime | Process files and return current-source citations, with review before handoff | [Source and run instructions](https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime) · [verification](https://github.com/naraya07pedro-spec/varevant.com/blob/main/examples/agentic-systems-lab/knowledge-runtime/docs/verification.md) |
-| Production Integration Reference | Validate signed lead intake, control duplicate events and hand off to an API | [Source, tests and limitations](https://github.com/naraya07pedro-spec/production-integration-reference) |
-| VAREVANT n8n engineering | Lead routing/follow-up controls, state/suppression checks and recovery evidence | [Historical source and incident evidence](https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n) |
+| Full-Stack AI Operations Console | UI/API/database/worker, approvals, retries and recovery with deterministic HTTP triage | [Reviewed source](https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/tree/654ce3b762f45a126ff844604daf0d830e54bf21) · [preserved proof](docs/console-integration/EVIDENCE.md) |
+| Bounded Agent Runtime | Bounded tool use, approval and uncertainty reconciliation | [Source](https://github.com/naraya07pedro-spec/agent-runtime-python) · [v2 archive](https://github.com/naraya07pedro-spec/agent-runtime-python/tree/f292f3cdb5d6daf5650e495898dbe8f8a710ea75/evidence/v2) |
+| Knowledge Workflow Runtime | File processing, current citations and review | [Source/verification](https://github.com/naraya07pedro-spec/varevant.com/tree/829711f66a3b65f7d8e819a6c3144b7f2d044a57/examples/agentic-systems-lab/knowledge-runtime) |
+| Production Integration Reference | Signed intake, duplicates and API handoff | [Source](https://github.com/naraya07pedro-spec/production-integration-reference) |
+| VAREVANT n8n engineering | Historical routing, suppression and recovery | [Workflow code](https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n) |
 
-The [evidence map](docs/evidence-map.md) connects failure scenarios to implementation, tests, exact revisions and operational consequences. Public references are separate from self-reported private client scope. Project test totals are not website test totals or claims of commercial deployment.
+Console triage uses a deterministic sandbox, without a live production LLM. Business illustrations remain conceptual. Private engagement scope stays self-reported; no new tenure, customer outcomes, ROI or traffic is inferred.
 
-## Run locally
+## Run and verify
 
-Node.js 22 or later is needed for development tooling. The deployed page needs only a static web server.
+Node.js 22 or later:
 
 ```bash
 npm ci --ignore-scripts
 npx playwright install --with-deps chromium firefox
 npm run dev
-```
-
-Open the URL printed by the server. All page assets and both resumes are local; no paid API, private credential or external font is required.
-
-## Verify
-
-```bash
-npm run verify       # structure, anchors, assets, resume/portrait hashes, JS syntax
-npm run test:e2e     # Chromium + Firefox interactions, downloads, motion, axe regressions
-npm run test:visual  # immutable baseline vs current source at 7 widths
+npm run verify
+npm run test:e2e
+npm run test:responsive
+npm run test:visual:responsive
+npm run test:console
 npm run audit:performance
-npm run verify:release # approved exact bytes + file/field consent; currently blocked
+npm audit --audit-level=moderate
+node scripts/scan-public-secrets.mjs
 ```
 
-`npm test` runs the three quality gates. GitHub Actions runs these checks on PRs and the upgrade branch, then uploads public screenshots and accessibility/comparison JSON. PDF bytes are excluded. Release eligibility runs independently. Visual comparison covers 320, 375, 390, 768, 1024, 1440 and 1920 px at the hero, statement, planet entry/expansion, both flagships and contact. Results are compared within each browser engine.
+`npm test` runs current contracts/browser/visual suites. Console comparison pins PR #2's original source at nine viewports in Chromium/Firefox. Historical source and runners stay unchanged. Protected comparisons use exact local source; separate hosted frames retain Netlify controls and verify actual preview behavior/assets.
 
-Optional QA settings: `BROWSER_EXECUTABLE` selects an installed Chromium executable. `BROWSER_USE_PROXY=1` uses the environment's existing proxy for live-site audits while retaining certificate verification. `FIREFOX_QA_NO_NESTED_SANDBOX=1` is only for QA inside an already isolated container where Firefox cannot create a nested user namespace; normal local/CI tests leave it unset.
+`BROWSER_EXECUTABLE` selects Chromium; `QA_ENGINES=chromium` limits local coverage and is not Firefox proof. Hosted checks use `PREVIEW_URL` and expected head. Actions checks both engines, asset hashes, links, PDF downloads, performance and review packaging. Bulky fresh captures/FULL/PATCH archives are CI artifacts.
 
-Capture a hosted page with `AUDIT_URL=https://deploy-preview-1--evannaraya.netlify.app/ AUDIT_ENGINES=chromium node scripts/capture.mjs`. `AUDIT_WIDTHS=1440,1920` selects only those widths; use a separate `AUDIT_OUTPUT` for partial runs. Hosting traffic that prevents network-idle is explicitly recorded; application fonts and images still finish decoding before screenshots.
+## Review and release
 
-## Source, release and limits
+[Evidence](docs/console-integration/EVIDENCE.md) · [case study](docs/console-integration/CASE_STUDY.md) · [implementation](docs/console-integration/IMPLEMENTATION_REPORT.md) · [QA](docs/console-integration/QA_REPORT.md) · [LinkedIn draft](docs/console-integration/LINKEDIN_COPY.md).
 
-- [Architecture and visual system](docs/architecture.md)
-- [Audit and release recommendation](docs/audit.md)
-- [Owner release review, actual preview screenshots and measurements](docs/release-review.md)
-- [Proposed original PDF sizes and SHA-256](docs/resumes.json)
-- [Deploy Preview and rollback](docs/deployment.md)
+PR #1 merged on 11 October 2026. This continues draft [PR #2](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/2), preserving Backend & Integration positioning, dark-violet design, portrait, animations, navigation and existing projects. [Deploy Preview #2](https://deploy-preview-2--evannaraya.netlify.app/) uses the existing Netlify Git integration; readiness is separately inspected.
 
-Netlify stays on the existing `evannaraya` project, production branch `main`, root publish directory and no compilation command. Changes are reviewed through a PR and preview. Explicit owner approval is required before a production merge.
+Both approved CVs/consent and the external release binding are unchanged. `verify:release` checks approved bytes/transport; it grants no production approval. Owner approval is required for merging or production release. LinkedIn copy is prepared only.
 
-Visual issues requiring approval remain documented. Accessibility gates prevent new violations; they do not certify WCAG 2.2 AA. Performance results are measured lab runs, not field INP or recruiter conversion data. No testimonials, outcomes, private client source, new tenure or work authorization were invented.
+The original Docker WebM and exact selected reports are preserved in Git with hashes, independently of CI expiration. A supplemental 12.28 MB private backup upload was blocked by full storage quota. Headless tests do not establish physical-device/Safari coverage or accessibility certification. Lighthouse is a lab measurement; secret scans detect specified patterns rather than every possible secret.
 
-## Current release blockers
-
-Both public v3 downloads still contain the baseline's reconstructed PDFs. Authentic originals, contact-only variants and the separate evidence-reviewed editorial candidates were inspected privately. Their exact provenance and career comparison are recorded in the release documents. Candidates remain private until the owner approves the exact files and public field categories.
-
-The independent `Release readiness` / `release-eligibility` check fails for missing consent and asset mismatches. Quality `verify` remains independent. A fresh 10 October branch response now reports `main` protected, with GitHub Actions `verify` and `release-eligibility` required at enforcement level `everyone`. This supersedes the earlier unprotected observation. The complete administrative policy, review requirements and bypass settings have not been freshly inspected by this integration.
-
-[Release-safety audit and exact candidate hashes](docs/release-safety.md) · [Unapproved visual proposals](docs/visual-proposals.md).
-
-The separate `Preview safety audit` workflow verifies deployed asset bytes, hosted Chromium/Firefox interactions, all target viewport states and downloaded PDF parsing/rendering. It also captures unapproved CSS proposals against the local checkout. Its artifacts exclude PDF bytes/renderings and private material. The original 98-case source regression and historical QA archive remain unchanged.
-
-Production merge still needs a separate explicit owner decision after the blockers are resolved. No auto-merge is enabled.
-
-## Current release preparation
-
-See [responsive implementation and release gates](docs/responsive-release-preparation-20261009.md) and [final private resume selection](docs/resume-candidate-review-20261009.md). `npm test` now runs the scoped responsive regression independently of the preserved historical `test:visual` runner. PR #1 stays draft. Main now reports required release checks; release eligibility remains blocked until exact owner consent, its separate Actions binding and approved resume installation are complete.
-
-## Business-purpose V13 draft
-
-[Execution, evidence boundaries and rollback](docs/business-proof-v13-20261010.md) · [Exact copy/link delta](docs/business-proof-scope.json) · [Prepared LinkedIn additions](docs/linkedin-business-purpose-v13.md).
-
-V13 changes content and proof links in the existing structure. It preserves the production CSS/JS, portrait, original named projects, diagrams, scoped test figures and historical visual evidence. The responsive visual suite separately protects the exact authorized copy delta, measures pre-V13/current geometry, and keeps the original 0.05% residual tolerance. The long mobile contact heading is shortened through wording alone. Public CV stand-ins retain their bytes and are labeled draft. The approved two mailto destinations remain unchanged. LinkedIn text is prepared only; no social profile or other engineering repository was modified.
+Earlier documents are historical: [site architecture](docs/architecture.md), [prior evidence map](docs/evidence-map.md), [business V13](docs/business-proof-v13-20261010.md), [approved CV consent](docs/resume-release-approval.json).

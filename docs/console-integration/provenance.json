@@ -1,0 +1,83 @@
+{
+  "reviewedSourceCommit": "654ce3b762f45a126ff844604daf0d830e54bf21",
+  "ciCheckoutCommit": "3c20bc4f6d45bdc75b1c4a33189e3d06e237f2c1",
+  "sourceTreeSHA256": "64902bbd414e6d98f2fb6c70706fcbd4a8bae72db6ce1ed4a511047f9b8112ee",
+  "ciRun": "https://github.com/naraya07pedro-spec/fullstack-ai-operations-console/actions/runs/38337575725",
+  "nativeArtifact": {
+    "id": 11785830003,
+    "sha256": "539b1cc061738c8ff5c0098cfaa480adfba35132614ac46f4d57c0943186af22"
+  },
+  "containerArtifact": {
+    "id": 11785064841,
+    "sha256": "b0bd8d542eba1056b931969963ed1d6add90afc67ee07f4fa760c6b336046783"
+  },
+  "dashboard": {
+    "path": "assets/projects/operations-console/dashboard.png",
+    "sha256": "1af5530de7f8e577d63681751b711b325b52fdc34b849cabd253733df7ed72ff",
+    "sourcePath": "artifacts/screenshots/dashboard.png",
+    "artifactId": 11785830003,
+    "transform": "None; unchanged native CI PNG"
+  },
+  "video": {
+    "path": "assets/projects/operations-console/workflow-demo.mp4",
+    "sha256": "ecbac9c72f93f84361d292923d4ff5cc52de677f5a8b6433e6e48bb70b29e991",
+    "bytes": 1490209,
+    "artifactId": 11785064841,
+    "originalPublicPath": "assets/projects/operations-console/workflow-demo-original.webm",
+    "sourceSHA256": "1509280d5e5fc6b4074aa016d2eac1d1605e0afded0c69ba9f30f2065c58a371",
+    "sourcePath": "test-results/console-complete-workflow--49c0c-thentic-states-and-recovery-desktop-chromium/video.webm",
+    "durationSeconds": 15.56,
+    "width": 1440,
+    "height": 1000,
+    "fps": 25,
+    "transform": "ffmpeg libx264 CRF18 yuv420p +faststart; no speed, duration, size or frame-rate change; no generated frames or overlays"
+  },
+  "verification": {
+    "systemTests": 58,
+    "nativeBrowserCases": 10,
+    "containerBrowserCases": 10,
+    "containerSmokeChecks": 10,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "dependencyVulnerabilities": 0
+  },
+  "preservedReports": [
+    {
+      "path": "docs/console-integration/reports/coverage-summary.json",
+      "sha256": "6d2a234faef4c1c9e5a2886b743bf87b972cba72d8b317f49ae039a5781a7bb6",
+      "bytes": 2759
+    },
+    {
+      "path": "docs/console-integration/reports/dependency-audit.json",
+      "sha256": "2e3b40ebb97e90a9c3b0c006c3a00acc9899d626ceee12e81103caf5665b0e8f",
+      "bytes": 364
+    },
+    {
+      "path": "docs/console-integration/reports/docker-browser.json",
+      "sha256": "477316d99d837fccdd801ac112340250611a1abd13a854a6d82cfeabcd7b96af",
+      "bytes": 549157
+    },
+    {
+      "path": "docs/console-integration/reports/docker-smoke.json",
+      "sha256": "49d12292d01ee84e1063ed14b7cf1b485b9893942960d1d035e5c307dde4d800",
+      "bytes": 1367
+    },
+    {
+      "path": "docs/console-integration/reports/native-browser.json",
+      "sha256": "285c3be28c5ca41716518e915824c45543bd549dc725edcb1345e5f12cb359a1",
+      "bytes": 549165
+    },
+    {
+      "path": "docs/console-integration/reports/native-system.json",
+      "sha256": "ee11c99ba78b23b8441481b9cad0e545076e598f63f35b4718ef6ddcb2d7d094",
+      "bytes": 102844
+    }
+  ],
+  "privacy": {
+    "records": "Synthetic workflows, tickets and example.test users",
+    "excluded": "Raw traces, login inputs, storage state, signed URLs, logs and source archives"
+  },
+  "backup": "Prior 12,280,118-byte supplemental archive upload rejected for full Library quota. Primary original walkthrough and exact reports preserved in Git.",
+  "scope": "Deterministic HTTP sandbox; no production LLM, customer outcomes or traffic claims"
+}

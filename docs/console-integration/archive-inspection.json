@@ -1,0 +1,12 @@
+{
+  "inspectedAt": "2026-10-13T07:26:23.910732+00:00",
+  "run": 38337575725,
+  "reviewedSourceHead": "654ce3b762f45a126ff844604daf0d830e54bf21",
+  "inventory": {
+    "sourceFiles": 59,
+    "screenshots": 16,
+    "sourceTreeSHA256": "64902bbd414e6d98f2fb6c70706fcbd4a8bae72db6ce1ed4a511047f9b8112ee",
+    "ciCheckout": "3c20bc4f6d45bdc75b1c4a33189e3d06e237f2c1"
+  },
+  "downloadedReports": "Unmodified selected CI reports; see provenance.json"
+}

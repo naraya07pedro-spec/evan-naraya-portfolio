@@ -1,0 +1,8 @@
+import {execFileSync} from 'node:child_process';import {mkdir,writeFile,readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import {consoleScope} from './console-integration-scope.mjs';
+const out='artifacts/review-packages';await mkdir(out,{recursive:true});const head=execFileSync('git',['rev-parse','HEAD']).toString().trim();
+const paths=execFileSync('git',['diff','--name-only','--diff-filter=ACMRT',consoleScope.reviewedMain,head]).toString().trim().split('\n').filter(Boolean);
+const full=out+'/Evan_Naraya_Portfolio_FULL_'+head.slice(0,8)+'.tar.gz',patch=out+'/Evan_Naraya_Portfolio_PATCH_'+head.slice(0,8)+'.tar.gz';
+execFileSync('git',['archive','--format=tar.gz','--output='+full,head]);
+await writeFile(out+'/PATCH_MANIFEST.txt','Reviewed base: '+consoleScope.reviewedMain+'\nSource commit: '+head+'\n\nApply only to this reviewed base. Paths retain repository layout. Inspect the diff before applying. Existing PR #2 positioning is included. No production release authorized. FULL: npm ci --ignore-scripts, install Playwright, npm run dev / npm test.\n\n'+paths.join('\n')+'\n');
+const tar=patch.replace(/\.gz$/,'');execFileSync('git',['archive','--format=tar','--output='+tar,head,'--',...paths]);execFileSync('tar',['--append','--file='+tar,'--directory='+out,'PATCH_MANIFEST.txt']);execFileSync('gzip',['--no-name','--force',tar]);
+const sums=[];for(const path of [full,patch,out+'/PATCH_MANIFEST.txt'])sums.push(createHash('sha256').update(await readFile(path)).digest('hex')+'  '+path.split('/').at(-1));await writeFile(out+'/SHA256SUMS',sums.join('\n')+'\n');console.log(JSON.stringify({head,base:consoleScope.reviewedMain,changedPaths:paths.length,full,patch}));
