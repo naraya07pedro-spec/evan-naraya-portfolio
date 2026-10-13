@@ -39,6 +39,12 @@ try{
    }
    for(const motion of ['no-preference','reduce']){
     await after.emulateMedia({reducedMotion:motion});await after.goto(process.env.PREVIEW_URL||current.url);await settle(after);await scene(after,'#operations-console',.5);
+    // Lazy loading starts asynchronously after scroll, especially in Firefox.
+    // Decode the real image before measuring it; restore the intended scene
+    // position so evidence and protected geometry retain their original scope.
+    const image=after.locator('#operations-console img');await image.scrollIntoViewIfNeeded();
+    await after.waitForFunction(()=>{const i=document.querySelector('#operations-console img');return i.complete&&i.naturalWidth>0;},null,{timeout:15000});
+    await image.evaluate(i=>i.decode());await scene(after,'#operations-console',.5);
     if(motion==='reduce'||await after.locator('#operations-console').evaluate(e=>e.hasAttribute('data-flow')))await scene(after,'#operations-console',0);
     const geometry=await after.locator('#operations-console').evaluate(e=>{
      const r=x=>{const b=x.getBoundingClientRect();return{x:b.x,y:b.y,width:b.width,height:b.height,top:b.top,bottom:b.bottom};};const clipped=[];

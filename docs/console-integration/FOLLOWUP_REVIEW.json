@@ -1,0 +1,69 @@
+{
+  "reviewDate": "2026-10-13",
+  "reviewedConsoleCommit": "654ce3b762f45a126ff844604daf0d830e54bf21",
+  "consoleCI": {
+    "run": 38337575725,
+    "conclusion": "success",
+    "systemTests": 58,
+    "passed": 58,
+    "failed": 0,
+    "skipped": 0,
+    "nativeBrowserStats": {
+      "startTime": "2026-10-13T02:36:46.376Z",
+      "duration": 71959.67400000001,
+      "expected": 10,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "dockerBrowserStats": {
+      "startTime": "2026-10-13T02:37:05.904Z",
+      "duration": 46772.701,
+      "expected": 10,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "independentInspection": {
+    "nativeArchiveSHA256": "539b1cc061738c8ff5c0098cfaa480adfba35132614ac46f4d57c0943186af22",
+    "containerArchiveSHA256": "b0bd8d542eba1056b931969963ed1d6add90afc67ee07f4fa760c6b336046783",
+    "bothFullArchiveDigestsMatched": true,
+    "sourceFingerprintsMatched": 59,
+    "screenshotFingerprintsMatched": 16,
+    "preservedReportsMatched": 6,
+    "dashboardMatched": true,
+    "originalDesktopRecordingMatchedExactPath": true,
+    "recordingSeconds": 15.56,
+    "recordingWidth": 1440,
+    "recordingHeight": 1000,
+    "generatedFrames": false
+  },
+  "localConsole": {
+    "passed": 57,
+    "failed": 0,
+    "pendingNativeOnly": 1,
+    "database": "PostgreSQL WASM/PGlite fallback; native CI is authoritative for the skipped case"
+  },
+  "localPortfolio": {
+    "contractsPassed": 51,
+    "chromiumBrowserTestsPassed": 9,
+    "protectedComparisons": 27,
+    "consoleFrames": 18,
+    "axeScans": 2,
+    "videoPlaybackEngines": 1,
+    "maxRegisteredResidual": 0.00038657407407407407
+  },
+  "priorHostedFailure": {
+    "run": 38367889554,
+    "head": "e30b4f5076f7aa9ba0427132c75966b1fb616468",
+    "reason": "Firefox 1366px asynchronous lazy image readiness; naturalWidth 0 before readiness",
+    "retainedArtifactId": 11798415140,
+    "downloadedZIPHash": "ffbcdf6fb92316f1ae3c55c1c9f31d78a20face5b70806d57e3f3f2adc3bb81e",
+    "completedComparisons": 48,
+    "completedConsoleFrames": 30,
+    "completedChromiumPlayback": 1
+  },
+  "change": "Only comparison-runner real image readiness and review documentation; no product, CV or source-baseline changes",
+  "finalHeadCI": "See actual final-head run links and inspected counts in draft PR #2; this file is not a claim that pending workflows passed"
+}
