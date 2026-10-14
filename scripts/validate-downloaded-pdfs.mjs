@@ -17,8 +17,8 @@ for(const engine of ['chromium','firefox'])for(const r of resumes){
  execFileSync('pdftoppm',['-f','1','-singlefile','-r','36','-png',path,prefix],{stdio:'pipe'});
  const png=await readFile(prefix+'.png');
  assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
- let releaseHyperlinkContract=false;
- try {await inspectPdf(bytes);releaseHyperlinkContract=true;}catch{}
+ await inspectPdf(bytes,{requirePortfolio:true,allowOwnerEmail:true,requireWorkflow:r.filename==='Evan_Naraya_Automation_Integration_Engineer.pdf'});
+ const releaseHyperlinkContract=true;
  results.push({engine,filename:r.filename,sha256:r.sha256,bytes:bytes.length,pages,parsedAndRendered:true,releaseHyperlinkContract});
 }
 // PDF bytes, renderings and extracted metadata are deliberately NOT uploaded.
