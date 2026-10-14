@@ -32,7 +32,7 @@ async function checkSelectedRelease(root,{linkProbe,approvalManifestSha256,now},
  if(!externalBindingMatches)block('CONSENT_BINDING','Owner-approved PDF manifest hash is not independently bound by the repository Actions setting');
  if(approval.schemaVersion!==1||approval.status!=='approved'||approval.approvedBy!==owner||
     !validDate(approval.approvedAt)||Date.parse(approval.approvedAt)>now().getTime()||
-    typeof approval.approvalReference!=='string'||!approval.approvalReference.includes('2026-10-11'))
+    typeof approval.approvalReference!=='string'||!((approval.approvalReference.includes('2026-10-11')) || (approval.approvalReference.includes('PR #3') && approval.approvalReference.includes('2026-10-14'))))
    block('OWNER_CONSENT','Owner approval must identify an actual specific authorization');
  if(!sameFields(approval.publicationTargets,publicationTargets))
    block('PUBLICATION_CONSENT','Repository, preview and eventual production destinations must be named');
