@@ -3,8 +3,8 @@
   "targetUrl": "https://www.linkedin.com/in/evannaraya",
   "indexedUrl": "https://id.linkedin.com/in/evannaraya",
   "method": "public_search_index",
-  "pageTitle": "Evan Naraya - Automation & Integration Engineer | n8n Expert | Python/FastAPI, APIs, PostgreSQL | LinkedIn",
-  "checkedAt": "2026-10-11T06:20:00Z",
-  "observation": "Public search index returned named LinkedIn profile in Indonesia with VAREVANT affiliation and matching evannaraya.netlify.app portfolio on 2026-10-11; direct automated canonical URL fetch was blocked. This is NOT proof of live sign-in access.",
-  "limitations": "Allowlisted canonical LinkedIn profile only. No approval for an unrelated URL, 404, other status, or evidence older than 72 hours."
+  "pageTitle": "Evan Naraya - Backend & Integration Engineer | Python, FastAPI, TypeScript | APIs & AI Systems | LinkedIn",
+  "checkedAt": "2026-10-14T07:04:12Z",
+  "observation": "Public search index on 2026-10-14 returned the named LinkedIn profile at https://id.linkedin.com/in/evannaraya, identifying Evan Naraya, VAREVANT, and the evannaraya.netlify.app portfolio. The canonical LinkedIn URL returned HTTP 999 to automated verification; this indexed observation does not prove authenticated access.",
+  "limitations": "This independent public-index observation validates only the specified LinkedIn identity for the repository's existing 72-hour allowance. It is not a live LinkedIn session, employer verification, or a permanent exemption for HTTP 999."
 }

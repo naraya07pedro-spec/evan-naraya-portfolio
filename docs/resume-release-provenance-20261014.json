@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "approvalReference": "PR #3; explicit owner approval in ChatGPT on 2026-10-14 for corrected Content-Credentials-free CVs, public fields, merge after checks and production publication",
+  "transformation": "pypdf 6.10.0: clone existing page dictionaries/resources/annotations into a new catalog; omit document-level Content Credentials associated files and embedded-file name tree; no page drawing, text, font, layout, annotation or career-content edits",
+  "files": [
+    {
+      "path": "assets/resumes/Evan_Naraya_Backend_Integration_Engineer.pdf",
+      "sourceFilename": "01-Evan_Naraya_Backend_Integration_Engineer.pdf",
+      "sourceSHA256": "5fe090da9f130eebe6bdbeda0d5cfaa793130ca3b7c9ba649f740330397750f4",
+      "sourceBytes": 16836,
+      "sha256": "7add01fda6f24fa610aec6358864842f49b55551862b091a12d280ca2b71358a",
+      "bytes": 6158,
+      "pages": 1,
+      "pageContentSHA256": "c8679d0a69b04bd752f0e6e32bd68aa7ca5c49570ca22d4a544c30a1f035cb30",
+      "careerTextSHA256": "7c53b9b59181de221d52d6e0cadc9c40682edf16786f3f3a53c907e93668e127",
+      "links": [
+        {
+          "uri": "mailto:evannarayahp@gmail.com",
+          "rect": [
+            189.2532,
+            729.4498,
+            292.8528,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://www.linkedin.com/in/evannaraya",
+          "rect": [
+            299.952,
+            729.4498,
+            332.838,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec",
+          "rect": [
+            339.9372,
+            729.4498,
+            367.0116,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://evannaraya.netlify.app/",
+          "rect": [
+            374.1108,
+            729.4498,
+            406.0224,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/fullstack-ai-operations-console",
+          "rect": [
+            49,
+            345.8648,
+            302.098,
+            356.8648
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/agent-runtime-python",
+          "rect": [
+            49,
+            261.4648,
+            266.098,
+            272.4648
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/production-integration-reference",
+          "rect": [
+            49,
+            190.7648,
+            308.614,
+            201.7648
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime",
+          "rect": [
+            49,
+            120.0648,
+            476.653,
+            131.0648
+          ]
+        }
+      ],
+      "textUnchanged": true,
+      "pageContentUnchanged": true,
+      "linksAndRectanglesUnchanged": true,
+      "pixelIdenticalAt144Dpi": true,
+      "renderSHA256": "af234b69c535b9d500d06b31819dfdd65fc457f81486e36cdd8f224d8b42cc9a",
+      "embeddedFiles": 0,
+      "contentCredentials": false,
+      "activeActions": false
+    },
+    {
+      "path": "assets/resumes/Evan_Naraya_Automation_Integration_Engineer.pdf",
+      "sourceFilename": "02-Evan_Naraya_Automation_Integration_Engineer.pdf",
+      "sourceSHA256": "790783d1028311f9516888706ff6c19e197b3d08e77f81f3a0037e9aa15ae4f2",
+      "sourceBytes": 17023,
+      "sha256": "5e1d3ba71545b81537fda80ac1e0d15622d7aab06e9213182bbe0e7462b86a6a",
+      "bytes": 6398,
+      "pages": 1,
+      "pageContentSHA256": "84699e4699febf4f983f0b8872e714b94d329925558654150d95823ad11b5f68",
+      "careerTextSHA256": "edf2e7a0a2530c3a1f0ff05447734d78ae1ab48e9e9c87e7ddd7860284296419",
+      "links": [
+        {
+          "uri": "mailto:evannarayahp@gmail.com",
+          "rect": [
+            189.2532,
+            729.4498,
+            292.8528,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://www.linkedin.com/in/evannaraya",
+          "rect": [
+            299.952,
+            729.4498,
+            332.838,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec",
+          "rect": [
+            339.9372,
+            729.4498,
+            367.0116,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://evannaraya.netlify.app/",
+          "rect": [
+            374.1108,
+            729.4498,
+            406.0224,
+            739.8898
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n",
+          "rect": [
+            49,
+            332.1648,
+            292.108,
+            343.1648
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/production-integration-reference",
+          "rect": [
+            49,
+            261.4648,
+            308.614,
+            272.4648
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/fullstack-ai-operations-console",
+          "rect": [
+            49,
+            204.4648,
+            302.098,
+            215.4648
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/agent-runtime-python",
+          "rect": [
+            49,
+            133.7648,
+            266.098,
+            144.7648
+          ]
+        },
+        {
+          "uri": "https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime",
+          "rect": [
+            95.475,
+            90.84976,
+            208.0835,
+            100.9898
+          ]
+        }
+      ],
+      "textUnchanged": true,
+      "pageContentUnchanged": true,
+      "linksAndRectanglesUnchanged": true,
+      "pixelIdenticalAt144Dpi": true,
+      "renderSHA256": "3f6617d4b9667a98c77f5af0c890a6bab22c7db357fa819c53c166b35da62b6a",
+      "embeddedFiles": 0,
+      "contentCredentials": false,
+      "activeActions": false
+    }
+  ]
+}

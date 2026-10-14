@@ -9,9 +9,11 @@ export const resumeLinks = [
  'https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n'
 ];
 export const portfolioWebsite = 'https://evannaraya.netlify.app/';
+export const operationsConsole = 'https://github.com/naraya07pedro-spec/fullstack-ai-operations-console';
+export const selectedResumeLinks = [...resumeLinks.filter(url=>!url.endsWith('/n8n')),operationsConsole];
 // Parsing and annotations are independent of hash consent. No PDF bytes or
 // extracted personal fields enter reports or CI artifacts.
-export async function inspectPdf(bytes,{requirePortfolio=false,allowOwnerEmail=false}={}){
+export async function inspectPdf(bytes,{requirePortfolio=false,allowOwnerEmail=false,requireWorkflow=false}={}){
  const doc=await PDFDocument.load(bytes,{throwOnInvalidObject:true,updateMetadata:false});
  if(doc.isEncrypted||doc.getPageCount()!==1)throw Error('Expected one unencrypted page');
  for(const [,object] of doc.context.enumerateIndirectObjects()){
@@ -33,12 +35,13 @@ export async function inspectPdf(bytes,{requirePortfolio=false,allowOwnerEmail=f
   const rect=a.lookup(PDFName.of('Rect'),PDFArray).asArray().map(x=>Number(x.toString()));
   if(rect.length!==4||rect.some(x=>!Number.isFinite(x))||rect[0]<0||rect[1]<0||rect[2]>width||rect[3]>height||rect[2]<=rect[0]||rect[3]<=rect[1])throw Error('Invalid link hit rectangle');
   const url=uri.decodeText();const approved=allowOwnerEmail&&['mailto:evannarayahp@gmail.com','https://linkedin.com/in/evannaraya'].includes(url);
-  if(!approved&&![...resumeLinks,'https://varevant.com',portfolioWebsite].includes(url))throw Error('Unexpected resume destination');links.push(url);
+  if(!approved&&![...resumeLinks,'https://varevant.com',portfolioWebsite,...(allowOwnerEmail?[operationsConsole]:[])].includes(url))throw Error('Unexpected resume destination');links.push(url);
  }
- if(resumeLinks.some(url=>!links.includes(url)&&!(allowOwnerEmail&&url==='https://www.linkedin.com/in/evannaraya'&&links.includes('https://linkedin.com/in/evannaraya'))))throw Error('Missing required clickable profile/project link');
+ const required=allowOwnerEmail?[...selectedResumeLinks,...(requireWorkflow?[resumeLinks.at(-1)]:[])]:resumeLinks;
+ if(required.some(url=>!links.includes(url)&&!(allowOwnerEmail&&url==='https://www.linkedin.com/in/evannaraya'&&links.includes('https://linkedin.com/in/evannaraya'))))throw Error('Missing required clickable profile/project link');
  if(allowOwnerEmail&&!links.includes('mailto:evannarayahp@gmail.com'))throw Error('Missing approved email hyperlink');
  if(requirePortfolio&&!links.includes(portfolioWebsite))throw Error('Missing personal portfolio hyperlink');
- return {pages:1,clickableRequiredLinks:resumeLinks.length};
+ return {pages:1,clickableRequiredLinks:required.length,httpLinks:links.filter(url=>url.startsWith('https://'))};
 }
 
 export async function probeReleaseLink(url){
