@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "status": "approved",
   "approvedBy": "naraya07pedro-spec",
-  "approvedAt": "2026-10-13T18:29:52Z",
-  "approvalReference": "Owner explicitly approved both cleaned replacement PDF resumes for PR #3, including name, email, and career content, for public GitHub, Netlify preview, and production in ChatGPT on 2026-10-14. Approval covers byte-exact clean PDFs without embedded Content Credentials. Production merge remains subject to passing required checks.",
+  "approvedAt": "2026-10-14T01:46:22Z",
+  "approvalReference": "Owner explicitly approved corrected Content-Credentials-free CV PDFs in PR #3 on 2026-10-14 in ChatGPT, including name, email, career information and all contained links, for public GitHub, Netlify preview and production. Document-level embedded Content Credentials removed; page content, text, links, hit rectangles and 144-DPI pixels are unchanged. Merge and production publication authorized only after all required checks pass. See docs/resume-release-provenance-20261014.json for exact source and release bytes.",
   "publicationTargets": [
     "public_github_repository",
     "netlify_deploy_preview",
@@ -12,7 +12,7 @@
   "files": [
     {
       "path": "assets/resumes/Evan_Naraya_Automation_Integration_Engineer.pdf",
-      "sha256": "790783d1028311f9516888706ff6c19e197b3d08e77f81f3a0037e9aa15ae4f2",
+      "sha256": "5e1d3ba71545b81537fda80ac1e0d15622d7aab06e9213182bbe0e7462b86a6a",
       "variant": "reviewed-owner-selected",
       "publicFields": [
         "name",
@@ -26,7 +26,7 @@
     },
     {
       "path": "assets/resumes/Evan_Naraya_Backend_Integration_Engineer.pdf",
-      "sha256": "5fe090da9f130eebe6bdbeda0d5cfaa793130ca3b7c9ba649f740330397750f4",
+      "sha256": "7add01fda6f24fa610aec6358864842f49b55551862b091a12d280ca2b71358a",
       "variant": "reviewed-owner-selected",
       "publicFields": [
         "name",

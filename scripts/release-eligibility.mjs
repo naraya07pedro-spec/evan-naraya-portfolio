@@ -59,7 +59,7 @@ async function checkSelectedRelease(root,{linkProbe,approvalManifestSha256,now},
    const sha256=digest(bytes);assets.push({path,bytes:bytes.length,sha256,variant:'reviewed-owner-selected'});
    if(sha256!==consent?.sha256)block('ASSET_MISMATCH',filename+': actual bytes differ from approved hash');
    if(bytes.subarray(0,5).toString()!=='%PDF-')block('NOT_PDF',filename+': invalid PDF signature');
-   try{Object.assign(assets.at(-1),await inspectPdf(bytes,{requirePortfolio:true,allowOwnerEmail:true}));}
+   try{Object.assign(assets.at(-1),await inspectPdf(bytes,{requirePortfolio:true,allowOwnerEmail:true,requireWorkflow:filename===selectedFilenames[0]}));}
    catch(e){block('PDF_CONTRACT',filename+': '+e.message);}
    if(![...html.matchAll(/<a\b[^>]*>/g)].some(a=>a[0].includes('href="/'+path+'"')&&a[0].includes('download="'+filename+'"')))
      block('DOWNLOAD_REFERENCE',filename+': public download anchor must use exact path/name');
@@ -67,7 +67,7 @@ async function checkSelectedRelease(root,{linkProbe,approvalManifestSha256,now},
  for(const url of resumeLinks)if(!html.includes('href="'+url+'"'))block('REQUIRED_LINK','Required project/profile link missing: '+url);
  const links=[];
  if(linkProbe&&errors.length===0){
-  for(const url of [...resumeLinks,portfolioWebsite,'https://varevant.com']){
+  for(const url of [...new Set([...resumeLinks,portfolioWebsite,'https://varevant.com',...assets.flatMap(a=>a.httpLinks||[])])]){
    const status=await linkProbe(url);links.push({url,status});
    // LinkedIn rejects automated fetches with 999. An independent public
    // index observation can verify only this exact canonical profile, not any URL.

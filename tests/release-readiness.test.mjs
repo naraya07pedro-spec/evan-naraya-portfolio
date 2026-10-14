@@ -5,13 +5,39 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createHash} from 'node:crypto';
 import {PDFDocument,PDFName,PDFString} from 'pdf-lib';
-import {resumeLinks,portfolioWebsite,inspectPdf} from '../scripts/pdf-contract.mjs';
+import {resumeLinks,portfolioWebsite,inspectPdf,selectedResumeLinks,operationsConsole} from '../scripts/pdf-contract.mjs';
 async function fakePdf(marker,links=resumeLinks){
  const doc=await PDFDocument.create(),page=doc.addPage([612,792]);
  page.drawText('SYNTHETIC TEST '+marker,{x:20,y:750,size:12});
  page.node.set(PDFName.of('Annots'),doc.context.obj(links.map((url,i)=>doc.context.register(doc.context.obj({Type:'Annot',Subtype:'Link',Rect:[20,700-i*30,220,720-i*30],A:{S:'URI',URI:PDFString.of(url)}})))));
  return Buffer.from(await doc.save({useObjectStreams:false}));
 }
+const selectedLinks=[...selectedResumeLinks,portfolioWebsite,'mailto:evannarayahp@gmail.com'];
+test('approved Backend PDF requires Console and public profile links without an unrelated n8n claim',async()=>{
+ const bytes=await fakePdf('selected backend',selectedLinks);
+ assert.equal((await inspectPdf(bytes,{allowOwnerEmail:true,requirePortfolio:true})).pages,1);
+ await assert.rejects(()=>inspectPdf(bytes,{requirePortfolio:true}),/Unexpected resume destination/);
+});
+test('approved Automation PDF retains its required workflow source link',async()=>{
+ const missing=await fakePdf('selected automation missing workflow',selectedLinks);
+ await assert.rejects(()=>inspectPdf(missing,{allowOwnerEmail:true,requirePortfolio:true,requireWorkflow:true}),/Missing required/);
+ const complete=await fakePdf('selected automation',[...selectedLinks,resumeLinks.at(-1)]);
+ assert.equal((await inspectPdf(complete,{allowOwnerEmail:true,requirePortfolio:true,requireWorkflow:true})).pages,1);
+});
+test('selected PDF rejects missing Console evidence and unapproved destinations',async()=>{
+ const missing=await fakePdf('missing console',selectedLinks.filter(url=>url!==operationsConsole));
+ await assert.rejects(()=>inspectPdf(missing,{allowOwnerEmail:true,requirePortfolio:true}),/Missing required/);
+ for(const unsafe of ['javascript:alert(1)','https://unapproved.example.test']){
+  const bytes=await fakePdf('unapproved destination',[...selectedLinks,unsafe]);
+  await assert.rejects(()=>inspectPdf(bytes,{allowOwnerEmail:true,requirePortfolio:true}),/Unexpected resume destination/);
+ }
+});
+test('selected owner-approved PDF still rejects embedded Content Credentials',async()=>{
+ const doc=await PDFDocument.load(await fakePdf('embedded selected',selectedLinks));
+ await doc.attach(Buffer.from('SYNTHETIC C2PA TEST'),'Content Credentials',{mimeType:'application/c2pa'});
+ const embedded=await doc.save();
+ await assert.rejects(()=>inspectPdf(embedded,{allowOwnerEmail:true,requirePortfolio:true}),/Active or embedded PDF data/);
+});
 import {checkRelease as checkReleaseContract, owner, requiredFilenames, publicSafeFields, originalFields, publicationTargets} from '../scripts/release-eligibility.mjs';
 
 const sha = b => createHash('sha256').update(b).digest('hex');
