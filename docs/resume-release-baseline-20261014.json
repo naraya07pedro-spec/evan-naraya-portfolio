@@ -4,12 +4,12 @@
   "releaseApproval": "Explicit PR #3 CV replacement authorization 2026-10-14",
   "files": [
     {
-      "path": "assets/resumes/Evan_Naraya_Backend_Integration_Reliability_Engineer.pdf",
-      "sha256": ""
+      "path": "assets/resumes/Evan_Naraya_Automation_Integration_Engineer.pdf",
+      "sha256": "2ce31dbd49ef676ee59e912f9cf4e09eb9e5d91eb9b07122c6b98dca83b517cf"
     },
     {
       "path": "docs/published-resumes.json",
-      "sha256": "d7237fe7d6fcd0bc7c665a10d5b9440304fdc0d678c8105c20ae75637488c2a1"
+      "sha256": "f9c3d99c191e5a7dcf89b9341ab907ea24f11725feac87a7569e05961ffc4e34"
     }
   ]
 }
