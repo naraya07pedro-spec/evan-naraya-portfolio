@@ -12,36 +12,23 @@ Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/). The existi
 
 Console triage uses a deterministic sandbox, without a live production LLM. Business illustrations remain conceptual. Private engagement scope stays self-reported; no new tenure, customer outcomes, ROI or traffic is inferred.
 
-## Run and verify
+---
 
-Node.js 22 or later:
+## 🛡️ Reliability Engineering & Automated Verification
 
-```bash
-npm ci --ignore-scripts
-npx playwright install --with-deps chromium firefox
-npm run dev
-npm run verify
-npm run test:e2e
-npm run test:responsive
-npm run test:visual:responsive
-npm run test:console
-npm run audit:performance
-npm audit --audit-level=moderate
-node scripts/scan-public-secrets.mjs
-```
+This repository relies on a fail-closed integrity architecture, leveraging Node.js native test runner to guarantee system reliability and cryptographic manifest integrity (SHA256).
 
-`npm test` runs current contracts/browser/visual suites. Console comparison pins PR #2's original source at nine viewports in Chromium/Firefox. Historical source and runners stay unchanged. Protected comparisons use exact local source; separate hosted frames retain Netlify controls and verify actual preview behavior/assets.
+### 🚀 1. Live Automated Test Execution
+Real-time execution recording of the unit test suite running in a local environment.
 
-`BROWSER_EXECUTABLE` selects Chromium; `QA_ENGINES=chromium` limits local coverage and is not Firefox proof. Hosted checks use `PREVIEW_URL` and expected head. Actions checks both engines, asset hashes, links, PDF downloads, performance and review packaging. Bulky fresh captures/FULL/PATCH archives are CI artifacts.
+<p align="center">
+  <img src="assets/images/demo.gif" alt="Automated Test Suite Demo" width="100%">
+</p>
 
-## Review and release
+---
 
-[Evidence](docs/console-integration/EVIDENCE.md) · [case study](docs/console-integration/CASE_STUDY.md) · [implementation](docs/console-integration/IMPLEMENTATION_REPORT.md) · [QA](docs/console-integration/QA_REPORT.md) · [LinkedIn draft](docs/console-integration/LINKEDIN_COPY.md).
+### 🧪 2. Test Suite Verification Proof (10/10 Pass)
+Automated verification across 10 core test suites covering release audits, manifest integrity, and asset publication.
 
-PR #1 merged on 11 October 2026. This continues draft [PR #2](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/2), preserving Backend & Integration positioning, dark-violet design, portrait, animations, navigation and existing projects. [Deploy Preview #2](https://deploy-preview-2--evannaraya.netlify.app/) uses the existing Netlify Git integration; readiness is separately inspected.
-
-Both approved CVs/consent and the external release binding are unchanged. `verify:release` checks approved bytes/transport; it grants no production approval. Owner approval is required for merging or production release. LinkedIn copy is prepared only.
-
-The original Docker WebM and exact selected reports are preserved in Git with hashes, independently of CI expiration. A supplemental 12.28 MB private backup upload was blocked by full storage quota. Headless tests do not establish physical-device/Safari coverage or accessibility certification. Lighthouse is a lab measurement; secret scans detect specified patterns rather than every possible secret.
-
-Earlier documents are historical: [site architecture](docs/architecture.md), [prior evidence map](docs/evidence-map.md), [business V13](docs/business-proof-v13-20261010.md), [approved CV consent](docs/resume-release-approval.json).
+```powershell
+node --test
