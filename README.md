@@ -12,6 +12,85 @@ Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/). The existi
 
 Console triage uses a deterministic sandbox, without a live production LLM. Business illustrations remain conceptual. Private engagement scope stays self-reported; no new tenure, customer outcomes, ROI or traffic is inferred.
 
+## 🛡️ Reliability Engineering & Automated Verification
+
+Repositori ini menerapkan standar *fail-closed integrity check* menggunakan Node.js test runner bawaan untuk memastikan setiap rilis dan manifes CV terverifikasi secara kriptografis (SHA256).
+
+### 🚀 1. Live Automated Test Execution
+
+Visualisasi nyata eksekusi test suite secara otomatis di lingkungan lokal.
+
+<p align="center">
+  <img src="assets/demo.gif" alt="Live Automated Test Execution Demo" width="100%">
+</p>
+
+---
+
+### 🧪 2. Test Suite Verification Proof (10/10 Pass)
+
+Hasil verifikasi 10 test suite utama yang mencakup audit rilis, integritas manifes, dan publikasi aset.
+
+```bash
+node --test
+```
+
+```
+# tests 10
+# pass  10
+# fail  0
+# duration_ms ~367–577ms
+```
+
+| Suite | Cakupan verifikasi |
+| --- | --- |
+| `release-readiness` | Audit kesiapan rilis CV terhadap manifes baseline |
+| `structure` | Integritas struktur konten dan berkas portfolio |
+| `business-proof` | Validasi klaim bisnis terhadap bukti yang terdokumentasi |
+| `historical-evidence` | Audit keberadaan bukti historis yang diawetkan |
+| `console-integration` | Konsistensi integrasi Console dengan sumber terverifikasi |
+| `contact-scope` | Pembatasan data kontak terhadap cakupan publikasi |
+| `browser-findings` | Verifikasi temuan QA browser telah ditindaklanjuti |
+| `public-secret-scan` | Pemindaian rahasia yang terekspos secara publik |
+| `browser` | Kontrak perilaku browser / e2e |
+| `responsive` | Kontrak viewport responsif |
+
+<p align="center">
+  <img src="assets/terminal-pass.png" alt="Test Suite Verification Proof — node --test pass 10, fail 0" width="100%">
+</p>
+
+---
+
+### 🔐 3. Git Sync Verification (Fail-Closed Integrity Flow)
+
+Verifikasi end-to-end bahwa status lokal identik dengan `origin/main` sebelum test dieksekusi. Setiap divergensi state Git akan gagal lebih dulu (fail-closed) daripada menghasilkan build tidak terverifikasi.
+
+<p align="center">
+  <img src="assets/git-sync-verification.png" alt="Git Sync Verification — git reset --hard origin/main hingga node --test" width="100%">
+</p>
+
+---
+
+### 🧬 4. Integrity Architecture (SHA256 Release Manifest)
+
+Manifes rilis CV diikat secara kriptografis: setiap PDF CV terverifikasi terhadap SHA256 yang terekam di `docs/published-resumes.json` dan dikunci ke baseline rilis `docs/resume-release-baseline-20261014.json`. Integritas berkas lokal (bytes, hash) harus cocok dengan manifes sebelum CV dianggap valid untuk publikasi.
+
+<p align="center">
+  <img src="assets/integrity-architecture.png" alt="Integrity Architecture — published-resumes.json dan resume-release-baseline manifest" width="100%">
+</p>
+
+---
+
+## Aset verifikasi
+
+| Aset | Lokasi | Fungsi |
+| --- | --- | --- |
+| Live test demo | `assets/demo.gif` | Rekaman eksekusi `node --test` live hingga passing |
+| Terminal pass proof | `assets/terminal-pass.png` | Hasil eksekusi `node --test` — pass 10, fail 0 |
+| Git sync verification | `assets/git-sync-verification.png` | Alur `git reset --hard origin/main` → `node --test` |
+| Integrity architecture | `assets/integrity-architecture.png` | Split-view manifes SHA256 CV dan baseline rilis |
+
+---
+
 ## Run and verify
 
 Node.js 22 or later:

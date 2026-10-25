@@ -1,16 +1,10 @@
 [
   {
-    "path": "assets/resumes/Evan_Naraya_Automation_Integration_Engineer.pdf",
+    "id": "backend-reliability-cv",
+    "title": "Backend & Integration Reliability Engineer CV",
     "filename": "Evan_Naraya_Automation_Integration_Engineer.pdf",
-    "bytes": 6398,
-    "sha256": "5e1d3ba71545b81537fda80ac1e0d15622d7aab06e9213182bbe0e7462b86a6a",
-    "status": "Owner-approved Content-Credentials-free PDF; PR #3 approval 2026-10-14; exact source and unchanged-content verification in docs/resume-release-provenance-20261014.json"
-  },
-  {
-    "path": "assets/resumes/Evan_Naraya_Backend_Integration_Engineer.pdf",
-    "filename": "Evan_Naraya_Backend_Integration_Engineer.pdf",
-    "bytes": 6158,
-    "sha256": "7add01fda6f24fa610aec6358864842f49b55551862b091a12d280ca2b71358a",
-    "status": "Owner-approved Content-Credentials-free PDF; PR #3 approval 2026-10-14; exact source and unchanged-content verification in docs/resume-release-provenance-20261014.json"
+    "role": "Backend & Integration Reliability Engineer",
+    "bytes": 6613,
+    "sha256": "2ce31dbd49ef676ee59e912f9cf4e09eb9e5d91eb9b07122c6b98dca83b517cf"
   }
 ]

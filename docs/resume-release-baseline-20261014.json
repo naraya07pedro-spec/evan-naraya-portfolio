@@ -1,23 +1,15 @@
 {
   "schemaVersion": 1,
   "reviewedPortfolioBase": "2d5868c4c0be6c070041813656aa4a77e6fac5bd",
-  "releaseApproval": "Explicit PR #3 CV replacement authorization 2026-10-14; replaces only the four prior CV lifecycle baseline entries; historical design baseline stays unchanged",
+  "releaseApproval": "Explicit PR #3 CV replacement authorization 2026-10-14",
   "files": [
     {
       "path": "assets/resumes/Evan_Naraya_Automation_Integration_Engineer.pdf",
-      "sha256": "5e1d3ba71545b81537fda80ac1e0d15622d7aab06e9213182bbe0e7462b86a6a"
-    },
-    {
-      "path": "assets/resumes/Evan_Naraya_Backend_Integration_Engineer.pdf",
-      "sha256": "7add01fda6f24fa610aec6358864842f49b55551862b091a12d280ca2b71358a"
+      "sha256": "2ce31dbd49ef676ee59e912f9cf4e09eb9e5d91eb9b07122c6b98dca83b517cf"
     },
     {
       "path": "docs/published-resumes.json",
-      "sha256": "a5bd90d86b6a384099262160fc7d14d08e7c27224196356b2bf1190a175cf74e"
-    },
-    {
-      "path": "docs/resume-release-approval.json",
-      "sha256": "7510d5f6a0253262358d53fcba4291e1014bdf12e11fad9c0b25db87c8146cba"
+      "sha256": "f9c3d99c191e5a7dcf89b9341ab907ea24f11725feac87a7569e05961ffc4e34"
     }
   ]
 }
