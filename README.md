@@ -1,6 +1,6 @@
 # Evan Naraya engineering portfolio
 
-Source for [evannaraya.netlify.app](https://evannaraya.netlify.app/). The existing cinematic portfolio presents backend, API integration, full-stack and AI implementation work through inspectable source and verification. The website stays static HTML/CSS/JavaScript; Next.js/Fastify describe the featured Console application.
+Source for [evannaraya.com](https://evannaraya.com/). The existing cinematic portfolio presents backend, API integration, full-stack and AI implementation work through inspectable source and verification. The website stays static HTML/CSS/JavaScript; Next.js/Fastify describe the featured Console application.
 
 | Project | Demonstrated work | Proof |
 | --- | --- | --- |
@@ -38,7 +38,7 @@ node scripts/scan-public-secrets.mjs
 
 [Evidence](docs/console-integration/EVIDENCE.md) · [case study](docs/console-integration/CASE_STUDY.md) · [implementation](docs/console-integration/IMPLEMENTATION_REPORT.md) · [QA](docs/console-integration/QA_REPORT.md) · [LinkedIn draft](docs/console-integration/LINKEDIN_COPY.md).
 
-PR #1 merged on 11 October 2026. This continues draft [PR #2](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/2), preserving Backend & Integration positioning, dark-violet design, portrait, animations, navigation and existing projects. [Deploy Preview #2](https://deploy-preview-2--evannaraya.netlify.app/) uses the existing Netlify Git integration; readiness is separately inspected.
+PR #1 merged on 11 October 2026. This continues draft [PR #2](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/2), preserving Backend & Integration positioning, dark-violet design, portrait, animations, navigation and existing projects. [Deploy Preview #2](https://deploy-preview-2--evannaraya.com/) uses the existing Netlify Git integration; readiness is separately inspected.
 
 Both approved CVs/consent and the external release binding are unchanged. `verify:release` checks approved bytes/transport; it grants no production approval. Owner approval is required for merging or production release. LinkedIn copy is prepared only.
 
