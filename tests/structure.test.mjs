@@ -10,7 +10,8 @@ test('semantic page, canonical identity and discoverability',()=>{
  assert.match(html,/<html lang="en"/);assert.match(html,/<main id="top"/);
  assert.equal([...html.matchAll(/<h1\b/g)].length,1);
  for(const id of ['work','skills','contact','agent-heading','knowledge-heading'])assert.ok(html.includes('id="'+id+'"'));
- assert.ok(html.includes('rel="canonical" href="https://evannaraya.netlify.app/"'));
+ assert.ok(html.includes('rel="canonical" href="https://evannaraya.com/"'));
+ assert.ok(html.includes('id="clients"'),'Client work section missing');
  assert.match(html,/<meta name="description" content="[^"]{50,}"/);
  assert.match(html,/<meta property="og:image"/);
  const person=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
@@ -24,13 +25,14 @@ test('public source destinations and claim limits remain present',()=>{
  for(const path of ['agent-runtime-python','examples/agentic-systems-lab/knowledge-runtime','production-integration-reference','varevant.com/tree/main/n8n','bimmca-intelligence'])assert.ok(html.includes(path));
  assert.ok(html.includes('v2 archive'));assert.ok(html.includes('preserved v2'));
  assert.ok(html.includes('lexical embeddings and extractive answers'));
- assert.ok(html.includes('Private engagements; scope descriptions are self-reported.'));
+ assert.ok(html.includes('Freelance engagements delivered through VAREVANT.'));
+ assert.ok(html.includes('21 operational workflows'));assert.ok(!/Six-workflow/i.test(html));
  assert.ok(!html.includes('MAXY'));
 });
 test('local referenced assets exist; outbound links are safe',async()=>{
  for(const m of html.matchAll(/(?:href|src)="([^"]+)"/g)){
   const href=m[1];
-  if(href.startsWith('/'))assert.ok((await stat('.'+href)).isFile(),'Missing '+href);
+  if(href.startsWith('/'))assert.ok((await stat('.'+(href.endsWith('/')?href+'index.html':href))).isFile(),'Missing '+href);
  }
  for(const m of html.matchAll(/<a\b[^>]*target="_blank"[^>]*>/g))assert.match(m[0],/rel="noopener noreferrer"/);
  assert.ok(!html.includes('data:application/pdf'));assert.ok(!html.includes('data:image/webp'));

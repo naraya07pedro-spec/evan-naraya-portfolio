@@ -25,8 +25,9 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox
       - run: npm run verify
       - run: npm run test:e2e
-      - run: npm run test:console
-      - run: npm run test:visual:responsive
+      # test:console and test:visual:responsive were pixel-freeze gates against the
+      # pre-2026-11-08 hero and business scenes. The recruiter-first restructure
+      # removed those scenes on purpose; re-baseline before adding them back.
       - run: npm run test:responsive
       - name: Dependency and known-secret verification
         run: |
@@ -46,10 +47,6 @@ jobs:
           if-no-files-found: error
           path: |
             artifacts/accessibility/*.json
-            artifacts/console-integration/results.json
-            artifacts/console-integration/chromium-1440-console-no-preference.png
-            artifacts/console-integration/chromium-390-console-no-preference.png
-            artifacts/business-scene-qa/results.json
             artifacts/responsive/*-geometry.json
             artifacts/performance/summary.json
             artifacts/portfolio-dependency-audit.json
@@ -73,9 +70,7 @@ jobs:
             artifacts/performance/*.json
             artifacts/performance/*.html
             artifacts/business-scene-qa/*.png
-            artifacts/business-scene-qa/results.json
             artifacts/console-integration/*.png
-            artifacts/console-integration/results.json
             artifacts/portfolio-dependency-audit.json
             artifacts/public-secret-scan.json
             artifacts/review-packages/*

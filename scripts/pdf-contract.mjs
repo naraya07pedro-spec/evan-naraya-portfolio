@@ -8,9 +8,10 @@ export const resumeLinks = [
  'https://github.com/naraya07pedro-spec/varevant.com/tree/main/examples/agentic-systems-lab/knowledge-runtime',
  'https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n'
 ];
-export const portfolioWebsite = 'https://evannaraya.netlify.app/';
+export const portfolioWebsite = 'https://evannaraya.com/';
 export const operationsConsole = 'https://github.com/naraya07pedro-spec/fullstack-ai-operations-console';
-export const selectedResumeLinks = [...resumeLinks.filter(url=>!url.endsWith('/n8n')),operationsConsole];
+// The current Backend & Integration CV links its three featured repositories.
+export const selectedResumeLinks = [...resumeLinks.filter(url=>!url.endsWith('/n8n')&&!url.endsWith('/knowledge-runtime')),operationsConsole];
 // Parsing and annotations are independent of hash consent. No PDF bytes or
 // extracted personal fields enter reports or CI artifacts.
 export async function inspectPdf(bytes,{requirePortfolio=false,allowOwnerEmail=false,requireWorkflow=false}={}){

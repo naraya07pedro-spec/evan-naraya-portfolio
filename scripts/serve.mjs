@@ -9,7 +9,7 @@ export async function serve(root, port=0) {
   const server=createServer(async(req,res)=>{
     try {
       const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
-      const file=resolve(root,'.'+(pathname==='/'?'/index.html':pathname));
+      const file=resolve(root,'.'+(pathname.endsWith('/')?pathname+'index.html':pathname));
       if(!file.startsWith(root+sep)||pathname.split('/').some(p=>p.startsWith('.'))){res.writeHead(403);res.end();return;}
       if(!(await stat(file)).isFile()) throw new Error('not a file');
       res.writeHead(200,{'Content-Type':mime[extname(file)]||'application/octet-stream','Cache-Control':'no-store'});

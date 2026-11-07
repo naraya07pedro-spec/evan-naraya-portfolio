@@ -10,7 +10,11 @@ Source for [evannaraya.com](https://evannaraya.com/). The existing cinematic por
 | Production Integration Reference | Signed intake, duplicates and API handoff | [Source](https://github.com/naraya07pedro-spec/production-integration-reference) |
 | VAREVANT n8n engineering | Historical routing, suppression and recovery | [Workflow code](https://github.com/naraya07pedro-spec/varevant.com/tree/main/n8n) |
 
-Console triage uses a deterministic sandbox, without a live production LLM. Business illustrations remain conceptual. Private engagement scope stays self-reported; no new tenure, customer outcomes, ROI or traffic is inferred.
+Console triage uses a deterministic sandbox, without a live production LLM. Client work (EZUmrah, PT Geget Gigit) is described as stated by the owner; client systems are private.
+
+## Page structure (2026-11-08)
+
+Recruiter-first order: hero, test-evidence strip, client work, flagship systems (Operations Console, Agent Runtime, Knowledge Runtime), more work (RepoPilot, Production Integration Reference, VAREVANT n8n, VARYN), stack, contact. The business-illustration scenes and the "AI can assist" section were removed. On phones (<=760px) the pinned scroll choreography, portal zoom and scroll reveals are switched off so content reads top to bottom. Inter loads from Google Fonts so phones with custom system fonts render the intended typeface. The published CV is `assets/resumes/Evan_Naraya_Backend_Integration_Engineer.pdf` (see `docs/published-resumes.json`).
 
 ## Run and verify
 
@@ -40,7 +44,7 @@ node scripts/scan-public-secrets.mjs
 
 PR #1 merged on 11 October 2026. This continues draft [PR #2](https://github.com/naraya07pedro-spec/evan-naraya-portfolio/pull/2), preserving Backend & Integration positioning, dark-violet design, portrait, animations, navigation and existing projects. [Deploy Preview #2](https://deploy-preview-2--evannaraya.com/) uses the existing Netlify Git integration; readiness is separately inspected.
 
-Both approved CVs/consent and the external release binding are unchanged. `verify:release` checks approved bytes/transport; it grants no production approval. Owner approval is required for merging or production release. LinkedIn copy is prepared only.
+The 2026-11-08 restructure replaced the published CV with the current Backend & Integration CV. `verify:release` checks approved bytes/transport; it grants no production approval. Owner approval is required for merging or production release. LinkedIn copy is prepared only.
 
 The original Docker WebM and exact selected reports are preserved in Git with hashes, independently of CI expiration. A supplemental 12.28 MB private backup upload was blocked by full storage quota. Headless tests do not establish physical-device/Safari coverage or accessibility certification. Lighthouse is a lab measurement; secret scans detect specified patterns rather than every possible secret.
 
