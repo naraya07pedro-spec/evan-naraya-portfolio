@@ -21,8 +21,8 @@ for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
     const box=await page.locator(':focus').boundingBox();assert.ok(box.y>=0&&box.y<75);
     await page.keyboard.press('Enter');await page.waitForFunction(()=>location.hash==='#work');
     await page.locator('.monogram').click();await page.waitForFunction(()=>scrollY<2);
-    await page.locator('.hero-actions a[href="#work"]').click();
-    await page.waitForFunction(()=>location.hash==='#work');
+    await page.locator('.hero-actions a[href="#clients"]').click();
+    await page.waitForFunction(()=>location.hash==='#clients');
    });
    await t.test('both published baseline PDF downloads retain the deployed bytes',async()=>{
     await mkdir('artifacts/downloads',{recursive:true});
@@ -56,11 +56,11 @@ for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
    await t.test('mobile touch CTA, scrollable details and reflow',async()=>{
     const context=await browser.newContext({viewport:{width:390,height:844},hasTouch:true});
     const mobile=await context.newPage();await mobile.goto(url);await settle(mobile);
-    // Mobile keeps Work, Skills and Contact available without a JS menu.
+    // Mobile keeps Clients, Work, Skills and Contact available without a JS menu.
     assert.equal(await mobile.locator('nav').evaluate(e=>getComputedStyle(e).display),'flex');
-    for(const link of ['#work','#skills','#contact'])assert.ok(await mobile.locator('nav a[href="'+link+'"]').isVisible());
-    await mobile.locator('.hero-actions a[href="#work"]').tap();
-    await mobile.waitForFunction(()=>location.hash==='#work');
+    for(const link of ['#clients','#work','#skills','#contact'])assert.ok(await mobile.locator('nav a[href="'+link+'"]').isVisible());
+    await mobile.locator('.hero-actions a[href="#clients"]').tap();
+    await mobile.waitForFunction(()=>location.hash==='#clients');
     await scene(mobile,'.project-scene[data-project="1"]',.5);
     assert.ok(await mobile.locator('.device-body').first().isVisible());
     assert.ok(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
