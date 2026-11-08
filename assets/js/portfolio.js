@@ -56,14 +56,16 @@
     intro.style.setProperty('--tablet-person-height',Math.max(0,Math.min(innerHeight*.88,(gap-32)*1402/1122))+'px');
    }
    intro.style.setProperty('--portrait-height',Math.max(0,Math.min(innerHeight*.66,room))+'px');
-   intro.toggleAttribute('data-flow',narrow&&!reduce&&(100+copy.offsetHeight+24>innerHeight||room<160));
+   // Phones always read top-to-bottom: no pinned hero choreography.
+   intro.toggleAttribute('data-flow',narrow);
   }
   projects.forEach(section=>{
    const stage=section.querySelector('.project-stage'),copy=section.querySelector('.project-copy'),device=section.querySelector('.project-device');
    const style=getComputedStyle(stage),stacked=style.gridTemplateColumns.split(' ').length===1;
    const needed=parseFloat(style.paddingTop)+parseFloat(style.paddingBottom)+copy.offsetHeight+parseFloat(style.rowGap||0)+device.offsetHeight;
-   section.toggleAttribute('data-flow',stacked&&needed>innerHeight-8);
+   section.toggleAttribute('data-flow',narrow||(stacked&&needed>innerHeight-8));
   });
+  if(portal)portal.toggleAttribute('data-flow',narrow);
  }
  fitFrames();
  document.fonts.ready.then(()=>{fitFrames();request();});
@@ -97,7 +99,7 @@
   set('--scroll-y',lerp(0,12,smooth(.12,.35,p))+'px');
   set('--index1-o',1-smooth(.4,.58,p));
   set('--index2-o',lerp(.18,1,smooth(.4,.58,p)))}
- if(portal){const p=progress(portal),est=smooth(0,.22,p),exp=smooth(.18,.7,p),cov=smooth(.48,.8,p),ex=smooth(.16,.48,p),inn=smooth(.48,.64,p),out=smooth(.76,.94,p);const set=(k,v)=>setIfChanged(portal,k,v);
+ if(portal&&!portal.hasAttribute('data-flow')){const p=progress(portal),est=smooth(0,.22,p),exp=smooth(.18,.7,p),cov=smooth(.48,.8,p),ex=smooth(.16,.48,p),inn=smooth(.48,.64,p),out=smooth(.76,.94,p);const set=(k,v)=>setIfChanged(portal,k,v);
   set('--planet-x',(lerp(135,-18,est)+lerp(0,-8,exp))+'px');
   set('--planet-y',lerp(0,4,exp)+'px');
   set('--planet-scale',lerp(.8,4.65,exp));
@@ -122,7 +124,7 @@
   set('--device-ry',(lerp(-10,-3,ent)+lerp(0,2,exit))+'deg');
   set('--device-rx',lerp(4,0,ent)+'deg')});}
  const request=()=>{if(!scheduled){scheduled=true;requestAnimationFrame(render)}};addEventListener('scroll',request,{passive:true});addEventListener('resize',request,{passive:true});render();
- const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.09});document.querySelectorAll('.reveal').forEach(el=>reduce?el.classList.add('visible'):observer.observe(el));
+ const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.09});document.querySelectorAll('.reveal').forEach(el=>(reduce||innerWidth<=760)?el.classList.add('visible'):observer.observe(el));
  motion.addEventListener('change',()=>{reduce=motion.matches;
  if(reduce)document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));updateCursor();fitFrames();request();});
  // Keyboard focus can otherwise enter an opacity-zero sticky scene. Move only
