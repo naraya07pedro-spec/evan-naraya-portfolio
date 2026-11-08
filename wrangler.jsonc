@@ -1,0 +1,8 @@
+{
+  // Static site served by Cloudflare Workers Static Assets. No Worker script.
+  "name": "evan-naraya-portfolio",
+  "compatibility_date": "2026-11-08",
+  "assets": {
+    "directory": "./"
+  }
+}
