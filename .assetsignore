@@ -1,0 +1,17 @@
+# Files in the repo root that must not be published as site assets.
+# Same intent as .netlifyignore, plus tooling and config files.
+.git
+.github
+.gitignore
+.netlifyignore
+.assetsignore
+node_modules
+artifacts
+tests
+scripts
+docs
+package.json
+package-lock.json
+README.md
+netlify.toml
+wrangler.jsonc
