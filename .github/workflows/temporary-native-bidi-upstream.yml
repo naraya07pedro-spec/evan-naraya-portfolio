@@ -1,4 +1,5 @@
 # Isolated read-only upstream dependency remediation, no app changes or merge.
+# Fail-closed evidence retry: do not mask smoke test process exit codes.
 name: Temporary portfolio upstream BiDi security probe
 on:
   push:
