@@ -1,0 +1,85 @@
+# Isolated read-only upstream dependency remediation, no app changes or merge.
+name: Temporary portfolio upstream BiDi security probe
+on:
+  push:
+    branches: [security/portfolio-native-bidi-zod-upstream-probe-20261112]
+permissions:
+  contents: read
+jobs:
+  native:
+    if: "startsWith(github.event.head_commit.message, 'chore(security): test upstream Puppeteer native Zod4 fix')"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Generate compatible direct-transitive pin via npm, no scripts
+        run: |
+          mkdir -p artifacts/native-bidi-probe
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm install --global npm@11 --ignore-scripts --no-audit --no-fund
+          npm pkg set overrides.puppeteer-core=25.17.0
+          npm install --ignore-scripts --no-audit --no-fund
+          npm ci --ignore-scripts --no-audit --no-fund
+          node --input-type=module <<'NODE'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          const l=JSON.parse(readFileSync('package-lock.json','utf8')),p=JSON.parse(readFileSync('package.json','utf8'));
+          const locked=Object.fromEntries(['node_modules/lighthouse','node_modules/puppeteer-core','node_modules/chromium-bidi','node_modules/zod','node_modules/fast-uri'].map(k=>[k,l.packages[k]?.version]));
+          const zodEntries=Object.entries(l.packages).filter(([k])=>k==='node_modules/zod'||k.endsWith('/node_modules/zod')).map(([path,v])=>({path,version:v.version}));
+          const result={locked,zodEntries,override:p.overrides?.['puppeteer-core'],bidiNeedsZod:l.packages['node_modules/chromium-bidi']?.dependencies?.zod,lighthouseNeedsPuppeteer:l.packages['node_modules/lighthouse']?.dependencies?.['puppeteer-core']};
+          writeFileSync('artifacts/native-bidi-probe/lock-summary.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
+          if(locked['node_modules/puppeteer-core']!=='25.17.0'||locked['node_modules/chromium-bidi']!=='157.0.8090-0'||locked['node_modules/fast-uri']!=='3.1.9')throw Error('Unexpected dependency graph');
+          if(zodEntries.length===0||zodEntries.some(v=>v.version!=='4.6.7'))throw Error('Zod did not resolve to patched version');
+          if(result.bidiNeedsZod!=='^4.6.5')throw Error('chromium-bidi not natively zod4 compatible');
+          NODE
+          npm audit --audit-level=moderate --json > artifacts/native-bidi-probe/audit.json
+          git diff --check
+          git diff -- package.json package-lock.json > artifacts/native-bidi-probe/candidate.patch
+      - name: Actual browser suite and WebDriver BiDi smoke
+        run: |
+          npx playwright install --with-deps chromium firefox
+          npm run verify
+          npm run test:e2e
+          npm run test:responsive
+          node scripts/scan-public-secrets.mjs
+          node --input-type=module <<'NODE' | tee artifacts/native-bidi-probe/bidi-smoke.json
+          import puppeteer from 'puppeteer-core';
+          import {chromium} from 'playwright';
+          let browser;
+          try{
+            browser=await puppeteer.launch({executablePath:chromium.executablePath(),protocol:'webDriverBiDi',headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
+            const page=await browser.newPage();
+            await page.goto('data:text/html,<h1>BiDi native Zod4</h1>');
+            const s=await page.locator('h1').evaluate(el=>el.textContent);
+            if(s!=='BiDi native Zod4')throw Error('WebDriver BiDi failed to evaluate DOM');
+            console.log(JSON.stringify({passed:true,puppeteer:'25.17.0',chromiumBidi:'157.0.8090-0',title:s}));
+          }finally{await browser?.close();}
+          NODE
+      - name: Run genuine Lighthouse mobile and desktop checks
+        run: |
+          export BROWSER_EXECUTABLE="$(node --input-type=module -e 'import {chromium} from "playwright"; console.log(chromium.executablePath())')"
+          npm run audit:performance
+          node --input-type=module <<'NODE' | tee artifacts/native-bidi-probe/performance-validation.json
+          import {readFileSync} from 'node:fs';
+          const s=JSON.parse(readFileSync('artifacts/performance/summary.json','utf8'));
+          if(s.results?.length!==4||s.results.some(r=>!Number.isFinite(r.LCPms)||!Number.isFinite(r.CLS)||!Number.isFinite(r.TBTms)))throw Error('Lighthouse metrics missing');
+          console.log(JSON.stringify({passed:true,reports:s.results.length,versions:[...new Set(s.results.map(r=>r.lighthouseVersion))]}));
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-native-upstream-security-${{ github.sha }}
+          path: |
+            artifacts/native-bidi-probe/*
+            artifacts/public-secret-scan.json
+            artifacts/performance/summary.json
+            package.json
+            package-lock.json
+          retention-days: 14
+          if-no-files-found: error
