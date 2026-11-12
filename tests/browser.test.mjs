@@ -14,7 +14,7 @@ for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
   try{
    before=await serve(await baselineRoot());browser=await launch(engine);
    const page=await browser.newPage({viewport:{width:1440,height:900}});
-   const errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>requests.push(r.url()));
+   const errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>requests.push({url:r.url(),failure:r.failure()?.errorText||'UNKNOWN',method:r.method(),type:r.resourceType()}));
    await page.goto(url);await settle(page);
    await t.test('keyboard skip link and main CTA',async()=>{
     await page.keyboard.press('Tab');assert.equal(await page.locator(':focus').innerText(),'Skip to work');
