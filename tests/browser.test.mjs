@@ -14,7 +14,7 @@ for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
   try{
    before=await serve(await baselineRoot());browser=await launch(engine);
    const page=await browser.newPage({viewport:{width:1440,height:900}});
-   const errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>requests.push(r.url()));
+   const errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));page.on('requestfailed',r=>requests.push({url:r.url(),failure:r.failure()?.errorText||'UNKNOWN',method:r.method(),type:r.resourceType()}));
    await page.goto(url);await settle(page);
    await t.test('keyboard skip link and main CTA',async()=>{
     await page.keyboard.press('Tab');assert.equal(await page.locator(':focus').innerText(),'Skip to work');
@@ -86,7 +86,22 @@ for(const engine of (process.env.QA_ENGINES||'chromium,firefox').split(',')){
     }
     await mkdir('artifacts/accessibility',{recursive:true});await writeFile('artifacts/accessibility/'+engine+'.json',JSON.stringify(results,null,2));
    });
-   assert.deepEqual(errors,[]);assert.deepEqual(requests,[]);
+   // Navigation may cancel a lazy Firefox image GET. Verify bytes before accepting it.
+   const unverified=[];
+   for(const request of requests){
+    let parsed;try{parsed=new URL(request.url);}catch{unverified.push(request);continue;}
+    const sameOrigin=parsed.origin===new URL(url).origin;
+    const safeLocalAsset=/^\/assets\/[A-Za-z0-9_./-]+$/.test(parsed.pathname)&&!parsed.pathname.includes('..');
+    const knownNavigationAbort=engine==='firefox'&&request.failure==='NS_BINDING_ABORTED'&&request.method==='GET'&&request.type==='image'&&sameOrigin&&safeLocalAsset;
+    if(!knownNavigationAbort){unverified.push(request);continue;}
+    const response=await page.context().request.get(request.url,{timeout:15000});
+    assert.equal(response.status(),200,'Aborted image is unavailable: '+request.url);
+    const actual=createHash('sha256').update(await response.body()).digest('hex');
+    const expected=createHash('sha256').update(await readFile('.'+parsed.pathname)).digest('hex');
+    assert.equal(actual,expected,'Aborted image differs from reviewed source: '+request.url);
+    console.log(JSON.stringify({verifiedNavigationAbortedImage:request.url,sha256:actual}));
+   }
+   assert.deepEqual(errors,[]);assert.deepEqual(unverified,[]);
    await page.close();
   }finally{await browser?.close();await server.close();await before?.close();}
  });

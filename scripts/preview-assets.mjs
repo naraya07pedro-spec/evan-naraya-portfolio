@@ -1,6 +1,7 @@
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
+import {publicLinkUrls} from './public-link-urls.mjs';
 const base = process.env.PREVIEW_URL;
 assert.ok(base && /^https:\/\/deploy-preview-\d+--evannaraya\.netlify\.app\/$/.test(base),'Existing site preview URL required');
 const hash = b => createHash('sha256').update(b).digest('hex');
@@ -42,8 +43,7 @@ for(const name of ['Automation','Backend']){
   const finalResponse=await fetch(new URL(finalPath,base),{signal:AbortSignal.timeout(15000)});
   unavailablePrivateCandidates.push({path:finalPath,status:finalResponse.status});
 }
-const sources=[html,await readFile('README.md','utf8'),await readFile('docs/evidence-map.md','utf8')];
-const urls=[...new Set(sources.flatMap(s=>[...s.matchAll(/(?:href|src)="(https:\/\/[^"]+)"|\]\((https:\/\/[^)]+)\)/g)].map(m=>m[1]||m[2])))].sort();
+const urls=publicLinkUrls(html,[await readFile('README.md','utf8'),await readFile('docs/evidence-map.md','utf8')]);
 const links=[];
 for (const url of urls) {
   try {const r=await fetch(url,{signal:AbortSignal.timeout(20000)});links.push({url,status:r.status,finalUrl:r.url});await r.body?.cancel();}

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "verify": "node --test tests/structure.test.mjs tests/release-readiness.test.mjs tests/browser-findings.test.mjs tests/historical-evidence.test.mjs tests/contact-scope.test.mjs tests/business-proof.test.mjs tests/console-integration.test.mjs tests/public-secret-scan.test.mjs",
+    "verify": "node --test tests/structure.test.mjs tests/release-readiness.test.mjs tests/browser-findings.test.mjs tests/historical-evidence.test.mjs tests/contact-scope.test.mjs tests/business-proof.test.mjs tests/console-integration.test.mjs tests/public-secret-scan.test.mjs tests/preview-links.test.mjs tests/analytics-origin.test.mjs tests/console-visual-evidence.test.mjs",
     "test:e2e": "node --test tests/browser.test.mjs",
     "test:visual": "node scripts/visual-regression.mjs",
     "test": "npm run verify && npm run test:e2e && npm run test:responsive",
@@ -26,5 +26,8 @@
     "pixelmatch": "7.1.0",
     "playwright": "1.62.1",
     "pngjs": "7.0.0"
+  },
+  "overrides": {
+    "puppeteer-core": "25.17.0"
   }
 }
