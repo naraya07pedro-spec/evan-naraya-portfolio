@@ -4,12 +4,13 @@ import {tmpdir} from 'node:os';import {join} from 'node:path';import {execFileSy
 import {PNG} from 'pngjs';import pixelmatch from 'pixelmatch';
 import {serve} from './serve.mjs';import {launch,viewports,settle,scene} from './browser-utils.mjs';
 import {consoleScope,sha256} from './console-integration-scope.mjs';
+import {summarizeProtectedVisualComparisons,PROTECTED_VISUAL_MAX_RATIO} from './console-visual-evidence.mjs';
 const out=process.env.CONSOLE_QA_OUTPUT||'artifacts/console-integration';await mkdir(out,{recursive:true});
 const reference=await mkdtemp(join(tmpdir(),'portfolio-pr2-reference-'));
 for(const path of ['index.html','assets/css/portfolio.css','assets/js/portfolio.js','assets/images/evan-naraya-portrait.webp']){
  const target=join(reference,path);await mkdir(target.slice(0,target.lastIndexOf('/')),{recursive:true});await writeFile(target,execFileSync('git',['show',consoleScope.reviewedPrHead+':'+path],{maxBuffer:8*1024*1024}));
 }
-const old=await serve(reference),current=await serve('.'),results=[],comparisons=[],accessibility=[];
+const old=await serve(reference),current=await serve('.'),results=[],comparisons=[],accessibility=[],geometryFailures=[];
 const compare=(a,b)=>{
  const x=PNG.sync.read(a),y=PNG.sync.read(b);assert.ok(Math.abs(x.width-y.width)<=1&&Math.abs(x.height-y.height)<=1,'Capture dimensions changed beyond 1px');
  const crop=(p,left,top,w,h)=>{const bytes=Buffer.alloc(w*h*4);for(let r=0;r<h;r++)p.data.copy(bytes,r*w*4,((top+r)*p.width+left)*4,((top+r)*p.width+left+w)*4);return bytes;};
@@ -21,6 +22,7 @@ const compare=(a,b)=>{
 };
 const engines=(process.env.QA_ENGINES||'chromium,firefox').split(',');
 const sizes=[...viewports,{width:360,height:800},{width:1366,height:768}].sort((a,b)=>a.width-b.width);
+const expectedComparisonCount=engines.length*sizes.length*3;
 try{
  for(const engine of engines){const browser=await launch(engine);try{
   for(const viewport of sizes){
@@ -31,11 +33,29 @@ try{
    // Document height changes intentionally; only this decoration is hidden in both comparison captures.
    for(const p of [before,after])await p.addStyleTag({content:'.page-progress{visibility:hidden!important}'});
    for(const [state,selector]of [['hero',null],['agent','.project-scene[data-project="1"]'],['knowledge','.project-scene[data-project="2"]']]){
-    if(selector){await scene(before,selector,.5);await scene(after,selector,.5);const a=await before.locator(selector+' .project-device').boundingBox(),b=await after.locator(selector+' .project-device').boundingBox();for(const key of ['x','y','width','height'])assert.ok(Math.abs(a[key]-b[key])<=1,'Protected device geometry: '+state+' '+key);}
+    if(selector){await scene(before,selector,.5);await scene(after,selector,.5);
+     const a=await before.locator(selector+' .project-device').boundingBox(),b=await after.locator(selector+' .project-device').boundingBox();
+     if(!a||!b){geometryFailures.push({engine,viewport,state,reason:'missing-device',beforePresent:!!a,afterPresent:!!b});continue;}
+     for(const key of ['x','y','width','height'])if(Math.abs(a[key]-b[key])>1)
+       geometryFailures.push({engine,viewport,state,reason:'geometry-changed',axis:key,before:a[key],after:b[key]});
+    }
     const stem=out+'/'+engine+'-'+viewport.width+'-'+state;
     const a=selector?await before.locator(selector+' .project-device').screenshot({path:stem+'-before.png',animations:'disabled'}):await before.screenshot({path:stem+'-before.png',animations:'disabled'});
     const b=selector?await after.locator(selector+' .project-device').screenshot({path:stem+'-after.png',animations:'disabled'}):await after.screenshot({path:stem+'-after.png',animations:'disabled'});
-    const diff=compare(a,b);comparisons.push({engine,viewport,state,before:stem+'-before.png',after:stem+'-after.png',...diff});assert.ok(diff.ratio<=.0005,'Protected visual regression: '+JSON.stringify(comparisons.at(-1)));
+    const diff=compare(a,b);
+    // Preserve an inspectable heatmap for each over-threshold difference.
+    // This is diagnostic only. It never changes the strict pass/fail threshold.
+    let heatmap=null;
+    if(diff.ratio>PROTECTED_VISUAL_MAX_RATIO){
+      const x=PNG.sync.read(a),y=PNG.sync.read(b);
+      if(x.width===y.width&&x.height===y.height){
+        heatmap=stem+'-difference.png';
+        const mask=new PNG({width:x.width,height:x.height});
+        pixelmatch(x.data,y.data,mask.data,x.width,x.height,{threshold:.1,includeAA:false});
+        await writeFile(heatmap,PNG.sync.write(mask));
+      }
+    }
+    comparisons.push({engine,viewport,state,before:stem+'-before.png',after:stem+'-after.png',heatmap,...diff});
    }
    for(const motion of ['no-preference','reduce']){
     await after.emulateMedia({reducedMotion:motion});await after.goto(process.env.PREVIEW_URL||current.url);await settle(after);await scene(after,'#operations-console',.5);
@@ -69,7 +89,11 @@ try{
   await media.goto(new URL('/'+provenance.video.path,process.env.PREVIEW_URL||current.url).href);await media.waitForFunction(()=>document.querySelector('video')?.readyState>=1);
   const playback=await media.evaluate(async()=>{const v=document.querySelector('video');v.muted=true;await v.play();await new Promise(r=>setTimeout(r,200));v.pause();return {duration:v.duration,width:v.videoWidth,height:v.videoHeight,currentTime:v.currentTime};});assert.ok(Math.abs(playback.duration-15.56)<.05&&playback.currentTime>0);assert.equal(playback.width,1440);assert.equal(playback.height,1000);results.push({engine,state:'authentic-demo-playback',playback});await media.close();
  }finally{await browser.close();}}
- assert.equal(comparisons.length,engines.length*sizes.length*3);console.log(JSON.stringify({engines,comparisons:comparisons.length,maxUnexpectedPixelRatio:Math.max(...comparisons.map(x=>x.ratio)),consoleFrames:results.filter(x=>x.state==='console').length,axeScans:accessibility.length,videoPlaybackEngines:results.filter(x=>x.playback).length}));
+ const visualSummary=summarizeProtectedVisualComparisons(comparisons,expectedComparisonCount);
+ console.log(JSON.stringify({engines,visualSummary:{expectedCount:visualSummary.expectedCount,observedCount:visualSummary.observedCount,failedCount:visualSummary.failedCount,maxObservedRatio:visualSummary.maxObservedRatio},geometryFailures:geometryFailures.length,consoleFrames:results.filter(x=>x.state==='console').length,axeScans:accessibility.length,videoPlaybackEngines:results.filter(x=>x.playback).length}));
+ assert.equal(visualSummary.complete,true,'Incomplete protected visual matrix');
+ assert.equal(geometryFailures.length,0,'Protected device geometry regressions: '+JSON.stringify(geometryFailures.slice(0,6)));
+ assert.equal(visualSummary.failedCount,0,'Protected visual regressions: '+JSON.stringify(visualSummary.failures.slice(0,6)));
 }finally{
- await writeFile(out+'/results.json',JSON.stringify({checkedAt:new Date().toISOString(),beforeCommit:consoleScope.reviewedPrHead,expectedHead:process.env.EXPECTED_HEAD||null,hostedURL:process.env.PREVIEW_URL||null,scope:'Exact PR #2/current comparison: hero and protected diagrams, only page-progress decoration hidden in both; <=1px registration for fractional scroll offsets; new Console captures identified separately',comparisons,results,accessibility},null,2)+'\n');await old.close();await current.close();await rm(reference,{recursive:true,force:true});
+ await writeFile(out+'/results.json',JSON.stringify({checkedAt:new Date().toISOString(),beforeCommit:consoleScope.reviewedPrHead,expectedHead:process.env.EXPECTED_HEAD||null,hostedURL:process.env.PREVIEW_URL||null,scope:'Exact PR #2/current comparison: hero and protected diagrams, only page-progress decoration hidden in both; <=1px registration for fractional scroll offsets; new Console captures identified separately. Old baseline requires explicit owner rebaseline for intentional redesign.',visualSummary:summarizeProtectedVisualComparisons(comparisons,expectedComparisonCount),geometryFailures,comparisons,results,accessibility},null,2)+'\n');await old.close();await current.close();await rm(reference,{recursive:true,force:true});
 }
