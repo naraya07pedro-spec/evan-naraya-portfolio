@@ -12,7 +12,10 @@ for(const path of ['index.html','assets/css/portfolio.css','assets/js/portfolio.
 }
 const old=await serve(reference),current=await serve('.'),results=[],comparisons=[],accessibility=[],geometryFailures=[];
 const compare=(a,b)=>{
- const x=PNG.sync.read(a),y=PNG.sync.read(b);assert.ok(Math.abs(x.width-y.width)<=1&&Math.abs(x.height-y.height)<=1,'Capture dimensions changed beyond 1px');
+ const x=PNG.sync.read(a),y=PNG.sync.read(b);
+ if(Math.abs(x.width-y.width)>1||Math.abs(x.height-y.height)>1)
+   return {changedPixels:null,comparedPixels:null,ratio:null,registration:null,raw:null,
+     dimensionsMismatch:{before:{width:x.width,height:x.height},after:{width:y.width,height:y.height}}};
  const crop=(p,left,top,w,h)=>{const bytes=Buffer.alloc(w*h*4);for(let r=0;r<h;r++)p.data.copy(bytes,r*w*4,((top+r)*p.width+left)*4,((top+r)*p.width+left+w)*4);return bytes;};
  const candidates=[];for(const dx of [-1,0,1])for(const dy of [-1,0,1]){
   const ax=Math.max(0,dx),ay=Math.max(0,dy),bx=Math.max(0,-dx),by=Math.max(0,-dy),w=Math.min(x.width-ax,y.width-bx),h=Math.min(x.height-ay,y.height-by);
@@ -43,6 +46,8 @@ try{
     const a=selector?await before.locator(selector+' .project-device').screenshot({path:stem+'-before.png',animations:'disabled'}):await before.screenshot({path:stem+'-before.png',animations:'disabled'});
     const b=selector?await after.locator(selector+' .project-device').screenshot({path:stem+'-after.png',animations:'disabled'}):await after.screenshot({path:stem+'-after.png',animations:'disabled'});
     const diff=compare(a,b);
+    if(diff.dimensionsMismatch)
+      geometryFailures.push({engine,viewport,state,reason:'capture-dimensions-changed',...diff.dimensionsMismatch});
     // Preserve an inspectable heatmap for each over-threshold difference.
     // This is diagnostic only. It never changes the strict pass/fail threshold.
     let heatmap=null;
@@ -90,7 +95,7 @@ try{
   const playback=await media.evaluate(async()=>{const v=document.querySelector('video');v.muted=true;await v.play();await new Promise(r=>setTimeout(r,200));v.pause();return {duration:v.duration,width:v.videoWidth,height:v.videoHeight,currentTime:v.currentTime};});assert.ok(Math.abs(playback.duration-15.56)<.05&&playback.currentTime>0);assert.equal(playback.width,1440);assert.equal(playback.height,1000);results.push({engine,state:'authentic-demo-playback',playback});await media.close();
  }finally{await browser.close();}}
  const visualSummary=summarizeProtectedVisualComparisons(comparisons,expectedComparisonCount);
- console.log(JSON.stringify({engines,visualSummary:{expectedCount:visualSummary.expectedCount,observedCount:visualSummary.observedCount,failedCount:visualSummary.failedCount,maxObservedRatio:visualSummary.maxObservedRatio},geometryFailures:geometryFailures.length,consoleFrames:results.filter(x=>x.state==='console').length,axeScans:accessibility.length,videoPlaybackEngines:results.filter(x=>x.playback).length}));
+ console.log(JSON.stringify({engines,visualSummary:{expectedCount:visualSummary.expectedCount,observedCount:visualSummary.observedCount,comparableCount:visualSummary.comparableCount,dimensionMismatchCount:visualSummary.dimensionMismatchCount,failedCount:visualSummary.failedCount,maxObservedRatio:visualSummary.maxObservedRatio},geometryFailures:geometryFailures.length,consoleFrames:results.filter(x=>x.state==='console').length,axeScans:accessibility.length,videoPlaybackEngines:results.filter(x=>x.playback).length}));
  assert.equal(visualSummary.complete,true,'Incomplete protected visual matrix');
  assert.equal(geometryFailures.length,0,'Protected device geometry regressions: '+JSON.stringify(geometryFailures.slice(0,6)));
  assert.equal(visualSummary.failedCount,0,'Protected visual regressions: '+JSON.stringify(visualSummary.failures.slice(0,6)));
