@@ -31,8 +31,15 @@ jobs:
       - run: npm run test:responsive
       - name: Dependency and known-secret verification
         run: |
-          npm audit --audit-level=moderate --json > artifacts/portfolio-dependency-audit.json
-          node scripts/scan-public-secrets.mjs
+          # Keep both security checks independent and retain a failing gate if either fails.
+          audit_exit=0
+          npm audit --audit-level=moderate --json > artifacts/portfolio-dependency-audit.json || audit_exit=$?
+          secret_exit=0
+          node scripts/scan-public-secrets.mjs || secret_exit=$?
+          if [ "$audit_exit" -ne 0 ] || [ "$secret_exit" -ne 0 ]; then
+            echo "::error::Security checks failed (dependency audit exit=$audit_exit, public secret scan exit=$secret_exit)"
+            exit 1
+          fi
       - name: Measure original-main and current-draft performance
         run: |
           export BROWSER_EXECUTABLE="$(node --input-type=module -e 'import {chromium} from "playwright"; console.log(chromium.executablePath())')"
