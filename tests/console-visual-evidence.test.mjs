@@ -34,3 +34,18 @@ test('empty or invalid matrix cannot be marked complete',()=>{
  assert.equal(summarizeProtectedVisualComparisons([],54).complete,false);
  assert.equal(summarizeProtectedVisualComparisons([capture(Number.NaN)],1).failedCount,1);
 });
+
+test('size mismatch is preserved as a failed but uncomparable visual, never auto-approved',()=>{
+ const result=summarizeProtectedVisualComparisons([
+  capture(0,'hero'),
+  {...capture(null,'agent'),changedPixels:null,comparedPixels:null,
+   dimensionsMismatch:{before:{width:280,height:363},after:{width:280,height:535}}},
+ ],2);
+ assert.equal(result.observedCount,2);
+ assert.equal(result.comparableCount,1);
+ assert.equal(result.dimensionMismatchCount,1);
+ assert.equal(result.complete,false);
+ assert.equal(result.failedCount,1);
+ assert.deepEqual(result.failures[0].dimensionsMismatch,
+  {before:{width:280,height:363},after:{width:280,height:535}});
+});
