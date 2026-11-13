@@ -4,7 +4,10 @@ import {readFile} from 'node:fs/promises';
 import {runInNewContext} from 'node:vm';
 
 const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
-const snippet=html.match(/<script type="text\\/javascript">([\\s\\S]*?)<\\/script>/)?.[1];
+const tag='<script type="text/javascript">';
+const begin=html.indexOf(tag);
+const end=html.indexOf('</script>',begin+tag.length);
+const snippet=begin>=0 && end>begin ? html.slice(begin+tag.length,end) : null;
 assert.ok(snippet,'Clarity bootstrap snippet required');
 
 function injectedOrigins(hostname){
