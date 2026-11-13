@@ -20,10 +20,13 @@ function injectedOrigins(hostname){
  return inserted;
 }
 
-test('local and loopback preview sessions do not contact external analytics',()=>{
- for(const hostname of ['localhost','127.0.0.1','::1','[::1]'])
+test('local and Netlify Deploy Preview sessions do not contact external analytics',()=>{
+ for(const hostname of ['localhost','127.0.0.1','::1','[::1]',
+  'deploy-preview-22--evannaraya.netlify.app','deploy-preview-123--evannaraya.netlify.app'])
   assert.deepEqual(injectedOrigins(hostname),[]);
 });
 test('production hostname still injects real analytics bootstrap',()=>{
  assert.deepEqual(injectedOrigins('evannaraya.com'),['https://www.clarity.ms/tag/z8qv8i57p5']);
+ assert.deepEqual(injectedOrigins('www.evannaraya.com'),['https://www.clarity.ms/tag/z8qv8i57p5']);
+ assert.deepEqual(injectedOrigins('evannaraya.netlify.app'),['https://www.clarity.ms/tag/z8qv8i57p5']);
 });
