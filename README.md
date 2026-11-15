@@ -1,6 +1,6 @@
 # Evan Naraya engineering portfolio
 
-Source for [evannaraya.com](https://evannaraya.com/). The existing cinematic portfolio presents backend, API integration, full-stack and AI implementation work through inspectable source and verification. The website stays static HTML/CSS/JavaScript; Next.js/Fastify describe the featured Console application.
+Source for [evannaraya.com](https://evannaraya.com/). Full-Stack Engineer portfolio: live client websites first, then backend, API integration and AI implementation work with inspectable source and verification. The website stays static HTML/CSS/JavaScript; Next.js/Fastify describe the featured Console application.
 
 | Project | Demonstrated work | Proof |
 | --- | --- | --- |
@@ -12,7 +12,11 @@ Source for [evannaraya.com](https://evannaraya.com/). The existing cinematic por
 
 Console triage uses a deterministic sandbox, without a live production LLM. Client work (EZUmrah, PT Geget Gigit) is described as stated by the owner; client systems are private.
 
-## Page structure (2026-11-08)
+## Page structure (2026-11-15)
+
+Full-Stack Engineer positioning, matching the CV and LinkedIn. Order: hero, results strip (6 client websites / ~2x leads / 21 workflows / 261 tests), client work (live websites with captures in `assets/websites/`, then EZUmrah and Geget Gigit automation), flagship systems, also built (Production Integration Reference, RepoPilot, VAREVANT n8n; VARYN as a one-line mention), stack (Frontend, Backend, Integration & AI, Reliability), contact. The published CV is `assets/resumes/Evan_Naraya_Full-Stack_Engineer_CV.pdf`; `/cv/` mirrors it. Website captures are desktop viewport screenshots of the live sites taken 15 Nov 2026.
+
+## Page structure (2026-11-08, superseded)
 
 Recruiter-first order: hero, test-evidence strip, client work, flagship systems (Operations Console, Agent Runtime, Knowledge Runtime), more work (RepoPilot, Production Integration Reference, VAREVANT n8n, VARYN), stack, contact. The business-illustration scenes and the "AI can assist" section were removed. On phones (<=760px) the pinned scroll choreography, portal zoom and scroll reveals are switched off so content reads top to bottom. Inter loads from Google Fonts so phones with custom system fonts render the intended typeface. The published CV is `assets/resumes/Evan_Naraya_Backend_Integration_Engineer.pdf` (see `docs/published-resumes.json`).
 

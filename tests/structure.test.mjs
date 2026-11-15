@@ -22,7 +22,7 @@ test('internal anchors resolve; IDs do not collide',()=>{
  for(const m of html.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(m[1]),'Missing anchor '+m[1]);
 });
 test('public source destinations and claim limits remain present',()=>{
- for(const path of ['agent-runtime-python','examples/agentic-systems-lab/knowledge-runtime','production-integration-reference','varevant.com/tree/main/n8n','bimmca-intelligence'])assert.ok(html.includes(path));
+ for(const path of ['agent-runtime-python','examples/agentic-systems-lab/knowledge-runtime','production-integration-reference','varevant.com/tree/main/n8n','gegetgigit.com','prestigeautodetailing.id','daddysuperclean.com','rerotiansolo.netlify.app','wellnesshubid.netlify.app'])assert.ok(html.includes(path));
  assert.ok(html.includes('v2 archive'));assert.ok(html.includes('preserved v2'));
  assert.ok(html.includes('lexical embeddings and extractive answers'));
  assert.ok(html.includes('Freelance engagements delivered through VAREVANT.'));
